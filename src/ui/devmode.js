@@ -143,11 +143,11 @@ function onelineOf(value) {
 }
 
 function statusOf(slot, modeData) {
-    if (!meguminSlotIsLive(slot, localProfile)) return { text: "Off", cls: "st-off" };
-    if (slot.scope === "auto" && !slot.overridable) return { text: "Automatic", cls: "st-auto" };
+    if (!meguminSlotIsLive(slot, localProfile)) return { text: "关闭", cls: "st-off" };
+    if (slot.scope === "auto" && !slot.overridable) return { text: "自动", cls: "st-auto" };
     const { source, value } = resolveSlot(slot, modeData);
-    if (source !== "builtin") return { text: "Edited", cls: "st-custom" };
-    return value ? { text: "Using default", cls: "st-default" } : { text: "Empty", cls: "st-empty" };
+    if (source !== "builtin") return { text: "已编辑", cls: "st-custom" };
+    return value ? { text: "使用默认", cls: "st-default" } : { text: "空", cls: "st-empty" };
 }
 
 // ────────────────────────────────────────────────────────────────────────────
@@ -192,8 +192,8 @@ function describePlacement(slot) {
     }
     const when = CHAT_HISTORY_INDEX > -1
         ? (p.cardIndex > CHAT_HISTORY_INDEX
-            ? "after the whole chat history — one of the last things the model reads"
-            : "before the chat history")
+            ? "位于整段聊天历史之后——模型最后读取的内容之一"
+            : "位于聊天历史之前")
         : "";
     const before = p.tags[p.idx - 1];
     const after = p.tags[p.idx + 1];
@@ -291,7 +291,7 @@ function renderSlotEditor(slot, modeData, onChanged) {
                 <i class="fa-solid fa-triangle-exclamation"></i>
                 <span>The engine you have open carries its own copy of this, so it is ignoring the
                 shared version. That only happens with engines made before add-ons were shared.</span>
-                <button class="ps-modern-btn secondary dev-unshadow">Use the shared version</button>
+                <button class="ps-modern-btn secondary dev-unshadow">使用共享版本</button>
             </div>
         `);
     }
@@ -315,7 +315,7 @@ function renderSlotEditor(slot, modeData, onChanged) {
 
     $wrap.append(`
         <textarea class="ps-modern-input dev-slot-input" spellcheck="false"
-            placeholder="Empty — nothing is added at this point in the prompt.">${esc(editable)}</textarea>
+            placeholder="空——提示词此处不添加任何内容。">${esc(editable)}</textarea>
     `);
 
     // A picker is a long list -- 43 chain-of-thought scripts -- so it is a
@@ -345,7 +345,7 @@ function renderSlotEditor(slot, modeData, onChanged) {
     }
 
     const $tools = $(`<div class="dev-slot-tools"></div>`);
-    const presets = slot.presets || (slot.fallback ? [{ label: "Built-in default", value: slot.fallback }] : []);
+    const presets = slot.presets || (slot.fallback ? [{ label: "内置默认", value: slot.fallback }] : []);
     presets.forEach(pr => {
         const $b = $(`<button class="ps-modern-btn secondary">${esc(pr.label)}</button>`);
         $b.on("click", () => {
@@ -356,12 +356,12 @@ function renderSlotEditor(slot, modeData, onChanged) {
         $tools.append($b);
     });
     if (source !== "builtin" && builtin) {
-        const $r = $(`<button class="ps-modern-btn secondary"><i class="fa-solid fa-rotate-left"></i> Reset to default</button>`);
+        const $r = $(`<button class="ps-modern-btn secondary"><i class="fa-solid fa-rotate-left"></i> 重置为默认</button>`);
         $r.on("click", () => $wrap.find(".dev-slot-input").val(builtin).trigger("change"));
         $tools.append($r);
     }
     if (builtin) {
-        const $e = $(`<button class="ps-modern-btn secondary"><i class="fa-solid fa-eraser"></i> Clear</button>`);
+        const $e = $(`<button class="ps-modern-btn secondary"><i class="fa-solid fa-eraser"></i> 清空</button>`);
         $e.on("click", () => $wrap.find(".dev-slot-input").val("").trigger("change"));
         $tools.append($e);
     }
@@ -377,8 +377,8 @@ function renderSlotEditor(slot, modeData, onChanged) {
         if (slot.scope === "shared" || (slot.scope === "auto" && slot.overridable)) {
             const had = getSharedFragment(slot.key).trim() !== "";
             setSharedFragment(slot.key, v);
-            if (v) toastr.success(`${slot.label} saved for every engine.`);
-            else if (had) toastr.info(`${slot.label} is back to the built-in version.`);
+            if (v) toastr.success(`${slot.label} 已为每个引擎保存。`);
+            else if (had) toastr.info(`${slot.label} 已恢复为内置版本。`);
         } else if (modeData) {
             modeData[slot.key] = v;
             setDevEngineDirty(true);
@@ -404,23 +404,23 @@ async function promptForModule(existing) {
     const m = existing || { name: "", location: "settings", content: "" };
     const $p = $(`
         <div class="dev-modal">
-            <label>What should this be called?</label>
-            <input type="text" id="m_n" class="ps-modern-input" value="${esc(m.name)}" placeholder="e.g. Extra combat detail" />
-            <label>Which tab should its on/off switch live in?</label>
+            <label>如何命名此模块？</label>
+            <input type="text" id="m_n" class="ps-modern-input" value="${esc(m.name)}" placeholder="例如：额外的战斗细节" />
+            <label>其开关应位于哪个标签页？</label>
             <select id="m_l" class="ps-modern-input">
-                <option value="settings" ${m.location === "settings" ? "selected" : ""}>Add-ons tab</option>
-                <option value="addons" ${m.location === "addons" ? "selected" : ""}>Global tab</option>
+                <option value="settings" ${m.location === "settings" ? "selected" : ""}>附加组件页</option>
+                <option value="addons" ${m.location === "addons" ? "selected" : ""}>全局页</option>
             </select>
-            <label>The text to add</label>
+            <label>要添加的文本</label>
             <textarea id="m_c" class="ps-modern-input" style="height:170px;">${esc(m.content)}</textarea>
         </div>
     `);
-    const ok = await new Popup($p, POPUP_TYPE.CONFIRM, existing ? "Edit module" : "Add module",
-        { okButton: "Save", cancelButton: "Cancel", wide: true }).show();
+    const ok = await new Popup($p, POPUP_TYPE.CONFIRM, existing ? "编辑模块" : "添加模块",
+        { okButton: "保存", cancelButton: "取消", wide: true }).show();
     if (!ok) return null;
     const content = $p.find("#m_c").val();
     if (!content || !content.trim()) {
-        toastr.warning("A module with no text would do nothing, so it was not added.");
+        toastr.warning("没有文本的模块不会起任何作用，因此未添加。");
         return null;
     }
     return { name: $p.find("#m_n").val() || "Module", location: $p.find("#m_l").val(), content };
@@ -442,9 +442,9 @@ function renderModulesFor(slot, modeData, rerender) {
                     <div class="dev-module-head">
                         <i class="fa-solid fa-puzzle-piece"></i>
                         <span class="dev-module-name">${esc(mod.name)}</span>
-                        <span class="dev-module-where">switch in ${mod.location === "addons" ? "Global" : "Add-ons"}</span>
-                        <i class="dev-module-edit fa-solid fa-pen-to-square" title="Edit"></i>
-                        <i class="dev-module-del fa-solid fa-trash" title="Remove"></i>
+                        <span class="dev-module-where">开关位于${mod.location === "addons" ? "全局页" : "附加组件页"}</span>
+                        <i class="dev-module-edit fa-solid fa-pen-to-square" title="编辑"></i>
+                        <i class="dev-module-del fa-solid fa-trash" title="移除"></i>
                     </div>
                     <div class="dev-module-body">${esc(onelineOf(mod.content))}</div>
                 </div>
@@ -457,8 +457,8 @@ function renderModulesFor(slot, modeData, rerender) {
                 rerender();
             });
             $m.find(".dev-module-del").on("click", async () => {
-                const ok = await new Popup($(`<div>Remove <b>${esc(mod.name)}</b> from this engine?</div>`),
-                    POPUP_TYPE.CONFIRM, "Remove module", { okButton: "Remove", cancelButton: "Keep" }).show();
+                const ok = await new Popup($(`<div>从该引擎中移除 <b>${esc(mod.name)}</b>？</div>`),
+                    POPUP_TYPE.CONFIRM, "移除模块", { okButton: "移除", cancelButton: "保留" }).show();
                 if (!ok) return;
                 modeData.customToggles = modeData.customToggles.filter(x => x.id !== mod.id);
                 setDevEngineDirty(true);
@@ -467,7 +467,7 @@ function renderModulesFor(slot, modeData, rerender) {
             $wrap.append($m);
         });
 
-    const $add = $(`<button class="dev-module-add"><i class="fa-solid fa-plus"></i> Add your own text here</button>`);
+    const $add = $(`<button class="dev-module-add"><i class="fa-solid fa-plus"></i> 在此添加你自己的文本</button>`);
     $add.on("click", async () => {
         const next = await promptForModule(null);
         if (!next) return;
@@ -488,15 +488,15 @@ function renderLanding(c) {
     setDevEngineDirty(false);
     session.engine = null;
     session.expanded.clear();
-    $("#ps_stage_sub").text("Change what the AI is told, and see exactly where each piece lands.");
+    $("#ps_stage_sub").text("修改 AI 被告知的内容，并精确查看每块落在哪里。");
 
     if (isCacheFriendlyPreset()) {
         c.append(`
             <div class="dev-note dev-note-warn">
                 <i class="fa-solid fa-triangle-exclamation"></i>
-                <span><b>You're running a Cache Friendly preset.</b> The Engines document shows the
-                standard card order. Several tags sit further down in Output RULES in this preset.
-                Don't worry &mdash; editing works exactly the same.</span>
+                <span><b>你正在使用 Cache Friendly 预设。</b>引擎文档展示了
+                标准卡片顺序。该预设中部分标签位于 Output RULES 更靠后的位置。
+                别担心——编辑方式完全相同。</span>
             </div>
         `);
     }
@@ -508,29 +508,29 @@ function renderLanding(c) {
         <div class="dev-doors">
             <div class="dev-door dev-door-addons" id="dev_door_addons">
                 <div class="dev-door-icon"><i class="fa-solid fa-puzzle-piece"></i></div>
-                <div class="dev-door-title">Add-ons</div>
+                <div class="dev-door-title">附加组件</div>
                 <div class="dev-door-desc">
-                    The pieces every engine shares — thinking steps, MVU, the ban list,
-                    death and combat, the output blocks.
-                    <b>Change one here and every engine uses it.</b>
+                    每个引擎共享的部分——思考步骤、MVU、屏蔽列表、
+                    死亡与战斗、输出信息块。
+                    <b>在这里修改一处，所有引擎都会使用。</b>
                 </div>
                 <div class="dev-door-meta">${changed
-                    ? `${changed} changed`
-                    : `${meguminAddonSlots().length} to choose from`}</div>
-                <div class="dev-door-go">Open <i class="fa-solid fa-arrow-right"></i></div>
+                    ? `${changed} 处已修改`
+                    : `可从 ${meguminAddonSlots().length} 个中选择`}</div>
+                <div class="dev-door-go">打开 <i class="fa-solid fa-arrow-right"></i></div>
             </div>
             <div class="dev-door dev-door-engines" id="dev_door_engines">
                 <div class="dev-door-icon"><i class="fa-solid fa-microchip"></i></div>
-                <div class="dev-door-title">Engines</div>
+                <div class="dev-door-title">引擎</div>
                 <div class="dev-door-desc">
-                    The rules that make one engine write differently from another.
-                    Shown as the real prompt, in the real order, with your add-ons marked
-                    where they land.
+                    让一个引擎与另一个引擎写作方式不同的规则。
+                    以真实提示词、按真实顺序展示，并标注你的附加组件
+                    落在何处。
                 </div>
                 <div class="dev-door-meta">${engines
-                    ? `${engines} of your own`
-                    : "start from a built-in one"}</div>
-                <div class="dev-door-go">Open <i class="fa-solid fa-arrow-right"></i></div>
+                    ? `你自己的 ${engines} 个`
+                    : "从内置引擎开始"}</div>
+                <div class="dev-door-go">打开 <i class="fa-solid fa-arrow-right"></i></div>
             </div>
         </div>
         <div class="dev-door-hint">
@@ -550,8 +550,8 @@ function renderLanding(c) {
 // ────────────────────────────────────────────────────────────────────────────
 
 function renderAddonsList(c) {
-    $("#ps_stage_sub").text("Shared by every engine. Pick one to edit it and see where it goes.");
-    c.append(backBar("Add-ons", () => renderDevMode("landing")));
+    $("#ps_stage_sub").text("所有引擎共享。选一个来编辑，看看它落在哪里。");
+    c.append(backBar("附加组件", () => renderDevMode("landing")));
 
     const slots = meguminAddonSlots();
 
@@ -576,7 +576,7 @@ function renderAddonsList(c) {
                     <div class="dev-addon-main">
                         <span class="dev-addon-name">${esc(slot.label)}</span>
                         <span class="dev-slot-status ${status.cls}">${esc(status.text)}</span>
-                        ${edited ? `<span class="dev-edited-flag"><i class="fa-solid fa-check"></i> your version</span>` : ""}
+                        ${edited ? `<span class="dev-edited-flag"><i class="fa-solid fa-check"></i> 你的版本</span>` : ""}
                     </div>
                     <div class="dev-addon-desc">${esc(slot.hint || "")}</div>
                     <div class="dev-addon-oneline">${esc(onelineOf(value))}</div>
@@ -598,7 +598,7 @@ function renderAddonsList(c) {
 function renderAddonEditor(c, key) {
     const slot = meguminSlotByKey(key);
     if (!slot) {
-        c.append(`<div class="dev-empty">That add-on no longer exists.</div>`);
+        c.append(`<div class="dev-empty">该附加组件已不存在。</div>`);
         return;
     }
 
@@ -610,7 +610,7 @@ function renderAddonEditor(c, key) {
         ? `Add-on — shared by every engine, including ${session.engine.modeData.label}.`
         : "Shared by every engine.");
 
-    c.append(backBar(slot.label, back, cameFromEngine ? "Back to engine" : "All add-ons"));
+    c.append(backBar(slot.label, back, cameFromEngine ? "返回引擎" : "所有附加组件"));
 
     const $cols = $(`<div class="dev-cols"></div>`);
     const $left = $(`<div class="dev-col-main"></div>`);
@@ -619,7 +619,7 @@ function renderAddonEditor(c, key) {
     $left.append(renderSlotEditor(slot, session.engine?.modeData || null,
         () => renderDevMode("addon", key)));
 
-    $right.append(`<div class="dev-side-head"><i class="fa-solid fa-location-dot"></i> Where this goes</div>`);
+    $right.append(`<div class="dev-side-head"><i class="fa-solid fa-location-dot"></i> 它落在哪里</div>`);
     $right.append(`<div class="dev-side-text">${describePlacement(slot)}</div>`);
     if (isCacheFriendlyPreset()) {
         // Provenance, not an alert: this says where the MAP comes from, and does
@@ -631,8 +631,8 @@ function renderAddonEditor(c, key) {
         $right.append(`
             <div class="dev-note dev-note-auto">
                 <i class="fa-solid fa-circle-info"></i>
-                <span>Positions shown come from the standard preset. On Cache Friendly a few tags
-                sit further down, in Output RULES.</span>
+                <span>显示的位置来自标准预设。在 Cache Friendly 中，部分标签
+                位于更靠后的 Output RULES 中。</span>
             </div>
         `);
     }
@@ -649,13 +649,13 @@ function renderAddonEditor(c, key) {
 function renderEnginesList(c) {
     session.engine = null;
     setDevEngineDirty(false);
-    $("#ps_stage_sub").text("An engine is the set of rules telling the AI how to write.");
-    c.append(backBar("Engines", () => renderDevMode("landing")));
+    $("#ps_stage_sub").text("引擎是告诉 AI 如何写作的一套规则。");
+    c.append(backBar("引擎", () => renderDevMode("landing")));
 
     c.append(`
         <div class="dev-actions">
-            <button id="dev_btn_new" class="ps-modern-btn primary"><i class="fa-solid fa-wand-magic-sparkles"></i> Create Blank Engine</button>
-            <button id="dev_btn_import" class="ps-modern-btn secondary"><i class="fa-solid fa-file-import"></i> Import Engine (JSON)</button>
+            <button id="dev_btn_new" class="ps-modern-btn primary"><i class="fa-solid fa-wand-magic-sparkles"></i> 创建空白引擎</button>
+            <button id="dev_btn_import" class="ps-modern-btn secondary"><i class="fa-solid fa-file-import"></i> 导入引擎（JSON）</button>
             <input type="file" id="dev_import_file" accept=".json" style="display:none;" />
         </div>
     `);
@@ -672,18 +672,18 @@ function renderEnginesList(c) {
                 imported.id = "custom_" + Date.now();
                 extension_settings[extensionName].customModes.push(imported);
                 saveSettingsDebounced();
-                toastr.success(`Imported ${imported.label}!`);
+                toastr.success(`已导入 ${imported.label}！`);
                 renderDevMode("engines");
-            } catch { toastr.error("Invalid JSON file."); }
+            } catch { toastr.error("JSON 文件无效。"); }
         };
         reader.readAsText(file);
     });
 
     const customModes = extension_settings[extensionName].customModes || [];
-    c.append(`<div class="ps-rule-title dev-rule green"><i class="fa-solid fa-microchip"></i> Your Engines</div>`);
+    c.append(`<div class="ps-rule-title dev-rule green"><i class="fa-solid fa-microchip"></i> 你的引擎</div>`);
 
     if (!customModes.length) {
-        c.append(`<div class="dev-empty">None yet. Pick a built-in one below to start from.</div>`);
+        c.append(`<div class="dev-empty">还没有。从下方选择一个内置引擎开始。</div>`);
     } else {
         const grid = $(`<div class="ps-grid dev-grid"></div>`);
         customModes.forEach(m => {
@@ -691,12 +691,12 @@ function renderEnginesList(c) {
                 <div class="ps-card dev-card-custom">
                     <div style="width:100%;">
                         <div class="ps-card-title"><span style="color:#10b981;">${esc(m.label)}</span></div>
-                        <div class="ps-card-desc">${m.parentId ? `Copy of ${esc(m.parentId)}` : "Your own engine"}</div>
+                        <div class="ps-card-desc">${m.parentId ? `${esc(m.parentId)} 的副本` : "你自己的引擎"}</div>
                     </div>
                     <div style="display:flex; gap:8px; margin-top:20px; width:100%;">
-                        <button class="ps-modern-btn secondary dev-export" title="Export"><i class="fa-solid fa-download"></i></button>
-                        <button class="ps-modern-btn primary dev-edit" style="flex:2;"><i class="fa-solid fa-pen"></i> Edit</button>
-                        <button class="ps-modern-btn secondary dev-delete" title="Delete" style="color:#ef4444;"><i class="fa-solid fa-trash"></i></button>
+                        <button class="ps-modern-btn secondary dev-export" title="导出"><i class="fa-solid fa-download"></i></button>
+                        <button class="ps-modern-btn primary dev-edit" style="flex:2;"><i class="fa-solid fa-pen"></i> 编辑</button>
+                        <button class="ps-modern-btn secondary dev-delete" title="删除" style="color:#ef4444;"><i class="fa-solid fa-trash"></i></button>
                     </div>
                 </div>
             `);
@@ -712,8 +712,8 @@ function renderEnginesList(c) {
             });
             card.find(".dev-delete").on("click", async () => {
                 const ok = await new Popup(
-                    $(`<div>Delete <b>${esc(m.label)}</b>? This cannot be undone.<br><br>Your add-ons are not affected.</div>`),
-                    POPUP_TYPE.CONFIRM, "Delete engine", { okButton: "Delete", cancelButton: "Keep" }).show();
+                    $(`<div>删除 <b>${esc(m.label)}</b>？此操作无法撤销。<br><br>你的附加组件不受影响。</div>`),
+                    POPUP_TYPE.CONFIRM, "删除引擎", { okButton: "删除", cancelButton: "保留" }).show();
                 if (!ok) return;
                 extension_settings[extensionName].customModes =
                     extension_settings[extensionName].customModes.filter(x => x.id !== m.id);
@@ -725,17 +725,17 @@ function renderEnginesList(c) {
         c.append(grid);
     }
 
-    c.append(`<div class="ps-rule-title dev-rule gold"><i class="fa-solid fa-cube"></i> Start From A Built-In Engine</div>`);
+    c.append(`<div class="ps-rule-title dev-rule gold"><i class="fa-solid fa-cube"></i> 从内置引擎开始</div>`);
     const coreGrid = $(`<div class="ps-grid dev-grid"></div>`);
     hardcodedLogic.modes.filter(meguminIsDevEditableMode).forEach(m => {
         const card = $(`
             <div class="ps-card">
                 <div style="width:100%;">
                     <div class="ps-card-title"><span>${esc(m.label)}</span></div>
-                    <div class="ps-card-desc">Built in. Makes you an editable copy.</div>
+                    <div class="ps-card-desc">内置引擎。为你生成一份可编辑副本。</div>
                 </div>
                 <div style="width:100%; margin-top:20px;">
-                    <button class="ps-modern-btn secondary dev-clone"><i class="fa-solid fa-copy"></i> Make A Copy</button>
+                    <button class="ps-modern-btn secondary dev-clone"><i class="fa-solid fa-copy"></i> 制作副本</button>
                 </div>
             </div>
         `);
@@ -801,7 +801,7 @@ function renderEngineSlot(slot, modeData, rerender) {
             <div class="dev-slot-head">
                 <i class="dev-slot-caret fa-solid fa-chevron-${isOpen ? "down" : "right"}"></i>
                 <span class="dev-slot-label">${esc(slot.label)}</span>
-                <span class="dev-slot-badge"><i class="fa-solid fa-microchip"></i> This engine</span>
+                <span class="dev-slot-badge"><i class="fa-solid fa-microchip"></i> 该引擎</span>
                 <span class="dev-slot-status ${status.cls}">${esc(status.text)}</span>
                 <span class="dev-slot-oneline">${esc(onelineOf(value))}</span>
             </div>
@@ -830,8 +830,8 @@ function renderEngineDocument(c, modeData, rerender) {
             <div class="dev-note dev-note-warn">
                 <i class="fa-solid fa-triangle-exclamation"></i>
                 <span><b>You're running a Cache Friendly preset.</b> The layout below shows the
-                standard card order. Several tags sit further down in Output RULES in this preset.
-                Don't worry &mdash; editing works exactly the same.</span>
+                标准卡片顺序。该预设中部分标签位于 Output RULES 更靠后的位置。
+                别担心——编辑方式完全相同。</span>
             </div>
         `);
     }
@@ -844,7 +844,7 @@ function renderEngineDocument(c, modeData, rerender) {
                     <div class="dev-card-head">
                         <span class="dev-card-name">${esc(card.name)}</span>
                         <span class="dev-card-role">${esc(card.role)}</span>
-                        <span class="dev-card-owner">SillyTavern fills this in</span>
+                        <span class="dev-card-owner">由 SillyTavern 自动填充</span>
                     </div>
                 </div>
             `);
@@ -874,8 +874,8 @@ function renderEngineDocument(c, modeData, rerender) {
                 $inner.append(`
                     <div class="dev-chip dev-chip-unknown is-static">
                         <i class="fa-solid fa-circle-question"></i>
-                        <span class="dev-chip-name">Unrecognised slot</span>
-                        <span class="dev-chip-oneline">The preset asks for ${esc(seg.trigger)}, but the extension has no entry for it.</span>
+                        <span class="dev-chip-name">无法识别的插槽</span>
+                        <span class="dev-chip-oneline">预设要求 ${esc(seg.trigger)}，但扩展没有对应的条目。</span>
                     </div>
                 `);
                 painted++;
@@ -928,7 +928,7 @@ function renderEngineDocument(c, modeData, rerender) {
         const $card = $(`
             <div class="dev-card dev-card-orphan">
                 <div class="dev-card-head">
-                    <span class="dev-card-name">Other engine settings</span>
+                    <span class="dev-card-name">其他引擎设置</span>
                 </div>
             </div>
         `);
@@ -947,16 +947,16 @@ function renderEngineEditor(c) {
     const { modeData, isNew, returnTo } = session.engine;
     const rerender = () => renderDevMode("editor");
 
-    $("#ps_stage_sub").text("The real prompt, in the real order. Gold panels belong to this engine; green ones are shared add-ons.");
+    $("#ps_stage_sub").text("真实提示词，按真实顺序排列。金色面板属于该引擎；绿色为共享附加组件。");
 
     const $bar = $(`
         <div class="dev-bar">
-            <button id="dev_back_list" class="ps-modern-btn secondary"><i class="fa-solid fa-arrow-left"></i> Back</button>
+            <button id="dev_back_list" class="ps-modern-btn secondary"><i class="fa-solid fa-arrow-left"></i> 返回</button>
             <input type="text" id="dev_mode_name" class="ps-modern-input dev-bar-name" value="${esc(modeData.label)}" />
             <label class="dev-toggle-auto">
-                <input type="checkbox" ${session.showAuto ? "checked" : ""} /> Show automatic parts
+                <input type="checkbox" ${session.showAuto ? "checked" : ""} /> 显示自动生成的部分
             </label>
-            <button id="dev_save_mode" class="ps-modern-btn primary dev-save"><i class="fa-solid fa-floppy-disk"></i> Save Engine</button>
+            <button id="dev_save_mode" class="ps-modern-btn primary dev-save"><i class="fa-solid fa-floppy-disk"></i> 保存引擎</button>
         </div>
     `);
     c.append($bar);
@@ -968,9 +968,9 @@ function renderEngineEditor(c) {
 
     c.append(`
         <div class="dev-legend">
-            <span class="dev-key scope-engine"><i class="fa-solid fa-microchip"></i> This engine — needs Save</span>
-            <span class="dev-key scope-shared"><i class="fa-solid fa-puzzle-piece"></i> Add-on — click to edit, shared by all</span>
-            <span class="dev-key scope-auto"><i class="fa-solid fa-wand-magic-sparkles"></i> Automatic — filled in for you</span>
+            <span class="dev-key scope-engine"><i class="fa-solid fa-microchip"></i> 该引擎 — 需要保存</span>
+            <span class="dev-key scope-shared"><i class="fa-solid fa-puzzle-piece"></i> 附加组件 — 点击编辑，所有引擎共享</span>
+            <span class="dev-key scope-auto"><i class="fa-solid fa-wand-magic-sparkles"></i> 自动 — 为你自动填充</span>
         </div>
     `);
 
@@ -984,9 +984,9 @@ function renderEngineEditor(c) {
     $("#dev_back_list").on("click", async () => {
         if (isDevEngineDirty) {
             const ok = await new Popup(
-                $(`<div>This engine has changes you have not saved. Leave anyway?<br><br>
-                   Add-ons are already saved — only this engine's own gold panels would be lost.</div>`),
-                POPUP_TYPE.CONFIRM, "Unsaved changes", { okButton: "Discard", cancelButton: "Stay" }).show();
+                $(`<div>该引擎有你尚未保存的更改。仍要离开？<br><br>
+                   附加组件已保存——只有该引擎自己的金色面板会丢失。</div>`),
+                POPUP_TYPE.CONFIRM, "未保存的更改", { okButton: "丢弃", cancelButton: "留下" }).show();
             if (!ok) return;
         }
         setDevEngineDirty(false);
@@ -1007,7 +1007,7 @@ function renderEngineEditor(c) {
         }
         session.engine.isNew = false;
         saveSettingsDebounced();
-        toastr.success("Engine saved.");
+        toastr.success("引擎已保存。");
         if (returnTo === "tab") { $(".ps-sidebar").show(); fireRefreshHook(REFRESH.SWITCH_TAB, 0); }
         else renderDevMode("engines");
     });
@@ -1042,7 +1042,7 @@ export function renderDevMode(view = "landing", arg = null, passedModeData = nul
     $("#btn_apply_tab_all").hide();
     $("#ps_btn_save_close").hide();
     $("#ps_btn_dev_mode")
-        .html(`<i class="fa-solid fa-right-from-bracket"></i> Exit Dev`)
+        .html(`<i class="fa-solid fa-right-from-bracket"></i> 退出开发模式`)
         .css("color", "#10b981");
 
     if (!extension_settings[extensionName].customModes) extension_settings[extensionName].customModes = [];
@@ -1067,7 +1067,7 @@ export function renderDevMode(view = "landing", arg = null, passedModeData = nul
             isNew = true;
             modeData = {
                 id: "custom_" + Date.now(),
-                label: "New Custom Engine",
+                label: "新自定义引擎",
                 isCoreClone: false,
                 isV7: false,
                 p1: "", p3: "", p4: "", p5: "", p6: "",
@@ -1080,7 +1080,7 @@ export function renderDevMode(view = "landing", arg = null, passedModeData = nul
                 isNew = true;
                 modeData = JSON.parse(JSON.stringify(core));
                 modeData.id = "custom_" + Date.now();
-                modeData.label = core.label + " (Copy)";
+                modeData.label = core.label + "（副本）";
                 modeData.isCoreClone = true;
                 modeData.isV7 = core.id.startsWith("v7");
                 // Remember the parent. Clones used to forget it the moment they
@@ -1113,7 +1113,7 @@ export function renderDevMode(view = "landing", arg = null, passedModeData = nul
         }
 
         if (!modeData) {
-            c.append(`<div class="dev-empty">That engine no longer exists.</div>`);
+            c.append(`<div class="dev-empty">该引擎已不存在。</div>`);
             return;
         }
         if (!modeData.customToggles) modeData.customToggles = [];

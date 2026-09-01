@@ -41,11 +41,11 @@ function renderWorldState(ctx) {
     ) : null;
 
     const rows = [
-        kv("Date & Time", ws.dateTime),
-        kv("Location", ws.location),
-        kv("Weather", ws.weather),
-        kv("Arc Phase", ws.arcPhase),
-        kv("Scene Phase", ws.scenePhase),
+        kv("日期与时间", ws.dateTime),
+        kv("地点", ws.location),
+        kv("天气", ws.weather),
+        kv("弧线阶段", ws.arcPhase),
+        kv("场景阶段", ws.scenePhase),
     ].filter(Boolean);
 
     const container = el("div", { class: "meg-sp-ws" });
@@ -75,28 +75,28 @@ function renderWorldState(ctx) {
 
     if (ws.offScreen && ws.offScreen.length) {
         container.appendChild(el("div", { class: "meg-sp-card-head meg-sp-card-head-sep" },
-            el("i", { class: "fa-solid fa-satellite-dish" }), " Off-Screen"));
+            el("i", { class: "fa-solid fa-satellite-dish" }), " 画面之外"));
         container.appendChild(el("ul", { class: "meg-sp-bullets" },
             ws.offScreen.map(x => el("li", {}, x))));
     }
 
     if (ws.threads && ws.threads.length) {
         container.appendChild(el("div", { class: "meg-sp-card-head meg-sp-card-head-sep" },
-            el("i", { class: "fa-solid fa-fire" }), " Unresolved Threads"));
+            el("i", { class: "fa-solid fa-fire" }), " 未解决的线索"));
         container.appendChild(el("ul", { class: "meg-sp-bullets" },
             ws.threads.map(x => el("li", {}, x))));
     }
 
     if (ws.plantedSeeds && ws.plantedSeeds.length) {
         container.appendChild(el("div", { class: "meg-sp-card-head meg-sp-card-head-sep" },
-            el("i", { class: "fa-solid fa-seedling" }), " Planted Seeds"));
+            el("i", { class: "fa-solid fa-seedling" }), " 埋下的种子"));
         container.appendChild(el("ul", { class: "meg-sp-bullets" },
             ws.plantedSeeds.map(x => el("li", {}, x))));
     }
 
     if (ws.consequenceTimers && ws.consequenceTimers.length) {
         container.appendChild(el("div", { class: "meg-sp-card-head meg-sp-card-head-sep" },
-            el("i", { class: "fa-solid fa-hourglass-half" }), " Consequence Timers"));
+            el("i", { class: "fa-solid fa-hourglass-half" }), " 后果倒计时"));
         container.appendChild(el("ul", { class: "meg-sp-bullets" },
             ws.consequenceTimers.map(x => el("li", {}, x))));
     }
@@ -201,7 +201,7 @@ function renderNewNpcs(ctx) {
         const preview = many ? dossierPreview(n.fields) : "";
         d.appendChild(el("summary", { class: "meg-sp-newnpc-head" },
             el("i", { class: "fa-solid fa-user-plus" }), " ",
-            el("span", { class: "meg-sp-newnpc-name" }, n.name || "Unnamed NPC"),
+            el("span", { class: "meg-sp-newnpc-name" }, n.name || "未命名 NPC"),
             // The six layout properties this line needs used to sit here in the
             // code, because the stylesheet was the author's own file and nothing
             // was being added to it. They are now the one rule the earlier round
@@ -232,7 +232,7 @@ function renderNewNpcs(ctx) {
                             ? el("ul", { class: "meg-sp-bullets meg-sp-field-val" },
                                 v.split("\n").map(t => el("li", {}, t)))
                             : el("span", { class: "meg-sp-field-val" }, v))))
-            : el("div", { class: "meg-sp-muted" }, "(no parsed fields)"));
+            : el("div", { class: "meg-sp-muted" }, "（无解析字段）"));
         wrap.appendChild(d);
     }
     return wrap;
@@ -276,7 +276,7 @@ function renderStoryPlanBody(ctx) {
     const sp = ctx.profile?.storyPlan || {};
     const plan = sp.currentPlan;
     if (!(sp.enabled || (plan && plan.trim()))) return null;
-    if (!plan || !plan.trim()) return el("div", { class: "meg-sp-muted" }, "Story Planner is empty.");
+    if (!plan || !plan.trim()) return el("div", { class: "meg-sp-muted" }, "故事规划器为空。");
     const lines = plan.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
     const list = el("ol", { class: "meg-sp-plan" });
     let added = 0;
@@ -315,18 +315,18 @@ function renderNpcBank(ctx) {
 
     const openBookBtn = el("button", {
         class: "meg-sp-book-btn",
-        title: "Open the full NPC Book (browse, edit, upload, generate portraits)",
+        title: "打开完整 NPC 图鉴（浏览、编辑、上传、生成头像）",
         onclick: () => ctx.openNpcBook(),
     },
         el("i", { class: "fa-solid fa-book-open" }),
-        " Open NPC Book",
+        " 打开 NPC 图鉴",
         npcs.length ? el("span", { class: "meg-sp-book-count" }, String(npcs.length)) : null,
     );
     wrap.appendChild(openBookBtn);
 
     if (!npcs.length) {
         wrap.appendChild(el("div", { class: "meg-sp-muted", style: { marginTop: "8px" } },
-            "No NPCs banked yet. They get added automatically as the AI introduces them."));
+            "尚无 NPC 入库。AI 引入重要 NPC 时会自动添加。"));
         return wrap;
     }
 
@@ -346,12 +346,12 @@ function renderNpcBank(ctx) {
         grid.appendChild(el("div", {
             class: "meg-sp-bank-mini",
             style: { "--accent": accentVar },
-            title: "Click to open in NPC Book",
+            title: "点击在 NPC 图鉴中打开",
             onclick: () => ctx.openNpcBook(idx),
         },
             portrait,
             el("div", { class: "meg-sp-bank-mini-info" },
-                el("div", { class: "meg-sp-bank-mini-name" }, n.name || "Unnamed"),
+                el("div", { class: "meg-sp-bank-mini-name" }, n.name || "未命名"),
                 ageSex ? el("div", { class: "meg-sp-bank-mini-meta" }, ageSex) : null,
                 (n.role || n.occupation)
                     ? el("div", { class: "meg-sp-bank-mini-occ" }, n.role || n.occupation)
@@ -379,30 +379,30 @@ function renderBanList(ctx) {
 // -----------------------------------------------------------------------------
 export const SECTION_REGISTRY = [
     {
-        id: "worldState", icon: "fa-thumbtack", title: "World State",
+        id: "worldState", icon: "fa-thumbtack", title: "世界状态",
         defaultOpen: true, order: 0, render: renderWorldState, badge: null,
     },
     {
-        id: "innerChatter", icon: "fa-comment-dots", title: "NPC Inner Chatter",
+        id: "innerChatter", icon: "fa-comment-dots", title: "NPC 内心独白",
         defaultOpen: true, order: 1, render: renderInnerChatter,
         badge: (ctx) => ctx.parsed?.innerChatter?.length || null,
     },
     {
-        id: "newNpcs", icon: "fa-user-plus", title: "New NPC Dossiers",
+        id: "newNpcs", icon: "fa-user-plus", title: "新 NPC 档案",
         defaultOpen: true, order: 2, render: renderNewNpcs,
         badge: (ctx) => ctx.parsed?.newNpcs?.length || null,
     },
     {
-        id: "storyPlan", icon: "fa-map", title: "Story Planner",
+        id: "storyPlan", icon: "fa-map", title: "故事规划器",
         defaultOpen: false, order: 3, render: renderStoryPlan, badge: null,
     },
     {
-        id: "npcBank", icon: "fa-address-book", title: "NPC Bank",
+        id: "npcBank", icon: "fa-address-book", title: "NPC 图鉴",
         defaultOpen: false, order: 4, render: renderNpcBank,
         badge: (ctx) => ctx.profile?.npcBank?.npcs?.length || null,
     },
     {
-        id: "banList", icon: "fa-ban", title: "Ban List",
+        id: "banList", icon: "fa-ban", title: "屏蔽列表",
         defaultOpen: false, order: 5, render: renderBanList,
         badge: (ctx) => ctx.profile?.banList?.length || null,
     },

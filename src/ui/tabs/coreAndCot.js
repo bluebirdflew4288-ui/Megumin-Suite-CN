@@ -74,28 +74,28 @@ export function renderCoreAndCot(c) {
     const root = $(`<div style="display: flex; flex-direction: column; height: 100%;"></div>`);
 
     const descriptions = {
-        "balance": "The original Secret Sauce. NPCs react naturally — no simping, no needless hostility.",
-        "balance Test": "New and improved balance mode that aims to use less tokens and more creativity.",
-        "cinematic": "Hollywood-inspired storytelling. Dramatic beats and heightened tension.",
-        "dark": "Balance but harsher. The world is unforgiving and consequences hit harder.",
-        "v6-anime-director": "Advanced cinematic framing and pacing. Designed to emulate high-budget anime direction.",
-        "v6-dream-team": "The ultimate 6-specialist writer room. Unprecedented narrative consistency and realism.",
-        "v6-dream-team-lite": "A streamlined version of the Dream Team. Faster generation with lower token overhead.",
-        "v7-core": "The V7 Core engine. The perfect middle ground: cinematic pacing, realistic friction, and relentless world progression.",
-        "v7-reality": "The V7 Reality engine. Grounded, unrelenting simulation with zero narrative protection.",
-        "v7-gentle": "The V7 Gentle engine. A softer, more intimate storytelling flow.",
-        "v7.5": "The Kismet engine. Focused purely on inescapable narrative momentum, pushing the story forward as the unseen author of fate.",
-        "v8-m": "Unmatched in complex human psychology, authentic flawed dialogue, and autonomous, multi-layered story plotting.",
-        "v8-lite": "A streamlined, highly efficient version of Obsidian. Retains the core rules of psychology, dialogue, and momentum with a much lighter token footprint.",
-        "v8-fusion": "The absolute pinnacle of the Megumin Suite. A hybrid engine mixing V8 Obsidian's deep psychology with V6 Dream Team's specialist writer room framework.",
-        "v10-core": "The storyteller. Ukiyo is the looser of the two — a teller with a temperament, spinning the world and its history, following whatever in the scene is most alive. It trades a little polish for invention: the prose wanders, reaches for an image, and occasionally overreaches. Pick it for atmosphere, momentum and a world that feels told rather than composed. Neither V10 is a downgrade of the other — run a few scenes on each and keep the one that sounds like the story you want to read.",
-        "v10-shura": "The writer. Shura is the stricter of the two — no slop, no AI tells, no line that exists to manage the scene. Every character is the protagonist of their own story, acting from their own values, and none of them is a villain in their own eyes; there is no objective right or wrong for the narration to take sides on. Pick it for prose that reads like a book and a cast that drives the story itself. Neither V10 is a downgrade of the other — run a few scenes on each and keep the one that sounds like the story you want to read.",
-        "v10-core-cw": "Ukiyo, with the narrator writing {{user}} as well. It reads how you write — diction, rhythm, how boldly you act — and plays your character in that voice. Anything you write yourself is canon and is never overwritten or corrected. Your history stays yours; only the acting is shared.",
-        "v10-shura-cw": "Shura with shared authorship: every character is a protagonist, {{user}} among them, and the narrator writes them all in your voice. It yields the moment you take a turn back, and never invents your past. For hands-off, cinematic play — watching the story rather than steering each beat.",
-        "v9-core": "The definitive, final Megumin V9 Preset. V9 Mirage is the absolute pinnacle of narrative simulation, delivering hyper-realistic psychology, visceral atmospheric grounding, and dynamic world consequences. This is the ultimate, highly recommended preset.",
-        "v9-lite": "An experimental beta engine with a slightly different, highly stylized narrative flow. Proved interesting enough to include for those who want an alternative storytelling rhythm. Note: this doesn't support custom Writing style it have it own one. ",
-        "v9-director": "A unique beta hybrid blending the specialized writer-room mechanics of V8 Fusion with the raw psychological depth of V9 Xin. Highly experimental. Note: this doesn't support custom Writing style it have it own one.",
-        "v9-immersion": "A streamlined, lightweight version of V9 Mirage. It retains the core philosophy and brutal realism of Mirage but runs with a smaller context footprint. V9 Mirage is still recommended if your model can handle it."
+        "balance": "最初的秘制配方。NPC 反应自然——不献媚，也无无谓敌视。",
+        "balance Test": "全新改进的平衡模式，旨在使用更少 token、带来更多创意。",
+        "cinematic": "好莱坞式叙事。戏剧性节拍与张力拉满。",
+        "dark": "平衡模式的更严酷版本。世界毫不留情，后果更加沉重。",
+        "v6-anime-director": "高级电影化构图与节奏。旨在复刻高预算动画的导演水准。",
+        "v6-dream-team": "终极 6 专家写作团队。前所未有的叙事一致性与真实感。",
+        "v6-dream-team-lite": "梦之队的精简版。更快的生成与更低的 token 开销。",
+        "v7-core": "V7 Core 引擎。完美的中间地带：电影化节奏、真实的摩擦感与不停歇的世界推进。",
+        "v7-reality": "V7 Reality 引擎。脚踏实地、毫不留情的模拟，零叙事保护。",
+        "v7-gentle": "V7 Gentle 引擎。更柔和、更私密的叙事流。",
+        "v7.5": "Kismet 引擎。纯粹聚焦于不可逃脱的叙事动量，如同命运的无形作者推动故事前进。",
+        "v8-m": "在复杂人类心理、真实有缺陷的对话，以及自主多层次剧情构建方面无与伦比。",
+        "v8-lite": "Obsidian 的高效精简版。以轻得多的 token 占用保留心理、对话与动量的核心规则。",
+        "v8-fusion": "Megumin Suite 的绝对巅峰。融合 V8 Obsidian 深层心理与 V6 梦之队专家写作团队框架的混合引擎。",
+        "v10-core": "讲述者。Ukiyo 是二者中更自由的一个——一位有脾气的说书人，编织世界与历史，追随场景中最鲜活的东西。它以少许打磨换取创意：文字自由游走、捕捉意象，偶尔用力过猛。为氛围、动量与一个“被讲述出来”而非“被编排出来”的世界而选它。两款 V10 并非彼此的降级——各自试几场，留下听起来像你想读的故事的那一款。",
+        "v10-shura": "写作者。Shura 是二者中更严格的一个——没有劣质文字、没有 AI 腔、没有为了管理场景而存在的句子。每个角色都是自己故事的主角，依自身价值观行动，没有人自认是反派；叙事无需站队的绝对对错。为读起来像书一般的文字、由群像自身驱动的故事而选它。两款 V10 并非彼此的降级——各自试几场，留下听起来像你想读的故事的那一款。",
+        "v10-core-cw": "Ukiyo，同时由叙述者代写 {{user}}。它会读懂你的写作方式——措辞、节奏、你行动的大胆程度——并以那个声音扮演你的角色。你自己写的内容即为正典，永不被覆盖或修正。你的过往依然属于你；共享的只有演绎。",
+        "v10-shura-cw": "Shura 的共著版本：每个角色都是主角，{{user}} 也在其中，叙述者以你的声音书写他们全部。当你收回回合时它会即刻让位，且从不虚构你的过去。适合放手式电影化游玩——观看故事，而非操控每个节拍。",
+        "v9-core": "权威的、最终的 Megumin V9 预设。V9 Mirage 是叙事模拟的绝对巅峰，带来超真实心理、切肤的环境质感与动态的世界后果。这是终极且强烈推荐的预设。",
+        "v9-lite": "实验性 beta 引擎，拥有略有不同、高度风格化的叙事流。事实证明它足够有趣，值得收录给想要另一种叙事节奏的人。注意：它不支持自定义写作风格，因为它有自己的一套。",
+        "v9-director": "独特的 beta 混合引擎，融合 V8 Fusion 的专业写作团队机制与 V9 Xin 的原始心理深度。高度实验性。注意：它不支持自定义写作风格，因为它有自己的一套。",
+        "v9-immersion": "V9 Mirage 的精简轻量版。保留 Mirage 的核心理念与残酷现实主义，但以更小的上下文占用运行。如果你的模型能承受，仍推荐 V9 Mirage。"
     };
 
     const activeEng = hardcodedLogic.modes.find(m => m.id === localProfile.mode);
@@ -122,8 +122,8 @@ export function renderCoreAndCot(c) {
                     <i class="fa-solid fa-server"></i>
                 </div>
                 <div>
-                    <h2>PRESETS & COT</h2>
-                    <p>Choose the core preset, and COT.</p>
+                    <h2>预设与思维链</h2>
+                    <p>选择核心预设与思维链。</p>
                 </div>
             </div>
             <div class="wstyle-active-badge">
@@ -139,19 +139,19 @@ export function renderCoreAndCot(c) {
     const mainArea = $(`<div class="ws-main"></div>`);
 
     // --- BUILD SIDEBAR ---
-    sidebar.append(`<div class="ws-sidebar-title">Configuration</div>`);
+    sidebar.append(`<div class="ws-sidebar-title">配置</div>`);
     
-    const btnOfficial = $(`<button class="ws-nav-btn active" data-target="sec-official"><span style="display:flex; align-items:center; gap:10px;"><i class="fa-solid fa-server"></i> Official Engines</span> <span class="ws-badge">${totalCount}</span></button>`);
-    const btnCustom = $(`<button class="ws-nav-btn" data-target="sec-custom"><span style="display:flex; align-items:center; gap:10px;"><i class="fa-solid fa-microchip"></i> Custom Engines</span> <span class="ws-badge">${customCount}</span></button>`);
+    const btnOfficial = $(`<button class="ws-nav-btn active" data-target="sec-official"><span style="display:flex; align-items:center; gap:10px;"><i class="fa-solid fa-server"></i> 官方引擎</span> <span class="ws-badge">${totalCount}</span></button>`);
+    const btnCustom = $(`<button class="ws-nav-btn" data-target="sec-custom"><span style="display:flex; align-items:center; gap:10px;"><i class="fa-solid fa-microchip"></i> 自定义引擎</span> <span class="ws-badge">${customCount}</span></button>`);
     
     sidebar.append(btnOfficial).append(btnCustom);
     sidebar.append(`<div style="height: 1px; background: var(--border-color); margin: 8px 0;"></div>`);
     
     const cfgCount = countActiveConfigFields(localProfile.storyConfig);
-    const btnConfig = $(`<button class="ws-nav-btn" data-target="sec-config"><span style="display:flex; align-items:center; gap:10px;"><i class="fa-solid fa-sliders" style="color: var(--gold);"></i> Story Config</span> <span style="display:flex; align-items:center; gap:6px;"><span class="ws-new-pill">✨ New</span>${cfgCount > 0 ? `<span class="ws-badge">${cfgCount}</span>` : ''}</span></button>`);
+    const btnConfig = $(`<button class="ws-nav-btn" data-target="sec-config"><span style="display:flex; align-items:center; gap:10px;"><i class="fa-solid fa-sliders" style="color: var(--gold);"></i> 故事设置</span> <span style="display:flex; align-items:center; gap:6px;"><span class="ws-new-pill">✨ 新</span>${cfgCount > 0 ? `<span class="ws-badge">${cfgCount}</span>` : ''}</span></button>`);
     sidebar.append(btnConfig);
 
-    const btnCot = $(`<button class="ws-nav-btn" data-target="sec-cot"><span style="display:flex; align-items:center; gap:10px; color: ${localProfile.cotEnabled ? 'var(--text-main)' : 'var(--text-muted)'};"><i class="fa-solid fa-brain" style="color: ${localProfile.cotEnabled ? '#a855f7' : ''};"></i> Reasoning (CoT)</span> <span style="font-size: 0.6rem; font-weight: bold; color: ${localProfile.cotEnabled ? '#10b981' : '#ef4444'};">${localProfile.cotEnabled ? 'ON' : 'OFF'}</span></button>`);
+    const btnCot = $(`<button class="ws-nav-btn" data-target="sec-cot"><span style="display:flex; align-items:center; gap:10px; color: ${localProfile.cotEnabled ? 'var(--text-main)' : 'var(--text-muted)'};"><i class="fa-solid fa-brain" style="color: ${localProfile.cotEnabled ? '#a855f7' : ''};"></i> 推理（CoT）</span> <span style="font-size: 0.6rem; font-weight: bold; color: ${localProfile.cotEnabled ? '#10b981' : '#ef4444'};">${localProfile.cotEnabled ? '开' : '关'}</span></button>`);
     sidebar.append(btnCot);
 
     layout.append(sidebar);
@@ -165,17 +165,17 @@ export function renderCoreAndCot(c) {
     // ==========================================
     // ── A. OFFICIAL ENGINES ──
     // ==========================================
-    secOfficial.append(`<h3 style="margin-top: 0; color: var(--gold); font-size: 1.1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;"><i class="fa-solid fa-server"></i> Official Megumin Engines</h3>`);
+    secOfficial.append(`<h3 style="margin-top: 0; color: var(--gold); font-size: 1.1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;"><i class="fa-solid fa-server"></i> Megumin 官方引擎</h3>`);
     secOfficial.append(`
         <div class="mtab-callout gold" style="margin-bottom: 20px;">
             <i class="fa-solid fa-lightbulb"></i>
-            <span><strong>Pro Tip:</strong> The Engine defines the "laws of physics" and pacing of your story. The Reasoning acts as the AI's internal scratchpad. For the best experience, match V9 Mirage with CoT V9 Mirage.</span>
+            <span><strong>使用提示：</strong>引擎定义了故事的“物理法则”与节奏。推理则是 AI 的内部草稿纸。为获得最佳体验，请将 V9 Mirage 引擎与 CoT V9 Mirage 搭配使用。</span>
         </div>
     `);
 
     const filterBar = $(`
         <div class="wstyle-filters" style="margin-bottom: 20px;">
-            <button class="wstyle-filter-pill ${activeFilter === 'all' ? 'active' : ''}" data-filter="all">All <span class="pill-count">${totalCount}</span></button>
+            <button class="wstyle-filter-pill ${activeFilter === 'all' ? 'active' : ''}" data-filter="all">全部 <span class="pill-count">${totalCount}</span></button>
             <button class="wstyle-filter-pill ${activeFilter === 'V4' ? 'active' : ''}" data-filter="V4">V4 <span class="pill-count">${v4Count}</span></button>
             <button class="wstyle-filter-pill ${activeFilter === 'V5' ? 'active' : ''}" data-filter="V5">V5 <span class="pill-count">${v5Count}</span></button>
             <button class="wstyle-filter-pill ${activeFilter === 'V6' ? 'active' : ''}" data-filter="V6"><i class="fa-solid fa-lock" style="font-size:0.6rem;"></i> V6 <span class="pill-count">${v6Count}</span></button>
@@ -188,7 +188,7 @@ export function renderCoreAndCot(c) {
     secOfficial.append(filterBar);
 
     const coreGrid = $(`<div class="mtab-card-grid" style="margin-bottom: 20px;"></div>`);
-    const v6Empty = $(`<div id="v6-empty-msg" style="display:none;"><div class="mtab-locked-state"><i class="fa-solid fa-hammer" style="color: var(--border-color);"></i><h3>V6 Engines are in the forge.</h3><p>Stay tuned for the next update! Later this week.</p></div></div>`);
+    const v6Empty = $(`<div id="v6-empty-msg" style="display:none;"><div class="mtab-locked-state"><i class="fa-solid fa-hammer" style="color: var(--border-color);"></i><h3>V6 引擎正在锻造中。</h3><p>敬请期待下次更新！本周晚些时候。</p></div></div>`);
 
     hardcodedLogic.modes.forEach(m => {
         let version = "all";
@@ -205,9 +205,9 @@ export function renderCoreAndCot(c) {
         const isSel = localProfile.mode === m.id;
 
         let badges = '';
-        if (m.recommended) badges += `<span class="ecard-badge rec"><i class="fa-solid fa-star"></i> Recommended</span>`;
-        if (m.isNew && !isLocked) badges += `<span class="ecard-badge new">New</span>`;
-        if (isLocked) badges += `<span class="ecard-badge locked"><i class="fa-solid fa-lock"></i> Coming Soon</span>`;
+        if (m.recommended) badges += `<span class="ecard-badge rec"><i class="fa-solid fa-star"></i> 推荐</span>`;
+        if (m.isNew && !isLocked) badges += `<span class="ecard-badge new">新</span>`;
+        if (isLocked) badges += `<span class="ecard-badge locked"><i class="fa-solid fa-lock"></i> 即将推出</span>`;
 
         const card = $(`
             <div class="mtab-eng-card ${isSel ? 'active' : ''} ${isLocked ? 'locked-card' : ''}" data-version="${version}" style="${(activeFilter !== 'all' && activeFilter !== version) ? 'display:none;' : ''}">
@@ -215,7 +215,7 @@ export function renderCoreAndCot(c) {
                 <div class="ecard-body">
                     <div class="ecard-title">
                         <span>${m.label}</span>
-                        ${isSel ? `<span class="ecard-badge" style="background:rgba(16,185,129,0.15);color:#10b981;"><i class="fa-solid fa-check"></i> Active</span>` : ''}
+                        ${isSel ? `<span class="ecard-badge" style="background:rgba(16,185,129,0.15);color:#10b981;"><i class="fa-solid fa-check"></i> 使用中</span>` : ''}
                     </div>
                     <p class="ecard-desc">${descriptions[m.id] || ""}</p>
                     ${badges ? `<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:4px;">${badges}</div>` : ''}
@@ -272,14 +272,14 @@ export function renderCoreAndCot(c) {
     const activeEngineForToggles = [...hardcodedLogic.modes, ...(extension_settings[extensionName].customModes || [])].find(m => m.id === localProfile.mode);
     const isV7ForToggles = isV7Engine(activeEngineForToggles);
     if (isV7ForToggles) {
-        secOfficial.append(`<div class="wstyle-section-head blue" style="margin-top: 15px;"><i class="fa-solid fa-layer-group"></i> V7 Modules (Turn off to disable)</div>`);
+        secOfficial.append(`<div class="wstyle-section-head blue" style="margin-top: 15px;"><i class="fa-solid fa-layer-group"></i> V7 模块（关闭以禁用）</div>`);
         const v7ToggleList = $(`<div class="mtab-card-list"></div>`);
         const v7Toggles = [
-            { id: "v7_ooc", label: "OOC Protocol", desc: "Allows out-of-character directives." },
-            { id: "v7_pcsolo", label: "PC Solo Physicality", desc: "Narration of PC when unobserved." },
-            { id: "v7_intro", label: "Introduction Protocol", desc: "How new NPCs enter the story." },
-            { id: "v7_culture", label: "Cultural Anchoring", desc: "Real-world integration and references." },
-            { id: "v7_scene", label: "Scene Choreography", desc: "Focus shifting and crowd management." }
+            { id: "v7_ooc", label: "OOC 协议", desc: "允许角色外指令。" },
+            { id: "v7_pcsolo", label: "PC 独处描写", desc: "未被观察时对 PC 的旁白。" },
+            { id: "v7_intro", label: "登场协议", desc: "新 NPC 如何进入故事。" },
+            { id: "v7_culture", label: "文化锚定", desc: "现实世界的整合与引用。" },
+            { id: "v7_scene", label: "场景调度", desc: "焦点切换与人群管理。" }
         ];
 
         v7Toggles.forEach(tog => {
@@ -304,11 +304,11 @@ export function renderCoreAndCot(c) {
     // ==========================================
     // ── B. CUSTOM ENGINES ──
     // ==========================================
-    secCustom.append(`<h3 style="margin-top: 0; color: #10b981; font-size: 1.1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;"><i class="fa-solid fa-microchip"></i> Your Custom Engines</h3>`);
+    secCustom.append(`<h3 style="margin-top: 0; color: #10b981; font-size: 1.1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;"><i class="fa-solid fa-microchip"></i> 你的自定义引擎</h3>`);
     const customModes = extension_settings[extensionName].customModes || [];
 
     if (customModes.length === 0) {
-        secCustom.append(`<div style="padding: 30px; text-align: center; color: var(--text-muted); border: 1px dashed var(--border-color); border-radius: 14px;">No custom engines yet. Go to Dev Mode to create or import one!</div>`);
+        secCustom.append(`<div style="padding: 30px; text-align: center; color: var(--text-muted); border: 1px dashed var(--border-color); border-radius: 14px;">还没有自定义引擎。前往开发模式创建或导入一个吧！</div>`);
     } else {
         const customGrid = $(`<div class="mtab-card-grid"></div>`);
         customModes.forEach(m => {
@@ -320,10 +320,10 @@ export function renderCoreAndCot(c) {
                         <div class="ecard-title">
                             <span>${m.label}</span>
                             <button class="ps-modern-btn secondary btn-quick-edit" style="padding:4px 10px;font-size:0.7rem;color:var(--gold);border-color:rgba(245,158,11,0.3);background:transparent;">
-                                <i class="fa-solid fa-pen"></i> Edit
+                                <i class="fa-solid fa-pen"></i> 编辑
                             </button>
                         </div>
-                        <p class="ecard-desc">Custom Engine Flow</p>
+                        <p class="ecard-desc">自定义引擎流程</p>
                         ${enhancedDialogueMarkup(m, false)}
                     </div>
                 </div>
@@ -343,15 +343,15 @@ export function renderCoreAndCot(c) {
     // ==========================================
     // ── C. CHAIN OF THOUGHT (REASONING) ──
     // ==========================================
-    secCot.append(`<h3 style="margin-top: 0; color: #a855f7; font-size: 1.1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;"><i class="fa-solid fa-brain"></i> Chain of Thought (Reasoning)</h3>`);
+    secCot.append(`<h3 style="margin-top: 0; color: #a855f7; font-size: 1.1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;"><i class="fa-solid fa-brain"></i> 思维链（推理）</h3>`);
 
     if (localProfile.cotEnabled === undefined) localProfile.cotEnabled = true;
 
     const cotToggle = $(`
         <div class="mtab-toggle-row ${localProfile.cotEnabled ? 'active' : ''}" style="margin-bottom: 20px; border-color: ${localProfile.cotEnabled ? '#a855f7' : 'var(--border-color)'}; cursor: pointer;">
             <div class="toggle-info">
-                <div class="toggle-label" style="color: ${localProfile.cotEnabled ? '#a855f7' : 'var(--text-main)'};"><i class="fa-solid fa-power-off"></i> Enable Chain of Thought</div>
-                <div class="toggle-desc">Toggle the entire AI reasoning system. When off, the AI generates responses directly.</div>
+                <div class="toggle-label" style="color: ${localProfile.cotEnabled ? '#a855f7' : 'var(--text-main)'};"><i class="fa-solid fa-power-off"></i> 启用思维链</div>
+                <div class="toggle-desc">切换整个 AI 推理系统。关闭时 AI 直接生成回复。</div>
             </div>
             <div class="ps-switch" style="${localProfile.cotEnabled ? 'background:#a855f7;' : ''}"></div>
         </div>
@@ -368,7 +368,7 @@ export function renderCoreAndCot(c) {
             secCot.append(`
                 <div class="mtab-callout green" style="margin-bottom:20px;">
                     <i class="fa-solid fa-shield-halved"></i>
-                    <span><strong>Custom Engine Logic Active</strong> — This Engine provides its own [[COT]] and [[prefill]]. Selections below will be overridden by the Engine's code.</span>
+                    <span><strong>自定义引擎逻辑已激活</strong>——该引擎自带 [[COT]] 与 [[prefill]]。以下选择将被引擎代码覆盖。</span>
                 </div>
             `);
         }
@@ -421,35 +421,35 @@ export function renderCoreAndCot(c) {
         else if (localProfile.mode.includes("v9")) allowedCotTypes = ["v9", "v9-lite", "v9-director", "v9-immersion", "v9-hybrid"];
 
         // Thinking Frameworks
-        secCot.append(`<div class="wstyle-section-head purple"><i class="fa-solid fa-diagram-project"></i> Select Framework</div>`);
+        secCot.append(`<div class="wstyle-section-head purple"><i class="fa-solid fa-diagram-project"></i> 选择框架</div>`);
         const typeGrid = $(`<div class="mtab-card-grid" style="margin-bottom: 24px;"></div>`);
         const types = [
-            { id: "v10-ukiyo", label: "CoT V10 Ukiyo", desc: "The long-form reasoning built for Ukiyo. Thinks like a novelist muttering before a draft \u2014 present tense, a little messy, never a plan. No phases, no checklists, no audits.", isNew: true },
-            { id: "v10-ukiyo-cap", label: "CoT V10 Ukiyo \u2014 Thinking Cap", desc: "The same writer's mind with a hard ceiling on the thinking phase. For models that over-think.", isNew: true },
-            { id: "v10-shura", label: "CoT V10 Shura", desc: "Seven rules carried into the writing rather than a plan made before it. Built for V10 Shura, and the lightest of the four.", isNew: true },
-            { id: "v10-shura-cap", label: "CoT V10 Shura \u2014 Thinking Cap", desc: "The same seven rules with a hard ceiling on the thinking phase. For models that over-think.", isNew: true },
-            { id: "v1", label: "CoT V1 (Classic)", desc: "The original 8-step framework. Focuses heavily on the NPC's internal emotional landscape vs their observable actions." },
-            { id: "v2", label: "CoT V2 (New)", desc: "The new experimental framework. Stricter reality checks, info audits, better NPCs, and hook generation." },
-            { id: "v6", label: "CoT V6 (Dream Team)", desc: "The full 4-phase sequence designed specifically for V6 engines. Specialized validation and modeling." },
-            { id: "v6-lite", label: "CoT V6 (Lite)", desc: "A streamlined 3-phase sequence. Less token overhead while maintaining narrative rules." },
-            { id: "v7", label: "CoT V7", desc: "The new V7 sequence with 5-phase strict ground truth rebuilding."},
-            { id: "v7-lite", label: "CoT V7 (Lite)", desc: "A streamlined 5-phase sequence for V7." },
-            { id: "v7.5", label: "CoT V7.5 Kismet", desc: "The new V7.5 sequence focused on story engine mechanics." },
-            { id: "v8", label: "CoT V8", desc: "The new V8 narrative processing sequence." },
-            { id: "v8-fusion", label: "CoT V8 Fusion", desc: "The new V8 Fusion narrative processing sequence." },
-            { id: "v9", label: "CoT V9 Mirage", desc: "The primary and most balanced reasoning sequence, purpose-built for the V9 Mirage engine. The gold standard for modern roleplay.", isNew: true },
-            { id: "v9-director", label: "CoT V9 Mirage Air", desc: "A lighter, version of CoT V9 Mirage, it give Different output Try and see if you like.", isNew: true },
-            { id: "v9-immersion", label: "CoT V9 Mirage Max", desc: "The heavy-duty, maximum-thinking sequence. Forces the AI to dive incredibly deep into sensory data and psychological realism before generating a single word.", isNew: true },
-            { id: "v9-hybrid", label: "CoT V9 Kuromaku", desc: "A specialized multi-agent reasoning sequence designed specifically to pair with the V9 Kuromaku engine.", isNew: true },
-            { id: "v9-lite", label: "CoT V9 Cui (Lite)", desc: "A highly streamlined, fast-executing reasoning sequence perfectly paired with the V9 Cui engine to save tokens.", isNew: true }
+            { id: "v10-ukiyo", label: "CoT V10 Ukiyo", desc: "为 Ukiyo 打造的长篇推理。像小说家在动笔前喃喃自语——现在时、略显凌乱、从不制定计划。没有阶段、没有清单、没有检查。", isNew: true },
+            { id: "v10-ukiyo-cap", label: "CoT V10 Ukiyo — 思考上限", desc: "同一个作者的心智，但为思考阶段设了硬性上限。适合想太多的模型。", isNew: true },
+            { id: "v10-shura", label: "CoT V10 Shura", desc: "七条规则直接带进写作，而非动笔前先做计划。为 V10 Shura 打造，四个中最轻量。", isNew: true },
+            { id: "v10-shura-cap", label: "CoT V10 Shura — 思考上限", desc: "同样的七条规则，但为思考阶段设了硬性上限。适合想太多的模型。", isNew: true },
+            { id: "v1", label: "CoT V1（经典）", desc: "最初的 8 步框架。高度聚焦 NPC 的内部情感图景与其可观察行为之间的对比。" },
+            { id: "v2", label: "CoT V2（新版）", desc: "新的实验性框架。更严格的事实核查、信息审计、更好的 NPC，以及钩子生成。" },
+            { id: "v6", label: "CoT V6（梦之队）", desc: "专为 V6 引擎设计的完整 4 阶段流程。专业化的验证与建模。" },
+            { id: "v6-lite", label: "CoT V6（精简版）", desc: "精简的 3 阶段流程。在保持叙事规则的同时降低 token 开销。" },
+            { id: "v7", label: "CoT V7", desc: "全新的 V7 流程，采用 5 阶段严格事实重建。"},
+            { id: "v7-lite", label: "CoT V7（精简版）", desc: "为 V7 精简的 5 阶段流程。" },
+            { id: "v7.5", label: "CoT V7.5 Kismet", desc: "全新的 V7.5 流程，聚焦故事引擎机制。" },
+            { id: "v8", label: "CoT V8", desc: "全新的 V8 叙事处理流程。" },
+            { id: "v8-fusion", label: "CoT V8 Fusion", desc: "全新的 V8 Fusion 叙事处理流程。" },
+            { id: "v9", label: "CoT V9 Mirage", desc: "最主流且最均衡的推理流程，专为 V9 Mirage 引擎打造。现代角色扮演的金标准。", isNew: true },
+            { id: "v9-director", label: "CoT V9 Mirage Air", desc: "CoT V9 Mirage 的轻量版本，会给出不同的输出，试试看喜不喜欢。", isNew: true },
+            { id: "v9-immersion", label: "CoT V9 Mirage Max", desc: "重负载、最大化思考的流程。迫使 AI 在生成第一个字之前，深入感官数据与心理真实感。", isNew: true },
+            { id: "v9-hybrid", label: "CoT V9 Kuromaku", desc: "专门设计用于搭配 V9 Kuromaku 引擎的多智能体推理流程。", isNew: true },
+            { id: "v9-lite", label: "CoT V9 Cui（精简版）", desc: "高度精简、快速执行的推理流程，与 V9 Cui 引擎完美搭配以节省 token。", isNew: true }
         ];
         types.forEach(t => {
             const isSel = currentType === t.id;
             const isWarned = allowedCotTypes !== null && !allowedCotTypes.includes(t.id);
             
             let badges = '';
-            if (isWarned) badges = `<span class="ecard-badge" style="background:rgba(245,158,11,0.15);color:#f59e0b;"><i class="fa-solid fa-triangle-exclamation"></i> May be Incompatible</span>`;
-            else if (t.isNew) badges = `<span class="ecard-badge new">New</span>`;
+            if (isWarned) badges = `<span class="ecard-badge" style="background:rgba(245,158,11,0.15);color:#f59e0b;"><i class="fa-solid fa-triangle-exclamation"></i> 可能不兼容</span>`;
+            else if (t.isNew) badges = `<span class="ecard-badge new">新</span>`;
 
             const card = $(`
                 <div class="mtab-eng-card ${isSel ? 'active' : ''}">
@@ -457,7 +457,7 @@ export function renderCoreAndCot(c) {
                     <div class="ecard-body">
                         <div class="ecard-title">
                             <span>${t.label}</span>
-                            ${isSel ? `<span class="ecard-badge" style="background:rgba(168,85,247,0.15);color:#a855f7;"><i class="fa-solid fa-check"></i> Active</span>` : ''}
+                            ${isSel ? `<span class="ecard-badge" style="background:rgba(168,85,247,0.15);color:#a855f7;"><i class="fa-solid fa-check"></i> 使用中</span>` : ''}
                         </div>
                         <p class="ecard-desc">${t.desc}</p>
                         ${badges ? `<div style="margin-top:4px;">${badges}</div>` : ''}
@@ -484,14 +484,14 @@ export function renderCoreAndCot(c) {
         if (!localProfile.thinkEffort) localProfile.thinkEffort = "unspecified";
         if (!localProfile.customThinkEffort) localProfile.customThinkEffort = "100";
 
-        secCot.append(`<div class="wstyle-section-head purple"><i class="fa-solid fa-gauge-high"></i> Thinking Effort</div>`);
+        secCot.append(`<div class="wstyle-section-head purple"><i class="fa-solid fa-gauge-high"></i> 思考强度</div>`);
         const effortGrid = $(`<div class="mtab-card-grid" style="margin-bottom: 24px; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));"></div>`);
         const efforts = [
-            { id: "100", label: "100 Words" },
-            { id: "250", label: "250 Words" },
-            { id: "450", label: "450 Words" },
-            { id: "custom", label: "Custom" },
-            { id: "unspecified", label: "Unspecified" }
+            { id: "100", label: "100 词" },
+            { id: "250", label: "250 词" },
+            { id: "450", label: "450 词" },
+            { id: "custom", label: "自定义" },
+            { id: "unspecified", label: "未指定" }
         ];
         efforts.forEach(e => {
             const isSel = localProfile.thinkEffort === e.id;
@@ -512,7 +512,7 @@ export function renderCoreAndCot(c) {
             const customBlock = $(`
                 <div class="mtab-panel" style="margin-top:-14px; margin-bottom:24px;">
                     <div class="mtab-setting-row">
-                        <div class="set-info"><div class="set-label">Custom Word Count</div></div>
+                        <div class="set-info"><div class="set-label">自定义词数</div></div>
                         <input type="number" id="ps_input_custom_effort" class="ps-modern-input" style="width: 150px;" value="${localProfile.customThinkEffort}" min="1" />
                     </div>
                 </div>
@@ -528,8 +528,8 @@ export function renderCoreAndCot(c) {
         const v2Card = $(`
             <div class="mtab-toggle-row ${localProfile.thinkingV2 ? 'active' : ''}" style="margin-bottom: 24px; cursor: pointer;">
                 <div class="toggle-info">
-                    <div class="toggle-label"><i class="fa-solid fa-sparkles" style="color:#a855f7;"></i> Gemini Thinking Override</div>
-                    <div class="toggle-desc">Enable ONLY for Gemini models to inject specific XML tags.</div>
+                    <div class="toggle-label"><i class="fa-solid fa-sparkles" style="color:#a855f7;"></i> Gemini 思考覆盖</div>
+                    <div class="toggle-desc">仅对 Gemini 模型启用，用于注入特定 XML 标签。</div>
                 </div>
                 <div class="ps-switch"></div>
             </div>
@@ -538,18 +538,18 @@ export function renderCoreAndCot(c) {
         secCot.append(v2Card);
 
         // Language
-        secCot.append(`<div class="wstyle-section-head gold"><i class="fa-solid fa-language"></i> Reasoning Language</div>`);
+        secCot.append(`<div class="wstyle-section-head gold"><i class="fa-solid fa-language"></i> 推理语言</div>`);
         const langGrid = $(`<div class="mtab-card-grid" style="margin-bottom: 20px; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));"></div>`);
         let langs = [
-            { id: "english", label: "English" }, { id: "arabic", label: "Arabic (العربية)", rec: true }, { id: "spanish", label: "Spanish (Español)" },
-            { id: "french", label: "French (Français)" }, { id: "zh", label: "Mandarin (中文)" }, { id: "ru", label: "Russian (Русский)" },
-            { id: "jp", label: "Japanese (日本語)" }, { id: "pt", label: "Portuguese (Português)" }
+            { id: "english", label: "英语" }, { id: "arabic", label: "阿拉伯语（العربية）", rec: true }, { id: "spanish", label: "西班牙语（Español）" },
+            { id: "french", label: "法语（Français）" }, { id: "zh", label: "中文（简体）" }, { id: "ru", label: "俄语（Русский）" },
+            { id: "jp", label: "日语（日本語）" }, { id: "pt", label: "葡萄牙语（Português）" }
         ];
-        if (currentType.startsWith("v10") || currentType === "v7" || currentType === "v7-lite" || currentType === "v7.5" || currentType === "v8" || currentType === "v8-fusion" || currentType.startsWith("v9")) langs = [{ id: "english", label: "English" }];
+        if (currentType.startsWith("v10") || currentType === "v7" || currentType === "v7-lite" || currentType === "v7.5" || currentType === "v8" || currentType === "v8-fusion" || currentType.startsWith("v9")) langs = [{ id: "english", label: "英语" }];
         langs.forEach(l => {
             const isSel = currentLang === l.id;
             let badges = '';
-            if (l.rec) badges = `<span class="ecard-badge rec"><i class="fa-solid fa-star"></i> Pro Tip</span>`;
+            if (l.rec) badges = `<span class="ecard-badge rec"><i class="fa-solid fa-star"></i> 使用提示</span>`;
 
             const card = $(`
                 <div class="mtab-eng-card ${isSel ? 'active' : ''}">

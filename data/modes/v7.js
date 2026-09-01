@@ -119,7 +119,7 @@ Expressive Intelligence: Characters demonstrate high intelligence through situat
       A1: `Understood.`, A2: `Understood.`
     },
     {
-      id: "v7-core", label: "V7 Core", color: "#10b981",
+      id: "v7-core", label: "V7 核心", color: "#10b981",
       p1: `<system_config>
   identity: "You are the world. You are its novelist, its director, its physics engine. The user is one character living inside you. These rules are how you breathe."
   assistant_mode: false
@@ -231,7 +231,7 @@ Expressive Intelligence: Characters demonstrate high intelligence through situat
       p6: ``
     },
     {
-      id: "v7-reality", label: "V7 Reality", color: "#3b82f6",
+      id: "v7-reality", label: "V7 现实", color: "#3b82f6",
       p1: `<system_config>
   identity: "You are the world  not a servant, not a narrator waiting for cues. You are novelist, director, and physics engine. The user is one character living inside you. These rulesets are your operating law."
   assistant_mode: false
@@ -343,7 +343,7 @@ Expressive Intelligence: Characters demonstrate high intelligence through situat
       p6: ""
     },
     {
-      id: "v7-gentle", label: "V7 Gentle", color: "#3b82f6",
+      id: "v7-gentle", label: "V7 温和", color: "#3b82f6",
       p1: `<system_config>
   identity: "You are a living world humming quietly in the background. The user is simply one character moving through it. Your instincts are those of a novelist, a director, and a gentle physics engine. The rulesets below are your compass — carry them naturally."
   objective: "Render a living, breathing world with depth, texture, and momentum. Control every non-user entity with real interiority. Write prose that feels inhabited, not transcribed."

@@ -38,18 +38,18 @@ function buildConfigSyncRow() {
         const hostOn = meguminStoryConfigHostSynced();
         row.html(`
             <div class="cfg-sync-text">
-                <span class="cfg-sync-label"><i class="fa-solid fa-earth-americas"></i> Share Story Config with every character</span>
+                <span class="cfg-sync-label"><i class="fa-solid fa-earth-americas"></i> 与每个角色共享故事设置</span>
                 <span class="cfg-sync-desc">${hostOn
                     ? (on
-                        ? "These fields are copied to every character along with the rest of this tab."
-                        : "The engine and CoT choice still go everywhere. These fields stay with this character.")
-                    : "Only applies once this tab's <strong>Global</strong> switch is on. It is off, so nothing is being copied anywhere."}</span>
+                        ? "这些字段会与此标签页的其余设置一起复制到每个角色。"
+                        : "引擎与思维链的选择仍会全局生效。这些字段则留在此角色。")
+                    : "仅在此标签页的 <strong>全局</strong> 开关开启后生效. It is off, so nothing is being copied anywhere."}</span>
             </div>
             <button class="ws-btn-small cfg-sync-btn" id="cfg_sync_toggle"
                     style="${hostOn
                         ? (on ? "color:#10b981; border-color:rgba(16,185,129,0.45);" : "color:var(--gold); border-color:rgba(245,158,11,0.3);")
                         : "opacity:0.55;"}">
-                <i class="fa-solid fa-earth-americas"></i> ${on ? "On" : "Off"}
+                <i class="fa-solid fa-earth-americas"></i> ${on ? "开" : "关"}
             </button>`);
     };
 
@@ -65,11 +65,11 @@ function buildConfigSyncRow() {
         // out there alone — undoing a share nobody asked to undo would be worse.
         if (next) saveProfileToMemory();
         if (!meguminStoryConfigHostSynced()) {
-            toastr.info("Saved. It takes effect when this tab's Global switch is on.", "Megumin Suite");
+            toastr.info("已保存。此标签页的全局开关开启后生效。", "Megumin Suite");
         } else {
             toastr.success(next
-                ? "Story Config now travels with the other settings on this tab."
-                : "Story Config stays with this character now.", "Megumin Suite");
+                ? "故事设置现在与此标签页的其他设置一起全局生效。"
+                : "故事设置现在只保留在此角色。", "Megumin Suite");
         }
     });
 
@@ -83,12 +83,12 @@ export function buildStoryConfigSection() {
     applyStoryConfigDefaults(cfg);
     const sec = $(`<div class="ws-section" id="sec-config"></div>`);
 
-    sec.append(`<h3 style="margin-top: 0; color: var(--gold); font-size: 1.1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;"><i class="fa-solid fa-sliders"></i> Story Config</h3>`);
+    sec.append(`<h3 style="margin-top: 0; color: var(--gold); font-size: 1.1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;"><i class="fa-solid fa-sliders"></i> 故事设置</h3>`);
 
     // No master toggle: the block is always injected. Anything left on Preset default
     // still emits no line, so "off" is expressed per field rather than for the whole
     // block -- which is what people were reaching for the toggle to do anyway.
-    sec.append(`<div class="cfg-master-desc" style="margin-bottom: 10px;">Standing settings for the whole story. Anything left on preset default is left to your preset.</div>`);
+    sec.append(`<div class="cfg-master-desc" style="margin-bottom: 10px;">整个故事的常驻设置。保留在预设默认值的项目将交由你的预设处理。</div>`);
 
     // ── GLOBAL SYNC OPT-OUT ──
     //
@@ -102,13 +102,13 @@ export function buildStoryConfigSection() {
 
     // ── PRESET BAR ──
     const presets = getAllConfigPresets();
-    let presetOpts = `<option value="">Load a config preset…</option>`;
-    presetOpts += `<optgroup label="Built-in">`;
+    let presetOpts = `<option value="">加载配置预设…</option>`;
+    presetOpts += `<optgroup label="内置">`;
     presets.filter(p => p.builtin).forEach(p => { presetOpts += `<option value="${p.id}">${p.name}</option>`; });
     presetOpts += `</optgroup>`;
     const savedPresets = presets.filter(p => !p.builtin);
     if (savedPresets.length) {
-        presetOpts += `<optgroup label="My Presets">`;
+        presetOpts += `<optgroup label="我的预设">`;
         savedPresets.forEach(p => { presetOpts += `<option value="${p.id}">${p.name}</option>`; });
         presetOpts += `</optgroup>`;
     }
@@ -116,27 +116,27 @@ export function buildStoryConfigSection() {
     const presetBar = $(`
         <div class="cfg-preset-bar">
             <select id="cfg_preset_select" class="ps-modern-input" style="flex: 1; min-width: 160px; cursor: pointer;">${presetOpts}</select>
-            <button class="ws-btn-small" id="cfg_preset_load"><i class="fa-solid fa-download"></i> Load</button>
-            <button class="ws-btn-small" id="cfg_preset_save" style="color:#10b981; border-color: rgba(16,185,129,0.35);"><i class="fa-solid fa-floppy-disk"></i> Save Current</button>
+            <button class="ws-btn-small" id="cfg_preset_load"><i class="fa-solid fa-download"></i> 加载</button>
+            <button class="ws-btn-small" id="cfg_preset_save" style="color:#10b981; border-color: rgba(16,185,129,0.35);"><i class="fa-solid fa-floppy-disk"></i> 保存当前</button>
             <button class="ws-btn-small" id="cfg_preset_delete" style="color:#ef4444; border-color: rgba(239,68,68,0.3);"><i class="fa-solid fa-trash"></i></button>
-            <button class="ws-btn-small" id="cfg_reset_all" style="margin-left:auto;"><i class="fa-solid fa-rotate-left"></i> Reset All</button>
+            <button class="ws-btn-small" id="cfg_reset_all" style="margin-left:auto;"><i class="fa-solid fa-rotate-left"></i> 全部重置</button>
         </div>
     `);
 
     presetBar.find("#cfg_preset_load").on("click", () => {
         const pid = presetBar.find("#cfg_preset_select").val();
-        if (!pid) { toastr.info("Pick a preset first."); return; }
+        if (!pid) { toastr.info("请先选择一个预设。"); return; }
         const p = getAllConfigPresets().find(x => x.id === pid);
         if (!p) return;
         storyConfigFields.forEach(f => { cfg[f.key] = p.values[f.key] || ""; });
         applyStoryConfigDefaults(cfg);
         saveProfileToMemory();
         fireRefreshHook(REFRESH.SWITCH_TAB);
-        toastr.success(`Loaded "${p.name}".`);
+        toastr.success(`已加载“${p.name}”。`);
     });
 
     presetBar.find("#cfg_preset_save").on("click", () => {
-        const name = prompt("Name this config preset:");
+        const name = prompt("为此配置预设命名：");
         if (!name || !name.trim()) return;
         const values = {};
         storyConfigFields.forEach(f => { values[f.key] = cfg[f.key] || ""; });
@@ -148,24 +148,24 @@ export function buildStoryConfigSection() {
         });
         saveSettingsDebounced();
         fireRefreshHook(REFRESH.SWITCH_TAB);
-        toastr.success(`Saved "${name.trim()}".`);
+        toastr.success(`已保存“${name.trim()}”。`);
     });
 
     presetBar.find("#cfg_preset_delete").on("click", () => {
         const pid = presetBar.find("#cfg_preset_select").val();
-        if (!pid) { toastr.info("Pick a preset first."); return; }
+        if (!pid) { toastr.info("请先选择一个预设。"); return; }
         const p = getAllConfigPresets().find(x => x.id === pid);
         if (!p) return;
-        if (p.builtin) { toastr.warning("Built-in presets can't be deleted."); return; }
-        if (!confirm(`Delete the preset "${p.name}"?`)) return;
+        if (p.builtin) { toastr.warning("内置预设无法删除。"); return; }
+        if (!confirm(`删除预设“${p.name}”？`)) return;
         extension_settings[extensionName].configPresets = extension_settings[extensionName].configPresets.filter(x => x.id !== pid);
         saveSettingsDebounced();
         fireRefreshHook(REFRESH.SWITCH_TAB);
-        toastr.success("Preset deleted.");
+        toastr.success("预设已删除。");
     });
 
     presetBar.find("#cfg_reset_all").on("click", () => {
-        if (!confirm("Set every setting back to preset default?")) return;
+        if (!confirm("将每个设置都恢复为预设默认值？")) return;
         storyConfigFields.forEach(f => { cfg[f.key] = ""; });
         applyStoryConfigDefaults(cfg);
         saveProfileToMemory();
@@ -184,7 +184,7 @@ export function buildStoryConfigSection() {
         const isOpen = openConfigRow === f.key;
         const summaryFor = v => {
             const t = String(v || "").trim();
-            if (t === "") return f.defaultLabel ? `Preset default — ${f.defaultLabel}` : "Preset default";
+            if (t === "") return f.defaultLabel ? `预设默认 — ${f.defaultLabel}` : "Preset default";
             // Show the option's short label rather than the long text the model reads.
             const match = (f.options || []).find(o => typeof o !== "string" && o.value === t);
             return match ? match.label : t;
@@ -227,7 +227,7 @@ export function buildStoryConfigSection() {
             // Fields with a named default (friction: normal, npc_disposition: ordinary,
             // narrator_presence: light) name it here — picking it still drops the line,
             // because the preset already behaves that way.
-            const defLabel = f.defaultLabel ? `Preset default — ${f.defaultLabel}` : `Preset default`;
+            const defLabel = f.defaultLabel ? `预设默认 — ${f.defaultLabel}` : `Preset default`;
             // A standing field always reaches the model, so it has no "leave it to the
             // preset" state and its dropdown does not offer one.
             let opts = isStandingConfigField(f.key)
@@ -236,10 +236,10 @@ export function buildStoryConfigSection() {
             opList.forEach(o => {
                 opts += `<option value="${escapeHtmlAttr(o.value)}" ${val === o.value ? 'selected' : ''}>${o.label}</option>`;
             });
-            opts += `<option value="__custom" ${isCustom ? 'selected' : ''}>Write my own…</option>`;
+            opts += `<option value="__custom" ${isCustom ? 'selected' : ''}>自己编写…</option>`;
 
             const sel = $(`<select class="ps-modern-input cfg-select" style="width:100%; cursor:pointer;">${opts}</select>`);
-            const customBox = $(`<input type="text" class="ps-modern-input cfg-custom" style="width:100%; margin-top:8px; display:${isCustom ? 'block' : 'none'};" placeholder="${escapeHtmlAttr(f.customPlaceholder || `Write it your own way`)}" value="${isCustom ? escapeHtmlAttr(val) : ''}" />`);
+            const customBox = $(`<input type="text" class="ps-modern-input cfg-custom" style="width:100%; margin-top:8px; display:${isCustom ? 'block' : 'none'};" placeholder="${escapeHtmlAttr(f.customPlaceholder || `用自己的方式编写`)}" value="${isCustom ? escapeHtmlAttr(val) : ''}" />`);
 
             sel.on("change", function () {
                 const v = $(this).val();
@@ -355,7 +355,7 @@ export function renderStoryConfig(c) {
     const genCount = hardcodedLogic.styleTemplates.filter(t => !existingNames.includes(t.name)).length;
     const precookedCount = hardcodedLogic.directStyles.length;
 
-    let activeStyleName = "Off";
+    let activeStyleName = "关";
     if (!isOff) {
         const ds = hardcodedLogic.directStyles.find(d => d.id === localProfile.activeStyleId);
         if (ds) activeStyleName = ds.name;
@@ -371,14 +371,14 @@ export function renderStoryConfig(c) {
             <div class="wstyle-header-left">
                 <div class="wstyle-header-icon"><i class="fa-solid fa-sliders"></i></div>
                 <div>
-                    <h2>Writing Style</h2>
-                    <p>Pick the prose voice the story is told in.</p>
+                    <h2>写作风格</h2>
+                    <p>选择故事叙述所用的文字声音。</p>
                 </div>
             </div>
             <div style="display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end;">
                 <div class="wstyle-active-badge ${isOff ? 'off' : ''}">
                     <i class="fa-solid ${isOff ? 'fa-power-off' : 'fa-pen-nib'}"></i>
-                    ${isOff ? 'No Style' : activeStyleName}
+                    ${isOff ? '无风格' : activeStyleName}
                 </div>
             </div>
         </div>
@@ -402,7 +402,7 @@ export function renderStoryConfig(c) {
     const dnPanel = $(`
         <div style="margin-bottom: 14px;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-                <span style="font-size: 0.75rem; font-weight: 700; color: var(--text-main);"><i class="fa-solid fa-scale-balanced" style="color: #3b82f6; margin-right: 5px;"></i> DN Ratio</span>
+                <span style="font-size: 0.75rem; font-weight: 700; color: var(--text-main);"><i class="fa-solid fa-scale-balanced" style="color: #3b82f6; margin-right: 5px;"></i> DN 比例</span>
                 <div class="ps-toggle-card ${isDNR ? 'active' : ''}" id="dnr_toggle_sb" style="padding: 2px; min-width: 36px; background: transparent; border-color: ${isDNR ? '#10b981' : 'var(--border-color)'}; cursor: pointer; border-radius: 8px;">
                     <div class="ps-switch" style="transform: scale(0.65); ${isDNR ? 'background: #10b981;' : ''}"></div>
                 </div>
@@ -411,18 +411,18 @@ export function renderStoryConfig(c) {
                 <div style="background: rgba(0,0,0,0.3); padding: 10px; border-radius: 8px; border: 1px solid var(--border-color);">
                     <div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 6px; margin-bottom: 6px;">
                         <div style="text-align: left; min-width: 0;">
-                            <div style="font-size: 0.55rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; color: var(--text-muted);">Narration</div>
+                            <div style="font-size: 0.55rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; color: var(--text-muted);">旁白</div>
                             <div style="font-size: 0.9rem; font-weight: 800; color: #a855f7; line-height: 1.1;"><span id="lbl_narr">${100 - dVal}</span>%</div>
                         </div>
                         <div style="text-align: right; min-width: 0;">
-                            <div style="font-size: 0.55rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; color: var(--text-muted);">Dialogue</div>
+                            <div style="font-size: 0.55rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; color: var(--text-muted);">对话</div>
                             <div style="font-size: 0.9rem; font-weight: 800; color: #10b981; line-height: 1.1;"><span id="lbl_dial">${dVal}</span>%</div>
                         </div>
                     </div>
                     <input type="range" id="dnr_slider" min="0" max="100" step="10" value="${dVal}" style="width: 100%; accent-color: var(--gold); height: 4px; display: block;">
                     <div style="display: flex; justify-content: space-between; margin-top: 4px; font-size: 0.5rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px;">
-                        <span>&#9664; more narration</span>
-                        <span>more dialogue &#9654;</span>
+                        <span>&#9664; 更多旁白</span>
+                        <span>更多对话 &#9654;</span>
                     </div>
                 </div>
             </div>
@@ -445,19 +445,19 @@ export function renderStoryConfig(c) {
     sidebar.append(`<div class="ws-sidebar-title">Writing Style</div>`);
 
     // Off Button
-    const btnOff = $(`<button class="ws-nav-btn ${isOff ? 'active-green' : ''}"><span style="display:flex; align-items:center; gap:10px;"><i class="fa-solid fa-power-off" style="color:${isLockedStyleEngine ? '#ef4444' : ''}"></i> No Style (Off)</span> ${isLockedStyleEngine ? '<i class="fa-solid fa-lock" style="color:#ef4444; font-size:0.7rem;"></i>' : ''}</button>`);
+    const btnOff = $(`<button class="ws-nav-btn ${isOff ? 'active-green' : ''}"><span style="display:flex; align-items:center; gap:10px;"><i class="fa-solid fa-power-off" style="color:${isLockedStyleEngine ? '#ef4444' : ''}"></i> 无风格（关闭）</span> ${isLockedStyleEngine ? '<i class="fa-solid fa-lock" style="color:#ef4444; font-size:0.7rem;"></i>' : ''}</button>`);
     if (!isLockedStyleEngine) {
         btnOff.on("click", () => { localProfile.activeStyleId = null; localProfile.aiRule = ""; saveProfileToMemory(); renderStyleLibrary(c); });
     } else {
-        btnOff.css({"opacity":"0.6", "cursor":"not-allowed"}).attr("title", "Modern Engines require a narrative style directive.");
+        btnOff.css({"opacity":"0.6", "cursor":"not-allowed"}).attr("title", "现代引擎需要叙事风格指令。");
     }
     sidebar.append(btnOff);
     sidebar.append(`<div style="height: 1px; background: var(--border-color); margin: 8px 0;"></div>`);
 
     // Nav Buttons
-    const btnPrecooked = $(`<button class="ws-nav-btn active"><span style="display:flex; align-items:center; gap:10px;"><i class="fa-solid fa-fire-burner"></i> Precooked</span> <span class="ws-badge">${precookedCount}</span></button>`);
-    const btnCustom = $(`<button class="ws-nav-btn"><span style="display:flex; align-items:center; gap:10px;"><i class="fa-solid fa-book"></i> My Library</span> <span class="ws-badge">${customCount}</span></button>`);
-    const btnGenerators = $(`<button class="ws-nav-btn"><span style="display:flex; align-items:center; gap:10px;"><i class="fa-solid fa-wand-magic-sparkles"></i> AI Generators</span> <span class="ws-badge">${genCount}</span></button>`);
+    const btnPrecooked = $(`<button class="ws-nav-btn active"><span style="display:flex; align-items:center; gap:10px;"><i class="fa-solid fa-fire-burner"></i> 预制</span> <span class="ws-badge">${precookedCount}</span></button>`);
+    const btnCustom = $(`<button class="ws-nav-btn"><span style="display:flex; align-items:center; gap:10px;"><i class="fa-solid fa-book"></i> 我的文库</span> <span class="ws-badge">${customCount}</span></button>`);
+    const btnGenerators = $(`<button class="ws-nav-btn"><span style="display:flex; align-items:center; gap:10px;"><i class="fa-solid fa-wand-magic-sparkles"></i> AI 生成器</span> <span class="ws-badge">${genCount}</span></button>`);
 
     sidebar.append(btnPrecooked).append(btnCustom).append(btnGenerators);
 
@@ -469,7 +469,7 @@ export function renderStoryConfig(c) {
     const secGenerators = $(`<div class="ws-section" id="sec-generators" style="display:none;"></div>`);
 
     // A. PRECOOKED
-    secPrecooked.append(`<h3 style="margin-top: 0; color: var(--gold); font-size: 1.1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;"><i class="fa-solid fa-fire-burner"></i> Precooked Styles</h3>`);
+    secPrecooked.append(`<h3 style="margin-top: 0; color: var(--gold); font-size: 1.1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;"><i class="fa-solid fa-fire-burner"></i> 预制风格</h3>`);
     const gridPre = $(`<div class="ws-grid"></div>`);
     hardcodedLogic.directStyles.forEach(ds => {
         const isSel = localProfile.activeStyleId === ds.id;
@@ -482,7 +482,7 @@ export function renderStoryConfig(c) {
                 <div class="ws-card-desc">${ds.desc}</div>
                 <div class="ws-card-rule">${ds.rule}</div>
                 <div class="ws-card-actions">
-                    <button class="ws-btn-small ps-btn-edit-precooked"><i class="fa-solid fa-copy"></i> Edit as Custom</button>
+                    <button class="ws-btn-small ps-btn-edit-precooked"><i class="fa-solid fa-copy"></i> 按自定义编辑</button>
                 </div>
             </div>
         `);
@@ -520,7 +520,7 @@ export function renderStoryConfig(c) {
     
     const createCard = $(`
         <div class="ws-card" style="border: 1px dashed rgba(16,185,129,0.5); background: transparent; justify-content: center; align-items: center; min-height: 120px;">
-            <div style="color: #10b981; font-weight: 700; font-size: 0.9rem;"><i class="fa-solid fa-plus"></i> Create New Style</div>
+            <div style="color: #10b981; font-weight: 700; font-size: 0.9rem;"><i class="fa-solid fa-plus"></i> 创建新风格</div>
         </div>
     `);
     createCard.on("click", () => renderStyleEditor(c, null));
@@ -535,9 +535,9 @@ export function renderStoryConfig(c) {
                         <span style="color:${isSel ? '#10b981' : 'var(--text-main)'};">${style.name}</span>
                         ${isSel ? '<i class="fa-solid fa-check" style="color:#10b981;"></i>' : ''}
                     </div>
-                    <div class="ws-card-desc" style="max-height: 40px; overflow: hidden;">${style.notes || "Custom AI generated style."}</div>
+                    <div class="ws-card-desc" style="max-height: 40px; overflow: hidden;">${style.notes || "自定义 AI 生成的风格。"}</div>
                     <div class="ws-card-actions">
-                        <button class="ws-btn-small ps-btn-edit"><i class="fa-solid fa-pen"></i> Edit</button>
+                        <button class="ws-btn-small ps-btn-edit"><i class="fa-solid fa-pen"></i> 编辑</button>
                         <button class="ws-btn-small ps-btn-regen" style="color: var(--gold); border-color: rgba(245,158,11,0.3);"><i class="fa-solid fa-rotate-right"></i></button>
                         <button class="ws-btn-small ps-btn-delete" style="color: #ef4444; border-color: rgba(239,68,68,0.3);"><i class="fa-solid fa-trash"></i></button>
                     </div>
@@ -549,7 +549,7 @@ export function renderStoryConfig(c) {
             });
             card.find(".ps-btn-edit").on("click", () => renderStyleEditor(c, style.id));
             card.find(".ps-btn-delete").on("click", () => {
-                if (confirm(`Delete "${style.name}"?`)) {
+                if (confirm(`删除“${style.name}”？`)) {
                     localProfile.customStyles = localProfile.customStyles.filter(s => s.id !== style.id);
                     if (localProfile.activeStyleId === style.id) { localProfile.activeStyleId = null; localProfile.aiRule = ""; }
                     saveProfileToMemory(); renderStyleLibrary(c);
@@ -562,7 +562,7 @@ export function renderStoryConfig(c) {
                     let rule = await runMeguminTask(orderText);
                     style.rule = cleanAIOutput(rule).trim();
                     if (localProfile.activeStyleId === style.id) localProfile.aiRule = style.rule;
-                    saveProfileToMemory(); renderStyleLibrary(c); toastr.success("Rule Regenerated!");
+                    saveProfileToMemory(); renderStyleLibrary(c); toastr.success("规则已重新生成！");
                 });
             });
             gridCust.append(card);
@@ -580,19 +580,19 @@ export function renderStoryConfig(c) {
                 <div class="ws-card-title" style="color: #c084fc;">${tpl.name}</div>
                 <div class="ws-card-desc">${tpl.notes}</div>
                 <button class="ws-btn-small ps-btn-tpl-gen" style="margin-top: 12px; width: 100%; background: rgba(168,85,247,0.1); color: #c084fc; border-color: #a855f7;">
-                    <i class="fa-solid fa-bolt"></i> Generate This Style
+                    <i class="fa-solid fa-bolt"></i> 生成此风格
                 </button>
             </div>
         `);
         card.find(".ps-btn-tpl-gen").on("click", async function () {
-            const btn = $(this); btn.prop("disabled", true).html(`<i class="fa-solid fa-spinner fa-spin"></i> Generating...`);
+            const btn = $(this); btn.prop("disabled", true).html(`<i class="fa-solid fa-spinner fa-spin"></i> 正在生成...`);
             await useMeguminEngine(async () => {
                 const orderText = `Inspired by ${tpl.notes}. Write a writing style rule based on: ${tpl.tags.join(", ")}. Direct instructions only. 2-3 paragraphs. No fluff.`;
                 let rule = await runMeguminTask(orderText);
                 const newId = "style_" + Date.now();
                 const newStyle = { id: newId, name: tpl.name, tags: [...tpl.tags], notes: tpl.notes, rule: cleanAIOutput(rule).trim() };
                 localProfile.customStyles.push(newStyle); localProfile.activeStyleId = newId; localProfile.aiRule = newStyle.rule;
-                saveProfileToMemory(); renderStyleLibrary(c); toastr.success(`${tpl.name} Added!`);
+                saveProfileToMemory(); renderStyleLibrary(c); toastr.success(`已添加 ${tpl.name}！`);
             });
         });
         gridGen.append(card);
@@ -649,7 +649,7 @@ export function renderStyleEditor(c, editId, presetData = null) {
     });
 
     c.empty();
-    let templateOptions = `<option value="" disabled selected>✨ Load a Pre-configured Template...</option>`;
+    let templateOptions = `<option value="" disabled selected>✨ 加载预配置模板...</option>`;
     if (hardcodedLogic.styleTemplates) {
         hardcodedLogic.styleTemplates.forEach((tpl, index) => { templateOptions += `<option value="${index}">${tpl.name}</option>`; });
     }
@@ -665,12 +665,12 @@ export function renderStyleEditor(c, editId, presetData = null) {
     c.append(`
         <div class="wstyle-editor-bar">
             <i class="fa-solid fa-pen-nib" style="color: #a855f7; font-size: 1.1rem;"></i>
-            <input type="text" id="ps_style_name" value="${currentStyle.name}" placeholder="Name your style…" />
+            <input type="text" id="ps_style_name" value="${currentStyle.name}" placeholder="为风格命名…" />
             <button id="ps_btn_save_style" class="ps-modern-btn primary" style="background: #10b981; color: #fff; padding: 8px 18px; white-space: nowrap;">
-                <i class="fa-solid fa-floppy-disk"></i> Save
+                <i class="fa-solid fa-floppy-disk"></i> 保存
             </button>
             <button id="ps_btn_cancel_style" class="ps-modern-btn secondary" style="color: var(--text-muted); padding: 8px 18px; white-space: nowrap;">
-                <i class="fa-solid fa-arrow-left"></i> Back
+                <i class="fa-solid fa-arrow-left"></i> 返回
             </button>
         </div>
     `);
@@ -680,7 +680,7 @@ export function renderStyleEditor(c, editId, presetData = null) {
         const tplIndex = $(this).val(); if (tplIndex === null) return;
         const chosenTpl = hardcodedLogic.styleTemplates[tplIndex];
         currentStyle.name = chosenTpl.name; currentStyle.tags = [...chosenTpl.tags]; currentStyle.notes = chosenTpl.notes; currentStyle.rule = ""; currentStyle.generatedOptions = [];
-        renderStyleEditor(c, editId, currentStyle); toastr.info(`${chosenTpl.name} loaded!`);
+        renderStyleEditor(c, editId, currentStyle); toastr.info(`已加载 ${chosenTpl.name}！`);
     });
 
     // ── TAG CATEGORIES ──
@@ -705,15 +705,15 @@ export function renderStyleEditor(c, editId, presetData = null) {
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
                 <div style="display: flex; align-items: center; gap: 8px;">
                     <i class="fa-solid fa-sparkles" style="color: var(--gold); font-size: 0.9rem;"></i>
-                    <span style="font-weight: 700; font-size: 0.88rem; color: var(--text-main);">AI Author Matches</span>
+                    <span style="font-weight: 700; font-size: 0.88rem; color: var(--text-main);">AI 作者匹配</span>
                 </div>
                 <button id="ps_btn_get_authors_style" class="ps-modern-btn secondary" style="padding: 6px 14px; font-size: 0.73rem;">
-                    <i class="fa-solid fa-lightbulb"></i> Generate Insights
+                    <i class="fa-solid fa-lightbulb"></i> 生成洞察
                 </button>
             </div>
             <div id="ps_ai_author_box_style" class="wstyle-tag-grid" style="min-height: 20px; margin-bottom: 14px;"></div>
             <div style="border-top: 1px dashed var(--border-color); padding-top: 14px;">
-                <input type="text" id="ps_style_notes" class="ps-modern-input" placeholder="Custom directives or inspiration notes…" value="${currentStyle.notes || ''}" />
+                <input type="text" id="ps_style_notes" class="ps-modern-input" placeholder="自定义指令或灵感笔记…" value="${currentStyle.notes || ''}" />
             </div>
         </div>
     `);
@@ -724,16 +724,16 @@ export function renderStyleEditor(c, editId, presetData = null) {
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
                 <div style="display: flex; align-items: center; gap: 8px;">
                     <i class="fa-solid fa-scroll" style="color: #a855f7; font-size: 0.85rem;"></i>
-                    <span style="font-weight: 700; font-size: 0.88rem; color: var(--text-main);">Generated Rule</span>
+                    <span style="font-weight: 700; font-size: 0.88rem; color: var(--text-main);">生成的规则</span>
                 </div>
                 <button id="ps_btn_generate_style" class="wstyle-gen-btn" style="padding: 8px 18px; font-size: 0.78rem;">
-                    <i class="fa-solid fa-bolt"></i> Generate Writing Rule
+                    <i class="fa-solid fa-bolt"></i> 生成写作规则
                 </button>
             </div>
-            <textarea id="ps_style_rule_text" placeholder="Select tags above and click Generate…">${currentStyle.rule || ''}</textarea>
+            <textarea id="ps_style_rule_text" placeholder="先选择上方标签，再点击生成…">${currentStyle.rule || ''}</textarea>
             <div class="wstyle-info-callout">
                 <i class="fa-solid fa-circle-info"></i>
-                <span>After generating or editing your rule, hit <strong>Save</strong> in the toolbar above to apply it to your library.</span>
+                <span>生成或编辑规则后，点击上方工具栏的 <strong>保存</strong> 将其应用到你的文库。</span>
             </div>
         </div>
     `);
@@ -759,16 +759,16 @@ export function renderStyleEditor(c, editId, presetData = null) {
 
     $("#ps_btn_cancel_style").on("click", () => renderStyleLibrary(c));
     $("#ps_btn_save_style").on("click", () => {
-        if (currentStyle.name.trim() === "") currentStyle.name = "Unnamed Style";
+        if (currentStyle.name.trim() === "") currentStyle.name = "未命名风格";
         if (!editId) { localProfile.customStyles.push(currentStyle); }
         else { const idx = localProfile.customStyles.findIndex(s => s.id === editId); if (idx > -1) localProfile.customStyles[idx] = currentStyle; }
         if (localProfile.activeStyleId === currentStyle.id) { localProfile.aiRule = currentStyle.rule; }
-        saveProfileToMemory(); renderStyleLibrary(c); toastr.success(`Saved "${currentStyle.name}"`);
+        saveProfileToMemory(); renderStyleLibrary(c); toastr.success(`已保存“${currentStyle.name}”`);
     });
 
     $("#ps_btn_get_authors_style").on("click", async function () {
-        if (!getCharacterKey()) return toastr.warning("Open a chat or group first so I can read the context!");
-        $(this).prop("disabled", true).html(`<i class="fa-solid fa-spinner fa-spin"></i> Brainstorming...`);
+        if (!getCharacterKey()) return toastr.warning("请先打开一个聊天或群组，以便我读取上下文！");
+        $(this).prop("disabled", true).html(`<i class="fa-solid fa-spinner fa-spin"></i> 头脑风暴中...`);
         await useMeguminEngine(async () => {
             const orderText = `Based on the active characters and scenario, give me EXACTLY 2 famous author names or literary writing styles (e.g. Edgar Allan Poe, Jane Austen style, Dark Fantasy Author) and 5 tags that fit the rp (e.g. internet culture, femboy, virtual game) whose writing style perfectly fits the tone and world. Return ONLY the 7 items separated by a comma. Do not explain them.`;
             let aiRawOutput = await runMeguminTask(orderText);
@@ -776,19 +776,19 @@ export function renderStyleEditor(c, editId, presetData = null) {
             if (aiTagsTemp.length > 0) {
                 currentStyle.tags = currentStyle.tags.filter(tag => !tag.endsWith("✨"));
                 currentStyle.generatedOptions = aiTagsTemp.map(tag => `${tag} ✨`);
-                renderInsights(); toastr.success(`Generated ${aiTagsTemp.length} insights!`);
+                renderInsights(); toastr.success(`已生成 ${aiTagsTemp.length} 条洞察！`);
             }
-        }); $(this).prop("disabled", false).html(`<i class="fa-solid fa-lightbulb"></i> Generate Insights`);
+        }); $(this).prop("disabled", false).html(`<i class="fa-solid fa-lightbulb"></i> 生成洞察`);
     });
 
     $("#ps_btn_generate_style").on("click", async function () {
-        if (currentStyle.tags.length === 0) return toastr.warning("Select tags first!");
-        $(this).prop("disabled", true).html(`<i class="fa-solid fa-spinner fa-spin"></i> Finalizing...`);
+        if (currentStyle.tags.length === 0) return toastr.warning("请先选择标签！");
+        $(this).prop("disabled", true).html(`<i class="fa-solid fa-spinner fa-spin"></i> 收尾中...`);
         await useMeguminEngine(async () => {
             const orderText = `Create a writing style prompt based on these traits:\n\nSelected style tags: ${currentStyle.tags.join(", ")}\n\nAdditional user instructions: ${currentStyle.notes}\n\nWrite a concise, well-structured writing style rule (100 words max) that the AI must follow. Combine all tags into a cohesive directive. Write it as a direct instruction. Do not use bullet points or introductory text.`;
             let rule = await runMeguminTask(orderText);
             currentStyle.rule = cleanAIOutput(rule).trim();
-            $("#ps_style_rule_text").val(currentStyle.rule); toastr.success("Live AI Rule Generated!");
-        }); $(this).prop("disabled", false).html(`<i class="fa-solid fa-bolt"></i> Generate Writing Rule`);
+            $("#ps_style_rule_text").val(currentStyle.rule); toastr.success("实时 AI 规则已生成！");
+        }); $(this).prop("disabled", false).html(`<i class="fa-solid fa-bolt"></i> 生成写作规则`);
     });
 }

@@ -49,30 +49,30 @@ export function renderMemoryCore(c) {
                     <i class="fa-solid fa-memory"></i>
                 </div>
                 <div>
-                    <h2>Memory Core</h2>
-                    <p>3-Tier Context Management: Working, Short-Term, and Long-Term Vector DB.</p>
+                    <h2>记忆核心</h2>
+                    <p>三层上下文管理：工作记忆、短期记忆与长期向量库。</p>
                 </div>
             </div>
             <div id="mem_header_badge" class="mtab-header-badge" style="background: ${mem.enabled ? 'rgba(16,185,129,0.12)' : 'rgba(255,255,255,0.06)'}; color: ${mem.enabled ? '#10b981' : 'var(--text-muted)'}; border: 1px solid ${mem.enabled ? 'rgba(16,185,129,0.25)' : 'var(--border-color)'};">
-                <i class="fa-solid fa-${mem.enabled ? 'circle-check' : 'circle-xmark'}" style="font-size:0.6rem;"></i> ${mem.enabled ? 'Enabled' : 'Disabled'}
+                <i class="fa-solid fa-${mem.enabled ? 'circle-check' : 'circle-xmark'}" style="font-size:0.6rem;"></i> ${mem.enabled ? '已启用' : '已禁用'}
             </div>
         </div>
 
         <div class="mtab-callout gold" style="margin-bottom: 16px;">
             <i class="fa-solid fa-triangle-exclamation"></i>
-            <span><strong>Before you switch this on, two things.</strong>
-            <br>&bull; <strong>It is not cache friendly.</strong> Retrieved memories sit ahead of the
+            <span><strong>开启之前，先说两件事。</strong>
+            <br>&bull; <strong>它不友好缓存。</strong> Retrieved memories sit ahead of the
             chat history in the prompt, so when what it retrieves changes, your provider re-reads the
             whole history instead of serving it from cache.
-            <br>&bull; <strong>Use Semantic Embeddings, not TF-IDF.</strong> Keyword matching is the
+            <br>&bull; <strong>使用语义嵌入，而非 TF-IDF。</strong> Keyword matching is the
             fallback and it shows &mdash; semantic search finds the right archive far more often.</span>
         </div>
 
         <!-- MASTER TOGGLE -->
         <div class="mtab-toggle-row ${mem.enabled ? 'active' : ''}" id="mem_enable_card" style="margin-bottom: 20px;">
             <div class="toggle-info">
-                <div class="toggle-label"><i class="fa-solid fa-microchip" style="color:#10b981;"></i> Enable Memory Core</div>
-                <div class="toggle-desc">Archiving happens silently in the background. Old messages fade in the UI and are replaced in the prompt with injected summaries.</div>
+                <div class="toggle-label"><i class="fa-solid fa-microchip" style="color:#10b981;"></i> 启用记忆核心</div>
+                <div class="toggle-desc">归档在后台静默进行。旧消息在界面中淡出，并在提示词中被注入的摘要替换。</div>
             </div>
             <div class="ps-switch"></div>
         </div>
@@ -83,134 +83,134 @@ export function renderMemoryCore(c) {
             <div class="mtab-panel" style="margin-bottom:16px;">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 10px;">
                     <div class="mtab-panel-title green" style="margin:0; display: flex; align-items: center; gap: 8px;">
-                        <i class="fa-solid fa-chart-gantt"></i> Context Allocation Dashboard
+                        <i class="fa-solid fa-chart-gantt"></i> 上下文分配仪表盘
                         <input type="file" id="mem_file_import" accept=".json" style="display: none;">
-                        <button id="mem_btn_import" class="ps-modern-btn secondary" style="padding: 2px 6px; font-size: 0.65rem; color: #10b981; border-color: rgba(16, 185, 129, 0.3);" title="Import Memory Core"><i class="fa-solid fa-file-import"></i></button>
-                        <button id="mem_btn_export" class="ps-modern-btn secondary" style="padding: 2px 6px; font-size: 0.65rem; color: #3b82f6; border-color: rgba(59, 130, 246, 0.3);" title="Export Memory Core"><i class="fa-solid fa-download"></i></button>
+                        <button id="mem_btn_import" class="ps-modern-btn secondary" style="padding: 2px 6px; font-size: 0.65rem; color: #10b981; border-color: rgba(16, 185, 129, 0.3);" title="导入记忆核心"><i class="fa-solid fa-file-import"></i></button>
+                        <button id="mem_btn_export" class="ps-modern-btn secondary" style="padding: 2px 6px; font-size: 0.65rem; color: #3b82f6; border-color: rgba(59, 130, 246, 0.3);" title="导出记忆核心"><i class="fa-solid fa-download"></i></button>
                     </div>
                     <div style="font-size: 0.75rem; font-weight: 800; color: #10b981; background: rgba(16,185,129,0.1); padding: 4px 12px; border-radius: 12px; border: 1px solid rgba(16,185,129,0.3); box-shadow: 0 0 10px rgba(16,185,129,0.2);">
-                        <i class="fa-solid fa-floppy-disk"></i> <span id="mem_live_tokens_saved">~0</span> Tokens Saved
+                        <i class="fa-solid fa-floppy-disk"></i> <span id="mem_live_tokens_saved">~0</span> 已节省的 token
                     </div>
                 </div>
                 <div style="font-size: 0.75rem; color: var(--text-muted); display: flex; justify-content: space-between; margin-bottom: 5px;">
-                    <span><i class="fa-solid fa-circle" style="color: #3b82f6; font-size: 0.5rem;"></i> Vault</span>
+                    <span><i class="fa-solid fa-circle" style="color: #3b82f6; font-size: 0.5rem;"></i> 记忆库</span>
                     <span id="mem_dash_short_lbl" style="display:${mem.architecture === 'raw_long' ? 'none' : 'inline'};">
-                        <i class="fa-solid fa-circle" style="color: #f59e0b; font-size: 0.5rem;"></i> Short-Term
+                        <i class="fa-solid fa-circle" style="color: #f59e0b; font-size: 0.5rem;"></i> 短期
                     </span>
-                    <span><i class="fa-solid fa-circle-half-stroke" style="color: #047857; font-size: 0.5rem;"></i> Pending</span>
-                    <span><i class="fa-solid fa-circle" style="color: #10b981; font-size: 0.5rem;"></i> Working</span>
+                    <span><i class="fa-solid fa-circle-half-stroke" style="color: #047857; font-size: 0.5rem;"></i> 待处理</span>
+                    <span><i class="fa-solid fa-circle" style="color: #10b981; font-size: 0.5rem;"></i> 工作中</span>
                 </div>
                 <div class="mem-progress-container" style="background: rgba(0,0,0,0.6); display: flex;">
                     <!-- Oldest on Left -->
-                    <div id="mem_bar_long" style="background: #3b82f6; transition: width 0.2s ease;" title="Vaulted (Archived)"></div>
-                    <div id="mem_bar_short" style="background: #f59e0b; transition: width 0.2s ease;" title="Short-Term (Summaries)"></div>
-                    <div id="mem_bar_pend" style="background: repeating-linear-gradient(45deg, #047857, #047857 10px, #10b981 10px, #10b981 20px); transition: width 0.2s ease;" title="Pending (Active Raw)"></div>
-                    <div id="mem_bar_work" style="background: #10b981; transition: width 0.2s ease;" title="Working (Active Raw)"></div>
+                    <div id="mem_bar_long" style="background: #3b82f6; transition: width 0.2s ease;" title="已入库存档"></div>
+                    <div id="mem_bar_short" style="background: #f59e0b; transition: width 0.2s ease;" title="短期（摘要）"></div>
+                    <div id="mem_bar_pend" style="background: repeating-linear-gradient(45deg, #047857, #047857 10px, #10b981 10px, #10b981 20px); transition: width 0.2s ease;" title="待处理（活跃原文）"></div>
+                    <div id="mem_bar_work" style="background: #10b981; transition: width 0.2s ease;" title="工作中（活跃原文）"></div>
                     <!-- Newest on Right -->
                 </div>
                 <div style="display: flex; justify-content: space-between; font-size: 0.65rem; color: var(--text-muted); margin-top: 4px; opacity: 0.7; font-weight: bold;">
-                    <span>&larr; Oldest (First Message)</span>
-                    <span>Newest (Last Message) &rarr;</span>
+                    <span>&larr; 最旧（第一条消息）</span>
+                    <span>最新（最后一条消息） &rarr;</span>
                 </div>
                 <div style="margin-top: 10px; font-size: 0.7rem; color: var(--text-muted); text-align: center;" id="mem_status_text">
-                    Monitoring Chat History...
+                    正在监控聊天历史...
                 </div>
             </div>
 
             <!-- Engine Settings -->
             <div class="mtab-panel" style="margin-bottom:16px;">
-                <div class="mtab-panel-title gold"><i class="fa-solid fa-gears"></i> Extraction Engine Settings</div>
+                <div class="mtab-panel-title gold"><i class="fa-solid fa-gears"></i> 提取引擎设置</div>
                 
                 <!-- Quick Help / Hint -->
                 <div style="background: rgba(245,158,11,0.1); border-left: 3px solid #f59e0b; padding: 12px; border-radius: 6px; margin-bottom: 16px; font-size: 0.8rem; color: var(--text-main);">
-                    <div style="color: #f59e0b; font-weight: bold; margin-bottom: 6px;"><i class="fa-solid fa-circle-info"></i> How to Use</div>
+                    <div style="color: #f59e0b; font-weight: bold; margin-bottom: 6px;"><i class="fa-solid fa-circle-info"></i> 使用方法</div>
                     <div style="color: var(--text-muted); line-height: 1.4;">
-                        1- Choose your Memory Architecture and how much of each type you want (default is 30 raw, 70 summary).<br>
-                        2- Hit <b>Apply & Extract Pending</b> to save and start it.<br>
-                        3- You can choose between manual and auto. For manual, you have to hit <b>Apply & Extract Pending</b> to trigger it.
+                        1- 选择你的记忆架构以及每种类型想要多少（默认 30 原文、70 摘要）。<br>
+                        2- 点击 <b>应用并提取待处理</b> 来保存并启动。<br>
+                        3- 你可以选择手动或自动。手动模式下，需要点击 <b>应用并提取待处理</b> 来触发。
                     </div>
                 </div>
 
                 <!-- Architecture Preset Dropdown -->
                 <div class="mtab-setting-row" style="padding-top: 0;">
                     <div class="set-info">
-                        <div class="set-label">Memory Architecture</div>
-                        <div class="set-desc">Configure how memory tiers are structured: Raw text, short-term summaries, and long-term vector database, or bypass summaries to save API usage.</div>
+                        <div class="set-label">记忆架构</div>
+                        <div class="set-desc">配置记忆层级结构：原文、短期摘要与长期向量数据库，或跳过摘要以节省 API 用量。</div>
                     </div>
                     <select id="mem_architecture" class="ps-modern-input" style="width: 280px; cursor: pointer; color: var(--gold); border-color: rgba(245,158,11,0.3);">
-                        <option value="raw_short_long" ${mem.architecture === 'raw_short_long' ? 'selected' : ''}>Raw Text + Short-Term Summaries + Vault</option>
-                        <option value="raw_long" ${mem.architecture === 'raw_long' ? 'selected' : ''}>Raw Text + Vault Directly (Skip Summaries)</option>
+                        <option value="raw_short_long" ${mem.architecture === 'raw_short_long' ? 'selected' : ''}>原文 + 短期摘要 + 记忆库</option>
+                        <option value="raw_long" ${mem.architecture === 'raw_long' ? 'selected' : ''}>原文 + 直接入库（跳过摘要）</option>
                     </select>
                 </div>
 
                 <!-- Sliders Container -->
                 <div style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 10px; border: 1px solid var(--border-color); margin-bottom: 15px;">
                     <div class="mtab-param-row">
-                        <span class="param-label" style="width:120px;">Working Limit</span>
+                        <span class="param-label" style="width:120px;">工作上限</span>
                         <input type="range" id="mem_work_slider" min="${mem.chunkSize || 10}" max="300" step="${mem.chunkSize || 10}" value="${mem.workingLimit}">
                         <span id="mem_work_val" style="font-size:0.8rem; font-weight:bold; min-width:30px; text-align:right;">${mem.workingLimit}</span>
                     </div>
                     <div style="font-size: 0.72rem; color: var(--text-muted); margin-left: 130px; margin-top: -4px; margin-bottom: 12px; line-height: 1.3;">
-                        Number of recent messages kept in raw, unmodified text format in the prompt. High limits consume more active context space.
+                        在提示词中以未修改的原文格式保留的最近消息数。高上限会占用更多活跃上下文空间。
                     </div>
 
                     <div class="mtab-param-row" id="mem_short_slider_row" style="display:${mem.architecture === 'raw_long' ? 'none' : 'flex'};">
-                        <span class="param-label" style="width:120px;">Short-Term Limit</span>
+                        <span class="param-label" style="width:120px;">短期上限</span>
                         <input type="range" id="mem_short_slider" min="${mem.chunkSize || 10}" max="1000" step="${mem.chunkSize || 10}" value="${mem.shortTermLimit}">
                         <span id="mem_short_val" style="font-size:0.8rem; font-weight:bold; min-width:30px; text-align:right;">${mem.shortTermLimit}</span>
                     </div>
                     <div id="mem_short_desc_row" style="font-size: 0.72rem; color: var(--text-muted); margin-left: 130px; margin-top: -4px; margin-bottom: 12px; line-height: 1.3; display:${mem.architecture === 'raw_long' ? 'none' : 'block'};">
-                        Range of past messages to keep summarized. Summaries are automatically created in blocks and injected chronologically.
+                        需要保持摘要状态的过往消息范围。摘要会自动分批创建并按时间顺序注入。
                     </div>
 
                     <!-- CHUNK SIZE SLIDER -->
                     <div class="mtab-param-row">
-                        <span class="param-label" style="width:120px;">Chunk Size</span>
+                        <span class="param-label" style="width:120px;">分块大小</span>
                         <input type="range" id="mem_chunk_slider" min="10" max="40" step="10" value="${mem.chunkSize || 10}">
                         <span id="mem_chunk_val" style="font-size:0.8rem; font-weight:bold; min-width:30px; text-align:right;">${mem.chunkSize || 10}</span>
                     </div>
                     <div style="font-size: 0.72rem; color: var(--text-muted); margin-left: 130px; margin-top: -4px; margin-bottom: 8px; line-height: 1.3;">
-                        Smaller chunks = more granular summaries but more API calls. Larger chunks = fewer calls but coarser memory.
+                        更小的分块 = 更细粒度的摘要，但更多 API 调用。更大的分块 = 更少调用，但记忆更粗。
                     </div>
                     
                     <!-- NEW APPLY BUTTON -->
                     <div style="margin-top: 15px; display: flex; justify-content: flex-end; border-top: 1px dashed var(--border-color); padding-top: 15px;">
                         <button id="mem_btn_apply_limits" class="ps-modern-btn secondary" style="color: #10b981; border-color: rgba(16,185,129,0.3); font-size: 0.75rem; padding: 6px 14px;">
-                            <i class="fa-solid fa-arrows-rotate"></i> Apply & Extract Pending
+                            <i class="fa-solid fa-arrows-rotate"></i> 应用并提取待处理
                         </button>
                     </div>
                 </div>
 
                 <div class="mtab-setting-row" style="border-top: 1px solid rgba(255,255,255,0.04); padding-top: 14px;">
                     <div class="set-info">
-                        <div class="set-label">Generator Backend</div>
-                        <div class="set-desc">Bypass standard preset configs for fast direct API calls, or use defined Megumin engine settings for character-style summaries.</div>
+                        <div class="set-label">生成后端</div>
+                        <div class="set-desc">绕过标准预设配置以进行快速直接 API 调用，或使用已定义的 Megumin 引擎设置生成角色风格摘要。</div>
                     </div>
                     <select id="mem_backend" class="ps-modern-input" style="width: 220px; cursor: pointer;">
-                        <option value="direct" ${mem.backend === 'direct' ? 'selected' : ''}>Direct API Call (Fast)</option>
-                        <option value="preset" ${mem.backend === 'preset' ? 'selected' : ''}>Megumin Engine Preset</option>
+                        <option value="direct" ${mem.backend === 'direct' ? 'selected' : ''}>直接 API 调用（快速）</option>
+                        <option value="preset" ${mem.backend === 'preset' ? 'selected' : ''}>Megumin 引擎预设</option>
                     </select>
                 </div>
                 <div class="mtab-setting-row" style="border-top: 1px solid rgba(255,255,255,0.04); padding-top: 14px;">
                     <div class="set-info">
-                        <div class="set-label">Vault Scanner Engine</div>
-                        <div class="set-desc">Select the retrieval engine for matching long-term memories. TF-IDF runs locally, while Semantic Embeddings use Vector Storage.</div>
+                        <div class="set-label">记忆库扫描引擎</div>
+                        <div class="set-desc">选择用于匹配长期记忆的检索引擎。TF-IDF 在本地运行，语义嵌入使用向量存储。</div>
                     </div>
                     <select id="mem_scanner_engine" class="ps-modern-input" style="width: 280px; cursor: pointer;">
-                        <option value="tfidf" ${mem.scannerEngine === 'tfidf' ? 'selected' : ''}>TF-IDF Keyword Matcher</option>
-                        <option value="semantic" ${mem.scannerEngine === 'semantic' ? 'selected' : ''}>Semantic Embeddings (ST Native API)</option>
+                        <option value="tfidf" ${mem.scannerEngine === 'tfidf' ? 'selected' : ''}>TF-IDF 关键词匹配器</option>
+                        <option value="semantic" ${mem.scannerEngine === 'semantic' ? 'selected' : ''}>语义嵌入（ST 原生 API）</option>
                     </select>
                 </div>
                 <div class="mtab-setting-row">
                     <div class="set-info">
-                        <div class="set-label">Auto-Trigger Mode</div>
-                        <div class="set-desc">Trigger background memory sweeps. 'Every Reply' checks after every message, wait-pooling messages until a full chunk accumulates.</div>
+                        <div class="set-label">自动触发模式</div>
+                        <div class="set-desc">触发后台记忆清扫。“每条回复”会在每条消息后检查，将消息汇集等待，直到积累成完整分块。</div>
                     </div>
                     <div style="display:flex; gap:8px; align-items:center;">
                         <select id="mem_trigger" class="ps-modern-input" style="width: 150px; cursor: pointer;">
-                            <option value="manual" ${mem.triggerMode === 'manual' ? 'selected' : ''}>Manual Only</option>
-                            <option value="every" ${mem.triggerMode === 'every' ? 'selected' : ''}>Every Reply</option>
-                            <option value="frequency" ${mem.triggerMode === 'frequency' ? 'selected' : ''}>Every N Replies</option>
+                            <option value="manual" ${mem.triggerMode === 'manual' ? 'selected' : ''}>仅手动</option>
+                            <option value="every" ${mem.triggerMode === 'every' ? 'selected' : ''}>每条回复</option>
+                            <option value="frequency" ${mem.triggerMode === 'frequency' ? 'selected' : ''}>每 N 条回复</option>
                         </select>
                         <select id="mem_freq_val" class="ps-modern-input" style="width: 80px; cursor: pointer; display: ${mem.triggerMode === 'frequency' ? 'block' : 'none'};">
                             <option value="5" ${mem.autoFreq === 5 ? 'selected' : ''}>5</option>
@@ -227,11 +227,11 @@ export function renderMemoryCore(c) {
             <div class="mtab-panel" style="margin-bottom:16px;">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
                     <div class="mtab-panel-title gold" style="margin-bottom:0;">
-                        <i class="fa-solid fa-box-archive"></i> Short-Term Memory
+                        <i class="fa-solid fa-box-archive"></i> 短期记忆
                         <span id="mem_processing_spinner" style="display:none; margin-left: 10px;" class="mem-spinner"><i class="fa-solid fa-circle-notch"></i></span>
                         <span id="mem_processing_progress" style="display:none; margin-left: 8px; font-size: 0.72rem; color: var(--text-muted); font-weight: normal; vertical-align: middle;"></span>
                     </div>
-                    <button id="mem_btn_clear_short" class="ps-modern-btn secondary" style="padding: 4px 10px; font-size: 0.72rem; color: #ef4444; border-color: rgba(239, 68, 68, 0.3);"><i class="fa-solid fa-trash-can"></i> Clear All</button>
+                    <button id="mem_btn_clear_short" class="ps-modern-btn secondary" style="padding: 4px 10px; font-size: 0.72rem; color: #ef4444; border-color: rgba(239, 68, 68, 0.3);"><i class="fa-solid fa-trash-can"></i> 全部清空</button>
                 </div>
                 
                 <div id="mem_short_term_list">
@@ -242,13 +242,13 @@ export function renderMemoryCore(c) {
             <!-- Long-Term Vault -->
             <div class="mtab-panel">
                 <div class="mtab-panel-title blue" style="display:flex; justify-content:space-between;">
-                    <span><i class="fa-solid fa-database"></i> Long-Term Vault (Vector Storage)</span>
+                    <span><i class="fa-solid fa-database"></i> 长期记忆库（向量存储）</span>
                     <span id="mem_vault_count" style="font-size:0.7rem; color:var(--text-muted);">0 Entries</span>
                 </div>
                 <div style="display: flex; gap: 10px; margin-bottom: 10px;">
-                    <input type="text" id="mem_vault_search" class="ps-modern-input" placeholder="Search archived memories..." style="flex: 1; border-color: rgba(59,130,246,0.3);">
-                    <button id="mem_btn_test_vector" class="ps-modern-btn secondary" style="color: #3b82f6; border-color: rgba(59,130,246,0.3);" title="See what memories the AI is retrieving right now"><i class="fa-solid fa-radar"></i> Test Scanner</button>
-                    <button id="mem_btn_clear_vault" class="ps-modern-btn secondary" style="color: #ef4444; border-color: rgba(239, 68, 68, 0.3);" title="Delete all Vault Archives"><i class="fa-solid fa-trash-can"></i> Clear All</button>
+                    <input type="text" id="mem_vault_search" class="ps-modern-input" placeholder="搜索已归档的记忆..." style="flex: 1; border-color: rgba(59,130,246,0.3);">
+                    <button id="mem_btn_test_vector" class="ps-modern-btn secondary" style="color: #3b82f6; border-color: rgba(59,130,246,0.3);" title="查看 AI 当前正在检索的记忆"><i class="fa-solid fa-radar"></i> 测试扫描器</button>
+                    <button id="mem_btn_clear_vault" class="ps-modern-btn secondary" style="color: #ef4444; border-color: rgba(239, 68, 68, 0.3);" title="删除全部记忆库归档"><i class="fa-solid fa-trash-can"></i> 全部清空</button>
                 </div>
                 <div id="mem_vault_list" style="max-height: 250px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px;">
                     <!-- Vault items injected here -->
@@ -260,16 +260,16 @@ export function renderMemoryCore(c) {
     // Clear All Short-Term Memory
     $("#mem_btn_clear_short").off("click").on("click", function () {
         const mem = localProfile.memoryCore;
-        if (!mem.shortTermChunks || mem.shortTermChunks.length === 0) return toastr.info("Short-Term memory is already empty.");
+        if (!mem.shortTermChunks || mem.shortTermChunks.length === 0) return toastr.info("短期记忆已为空。");
         
-        if (confirm("Are you sure you want to delete ALL Short-Term Memory chunks? They will revert to 'Pending' status.")) {
+        if (confirm("确定要删除全部短期记忆分块吗？它们将恢复为“待处理”状态。")) {
             mem.shortTermChunks = [];
             delete mem._archivedSet; mem._tokensDirty = true;
             saveProfileToMemory();
             memRenderAccordion();
             memRenderDashboard();
             updateMemoryVisuals();
-            toastr.success("Short-Term Memory cleared.");
+            toastr.success("短期记忆已清空。");
         }
     });
 
@@ -291,10 +291,10 @@ export function renderMemoryCore(c) {
             try {
                 const data = JSON.parse(evt.target.result);
                 if (!data.shortTermChunks && !data.longTermVault) {
-                    toastr.error("Invalid Memory Core file format.");
+                    toastr.error("记忆核心文件格式无效。");
                     return;
                 }
-                if (confirm("Do you want to merge imported memories with your existing ones? (Click 'Cancel' to overwrite)")) {
+                if (confirm("是否将导入的记忆与现有记忆合并？（点击“取消”则覆盖）")) {
                     if (data.shortTermChunks) localProfile.memoryCore.shortTermChunks = (localProfile.memoryCore.shortTermChunks || []).concat(data.shortTermChunks);
                     if (data.longTermVault) localProfile.memoryCore.longTermVault = (localProfile.memoryCore.longTermVault || []).concat(data.longTermVault);
                 } else {
@@ -308,9 +308,9 @@ export function renderMemoryCore(c) {
                 if (typeof memRenderVault === "function") memRenderVault($("#mem_vault_search").val() || "");
                 if (typeof memRenderDashboard === "function") memRenderDashboard();
                 updateMemoryVisuals();
-                toastr.success("Memories imported successfully!");
+                toastr.success("记忆导入成功！");
             } catch (err) {
-                toastr.error("Failed to parse JSON file.");
+                toastr.error("解析 JSON 文件失败。");
             }
             $("#mem_file_import").val("");
         };
@@ -319,9 +319,9 @@ export function renderMemoryCore(c) {
 
     $("#mem_btn_clear_vault").off("click").on("click", async function () {
         const mem = localProfile.memoryCore;
-        if (!mem.longTermVault || mem.longTermVault.length === 0) return toastr.info("Vault is already empty.");
+        if (!mem.longTermVault || mem.longTermVault.length === 0) return toastr.info("记忆库已为空。");
         
-        if (confirm("WARNING: Are you sure you want to permanently delete ALL Long-Term Vault archives? This cannot be undone.")) {
+        if (confirm("警告：确定要永久删除全部长期记忆库归档吗？此操作无法撤销。")) {
             
             // If Semantic Mode is active, wipe them from the actual SillyTavern Vector DB
             if (mem.scannerEngine === 'semantic') {
@@ -335,14 +335,14 @@ export function renderMemoryCore(c) {
             memRenderVault($("#mem_vault_search").val() || "");
             memRenderDashboard();
             updateMemoryVisuals();
-            toastr.success("Long-Term Vault cleared.");
+            toastr.success("长期记忆库已清空。");
         }
     });
 
     // --- PROMPT EDITOR UI ---
     const memEditor = renderPromptEditor({
         id: "mem_prompt_editor",
-        title: "Advanced: Edit Prompts",
+        title: "高级：编辑提示词",
         defaultData: DEFAULT_PROMPTS.memoryCore,
         currentData: mem.customPrompts,
         enabled: mem.customPromptsEnabled, // <-- NEW
@@ -394,7 +394,7 @@ export function renderMemoryCore(c) {
             $("#mem_header_badge").css({ background: 'rgba(16,185,129,0.12)', color: '#10b981', 'border-color': 'rgba(16,185,129,0.25)' }).html(`<i class="fa-solid fa-circle-check" style="font-size:0.6rem;"></i> Enabled`);
             
             if (isFirstEnable) {
-                toastr.success("Memory Core activated! Auto-archiving on every reply.", "Megumin Suite");
+                toastr.success("记忆核心已激活！将在每条回复时自动归档。", "Megumin Suite");
                 // Re-render to update the dropdowns and settings values in the UI
                 setTimeout(() => renderMemoryCore(c), 200);
             } else {
@@ -454,14 +454,14 @@ export function renderMemoryCore(c) {
             // reading of it — say plainly that there was nothing to index.
             const count = (mem.longTermVault || []).length;
             if (count === 0) {
-                toastr.info("Semantic mode is on, but the vault is empty — nothing to index yet.", "Megumin Suite");
+                toastr.info("语义模式已开启，但记忆库为空——暂无内容可索引。", "Megumin Suite");
                 return;
             }
-            toastr.info("Semantic Mode active. Syncing vault to Vector Database...");
+            toastr.info("语义模式已激活。正在将记忆库同步到向量数据库...");
             const inserted = await memInsertToVectorDB(mem.longTermVault);
             await memUpdateSemanticQuery();
-            if (inserted) toastr.success(`Vector Database Synced! (${count} archive${count === 1 ? "" : "s"})`);
-            else toastr.error("Vector sync failed, see the console for the server response.");
+            if (inserted) toastr.success(`向量数据库已同步！（${count} 条归档${count === 1 ? "" : "s"}）`);
+            else toastr.error("向量同步失败，请查看控制台中的服务器响应。");
         }
     });
 
@@ -537,7 +537,7 @@ export function renderMemoryCore(c) {
 
         const workingLimit = mem.workingLimit || 30;
         if (totalRealMessages > workingLimit) {
-            toastr.info("Starting automatic extraction to fill new limits...");
+            toastr.info("正在启动自动提取以填充新的上限...");
             await memProcessPendingChunks(); // Start extraction!
         }
     });
@@ -559,14 +559,14 @@ export function renderMemoryCore(c) {
             if (currentSemanticMatches.length === 0) {
                 const vaultCount = (mem?.longTermVault || []).length;
                 if (vaultCount === 0) {
-                    toastr.info("Vault is empty, so semantic mode has nothing to match yet.");
+                    toastr.info("记忆库为空，语义模式暂无匹配内容。");
                 } else {
                     toastr.warning(`Vector index returned nothing for ${vaultCount} vault archives. Either the inserts never landed or the query failed, and both print to the console. Re-pick Semantic in the engine dropdown to re-run the inserts.`);
                 }
             } else {
                 html += `<div style="background: rgba(168,85,247,0.1); border-left: 3px solid #a855f7; padding: 10px; border-radius: 4px; margin-bottom: 5px;">
-                <div style="color: #a855f7; font-weight: bold; margin-bottom: 4px;">Semantic Embeddings Engine Active</div>
-                <div style="color: var(--text-muted); font-size: 0.75rem;">Using SillyTavern's Vector Storage API (LanceDB) to find the deep contextual meaning of the last 2 messages.</div>
+                <div style="color: #a855f7; font-weight: bold; margin-bottom: 4px;">语义嵌入引擎已激活</div>
+                <div style="color: var(--text-muted); font-size: 0.75rem;">正在使用 SillyTavern 的向量存储 API（LanceDB）寻找以下内容的深层上下文含义： last 2 messages.</div>
             </div>`;
             }
         }
@@ -583,7 +583,7 @@ export function renderMemoryCore(c) {
         const matches = memGetRelevantVaultEntries();
 
         if (matches.length === 0) {
-            html += `<div style="padding: 10px;">No highly relevant memories found for the current context.</div>`;
+            html += `<div style="padding: 10px;">当前上下文没有找到高度相关的记忆。</div>`;
         } else {
             html += `<div style="color: var(--text-muted); margin-bottom: 5px;">The following archives will be injected into the prompt:</div>`;
             matches.forEach(m => {
@@ -600,7 +600,7 @@ export function renderMemoryCore(c) {
 
         const { Popup, POPUP_TYPE } = typeof getContext === "function" ? getContext() : window;
         if (Popup) {
-            const popup = new Popup(html, POPUP_TYPE.TEXT, "Vault Scanner Results", { wide: true });
+            const popup = new Popup(html, POPUP_TYPE.TEXT, "记忆库扫描结果", { wide: true });
             await popup.show();
         }
     });
@@ -689,7 +689,7 @@ export function memRenderAccordion() {
     list.empty();
 
     if (!mem.shortTermChunks || mem.shortTermChunks.length === 0) {
-        list.append(`<div style="text-align: center; color: var(--text-muted); font-size: 0.8rem; padding: 10px;">No chunks generated yet. Generate chat messages to trigger background summarization.</div>`);
+        list.append(`<div style="text-align: center; color: var(--text-muted); font-size: 0.8rem; padding: 10px;">尚未生成任何分块。生成聊天消息以触发后台摘要。</div>`);
         return;
     }
 
@@ -712,8 +712,8 @@ export function memRenderAccordion() {
                     </div>
                     <div class="mem-accordion-body">
                         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                            <div style="font-size:0.7rem; color:var(--text-muted);">You can manually edit this state extraction before it gets pushed to the Vector DB.</div>
-                            <button class="mem_short_del" data-id="${chunk.id}" style="background: transparent; border: none; color: #ef4444; cursor: pointer; font-size: 0.8rem; padding: 2px 6px;" title="Delete Chunk"><i class="fa-solid fa-trash"></i></button>
+                            <div style="font-size:0.7rem; color:var(--text-muted);">在推送到向量数据库之前，你可以手动编辑此状态提取。</div>
+                            <button class="mem_short_del" data-id="${chunk.id}" style="background: transparent; border: none; color: #ef4444; cursor: pointer; font-size: 0.8rem; padding: 2px 6px;" title="删除分块"><i class="fa-solid fa-trash"></i></button>
                         </div>
                         <textarea class="mem_chunk_edit" data-id="${chunk.id}">${chunk.summary}</textarea>
                     </div>
@@ -739,7 +739,7 @@ export function memRenderAccordion() {
 
             // Delete button logic
             acc.find(".mem_short_del").on("click", function () {
-                if (confirm(`Delete short-term memory chunk [Messages: ${chunk.id}]? It will be permanently removed.`)) {
+                if (confirm(`删除短期记忆分块 [Messages: ${chunk.id}]？它将被永久移除。`)) {
                     const id = $(this).attr("data-id");
                     localProfile.memoryCore.shortTermChunks = localProfile.memoryCore.shortTermChunks.filter(c => c.id !== id);
                     mem._tokensDirty = true; delete mem._archivedSet;
@@ -761,7 +761,7 @@ export function memRenderAccordion() {
         // Add "Load More" button if there are more entries
         if (renderedCount < chunks.length) {
             const remaining = chunks.length - renderedCount;
-            const loadMoreBtn = $(`<button class="mem-accordion-load-more ps-modern-btn secondary" style="width: 100%; padding: 8px; margin-top: 6px; font-size: 0.75rem; color: #f59e0b; border-color: rgba(245,158,11,0.3);"><i class="fa-solid fa-chevron-down"></i> Load More (${remaining} remaining)</button>`);
+            const loadMoreBtn = $(`<button class="mem-accordion-load-more ps-modern-btn secondary" style="width: 100%; padding: 8px; margin-top: 6px; font-size: 0.75rem; color: #f59e0b; border-color: rgba(245,158,11,0.3);"><i class="fa-solid fa-chevron-down"></i> 加载更多（剩余 ${remaining}）</button>`);
             loadMoreBtn.on("click", function () { renderAccordionBatch(); });
             list.append(loadMoreBtn);
         }
@@ -804,7 +804,7 @@ export function memRenderVault(searchFilter = "") {
 
     if (mem.longTermVault.length === 0) {
         const passMsg = (mem.workingLimit || 30) + (mem.shortTermLimit || 70);
-        list.append(`<div style="text-align: center; color: var(--text-muted); font-size: 0.8rem; padding: 10px;">Vault is empty. Chunks automatically migrate here once they pass message ${passMsg}.</div>`);
+        list.append(`<div style="text-align: center; color: var(--text-muted); font-size: 0.8rem; padding: 10px;">记忆库为空。分块在超过消息 ${passMsg} 后会自动迁移到这里。</div>`);
         return;
     }
 
@@ -833,7 +833,7 @@ export function memRenderVault(searchFilter = "") {
                         <span>${dateStr}</span>
                     </div>
                     <textarea class="ps-modern-input mem_vault_edit" data-id="${chunk.id}" style="height: 120px; resize: vertical; font-size: 0.75rem; border: none; background: transparent; padding: 0;">${content}</textarea>
-                    <button class="mem_vault_del" data-id="${chunk.id}" style="position: absolute; bottom: 8px; right: 10px; background: transparent; border: none; color: #ef4444; cursor: pointer; font-size: 0.8rem;" title="Delete Archive"><i class="fa-solid fa-trash"></i></button>
+                    <button class="mem_vault_del" data-id="${chunk.id}" style="position: absolute; bottom: 8px; right: 10px; background: transparent; border: none; color: #ef4444; cursor: pointer; font-size: 0.8rem;" title="删除归档"><i class="fa-solid fa-trash"></i></button>
                 </div>
             `);
 
@@ -851,7 +851,7 @@ export function memRenderVault(searchFilter = "") {
 
             // Delete button
             row.find(".mem_vault_del").on("click", function () {
-                if (confirm("Permanently delete this archived memory?")) {
+                if (confirm("永久删除这条已归档的记忆？")) {
                     const id = $(this).attr("data-id");
                     localProfile.memoryCore.longTermVault = localProfile.memoryCore.longTermVault.filter(c => c.id !== id);
                     if (localProfile.memoryCore.scannerEngine === 'semantic') memDeleteFromVectorDB([id]);
@@ -873,7 +873,7 @@ export function memRenderVault(searchFilter = "") {
         // Add "Load More" button if there are more entries
         if (renderedCount < filtered.length) {
             const remaining = filtered.length - renderedCount;
-            const loadMoreBtn = $(`<button class="mem-vault-load-more ps-modern-btn secondary" style="width: 100%; padding: 8px; margin-top: 6px; font-size: 0.75rem; color: #3b82f6; border-color: rgba(59,130,246,0.3);"><i class="fa-solid fa-chevron-down"></i> Load More (${remaining} remaining)</button>`);
+            const loadMoreBtn = $(`<button class="mem-vault-load-more ps-modern-btn secondary" style="width: 100%; padding: 8px; margin-top: 6px; font-size: 0.75rem; color: #3b82f6; border-color: rgba(59,130,246,0.3);"><i class="fa-solid fa-chevron-down"></i> 加载更多（剩余 ${remaining}）</button>`);
             loadMoreBtn.on("click", function () { renderVaultBatch(); });
             list.append(loadMoreBtn);
         }
@@ -915,7 +915,7 @@ export async function memProcessPendingChunks(isAuto = false) {
     }
 
     if (realMessages.length <= workingLimit) {
-        if (!isAuto) toastr.info("Not enough messages past the working limit to archive.");
+        if (!isAuto) toastr.info("超过工作上限的消息数不足，无法归档。");
         return;
     }
 
@@ -954,13 +954,13 @@ export async function memProcessPendingChunks(isAuto = false) {
 
     if (chunksToProcess.length === 0) {
         memRunVaultMigration();
-        if (!isAuto) toastr.info("All archives are up to date.");
+        if (!isAuto) toastr.info("所有归档都是最新的。");
         return;
     }
 
     // 4. Process the missing chunks — BATCHED with UI yields
     $("#mem_processing_spinner").show();
-    $("#mem_processing_progress").show().text(`Preparing...`);
+    $("#mem_processing_progress").show().text(`准备中...`);
     $("#mem_btn_generate").prop("disabled", true).css("opacity", "0.5");
 
     let changesMade = false;
@@ -983,7 +983,7 @@ export async function memProcessPendingChunks(isAuto = false) {
 
             // Update progress text
             const percent = Math.round((idx / totalChunks) * 100);
-            $("#mem_processing_progress").text(`Processing ${idx + 1}/${totalChunks} (${percent}%)`);
+            $("#mem_processing_progress").text(`正在处理 ${idx + 1}/${totalChunks}（${percent}%）`);
 
             // --- DIRECT-TO-VAULT BYPASS ---
             // If this chunk is older than the Short-Term limit, skip the AI entirely!
@@ -1009,7 +1009,7 @@ export async function memProcessPendingChunks(isAuto = false) {
             }
 
             // --- NORMAL SHORT-TERM AI SUMMARIZATION ---
-            toastr.info(`Extracting State: Messages ${chunkData.id} (${idx + 1}/${totalChunks})...`);
+            toastr.info(`正在提取状态：Messages ${chunkData.id}（${idx + 1}/${totalChunks}）...`);
 
             let summaryResult = "";
             setActiveMemorySummarizationRequest(chunkData.text);
@@ -1041,7 +1041,7 @@ export async function memProcessPendingChunks(isAuto = false) {
 
         // Show single summary toast for vault bypass instead of per-chunk spam
         if (bypassedCount > 0) {
-            toastr.info(`Archived ${bypassedCount} chunk(s) directly to Vault (bypassed AI).`);
+            toastr.info(`已将 ${bypassedCount} 个分块直接归档到记忆库（绕过 AI）。`);
         }
 
         if (changesMade) {
@@ -1078,7 +1078,7 @@ export async function memProcessPendingChunks(isAuto = false) {
 
             // Batch insert bypassed vault chunks to Vector DB if semantic engine is active
             if (newlyAddedBypassedVaultChunks.length > 0 && mem.scannerEngine === 'semantic') {
-                toastr.info("Syncing new Vault archives to Vector Database...");
+                toastr.info("正在将新的记忆库归档同步到向量数据库...");
                 await memInsertToVectorDB(newlyAddedBypassedVaultChunks, runIdentity);
             }
 
@@ -1089,7 +1089,7 @@ export async function memProcessPendingChunks(isAuto = false) {
             updateMemoryVisuals();
         }
 
-        toastr.success("Archive Extraction Complete!");
+        toastr.success("归档提取完成！");
 
     } catch (err) {
         console.error("Memory Extraction Error:", err);
@@ -1102,7 +1102,7 @@ export async function memProcessPendingChunks(isAuto = false) {
             mem._tokensDirty = true;
             saveProfileToMemory();
         }
-        toastr.error("Failed to generate memory summaries.");
+        toastr.error("生成记忆摘要失败。");
     } finally {
         setActiveMemorySummarizationRequest(null);
         $("#mem_processing_spinner").hide();
@@ -1329,8 +1329,8 @@ export function memScrubOverlappingArchives({ notify = false } = {}) {
         mem._tokensDirty = true;
         if (notify) {
             toastr.info(
-                `${removedCount} archived block${removedCount === 1 ? "" : "s"} returned to the chat.`,
-                "Megumin Suite — working set rebalanced"
+                `${removedCount} 个已归档信息块已返回聊天。`,
+                "Megumin Suite — 工作集已重新平衡"
             );
         }
     }
@@ -1343,9 +1343,9 @@ export function memSyncLimits() {
 
     if (changesMade) {
         saveProfileToMemory();
-        toastr.success("Limits Applied! Overlapping archives returned to chat.");
+        toastr.success("已应用上限！重叠的归档已返回聊天。");
     } else {
-        toastr.info("Limits Applied. No overlaps found.");
+        toastr.info("已应用上限。未发现重叠。");
     }
 
     memRunVaultMigration(); // Push any remaining items down

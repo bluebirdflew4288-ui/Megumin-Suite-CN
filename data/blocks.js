@@ -3,7 +3,7 @@
 
 export const blocks = [
     {
-      id: "info", label: "World State Block", trigger: "[[infoblock]]", recommended: true, content: `<World_State>
+      id: "info", label: "世界状态信息块", trigger: "[[infoblock]]", recommended: true, content: `<World_State>
 **📅 Time:** [Date, Day, Time] | **🌤 Loc:** [Place | Region] | **🌡 Wx:** [Weather, Temp, Lighting]
 
 ---
@@ -41,7 +41,7 @@ export const blocks = [
 </World_State>` },
     {
       id: "cyoa",
-      label: "CYOA Block",
+      label: "CYOA 信息块",
       trigger: "[[cyoa]]",
       content: `<CYOA>
 1. [Short suggestion]
@@ -52,13 +52,13 @@ export const blocks = [
     },
     {
       id: "mvu",
-      label: "MVU Compatibility",
+      label: "MVU 兼容性",
       trigger: "[[MVU]]",
       content: "## Main response Structure:\n<gametxt>[[count]][[img2]]</gametxt>\n<combat_log>...</combat_log>\n<location>...</location>\n<UpdateVariable>...</UpdateVariable>"
     },
     {
       id: "npc_inner_chatter",
-      label: "NPC Inner Chatter",
+      label: "NPC 内心独白",
       trigger: "[[npc_inner_chatter]]",
       content: `<NPC_Inner_Chatter>
 [Unfiltered internal layer hidden from the PC. Reveals what NPCs truly think, feel, and say when the player isn't meant to hear.

@@ -18,35 +18,35 @@ export function renderBanList(c) {
     c.append(`
         <div class="mtab-panel" style="margin-bottom:16px;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
-                <div class="mtab-panel-title purple" style="margin-bottom:0;"><i class="fa-solid fa-radar"></i> AI Slop Detector</div>
-                <button id="ps_btn_scan_slop" class="wstyle-gen-btn" style="padding: 8px 18px; font-size: 0.78rem; background: linear-gradient(135deg, #a855f7, #7c3aed);"><i class="fa-solid fa-radar"></i> Analyze Chat</button>
+                <div class="mtab-panel-title purple" style="margin-bottom:0;"><i class="fa-solid fa-radar"></i> AI 劣质词检测器</div>
+                <button id="ps_btn_scan_slop" class="wstyle-gen-btn" style="padding: 8px 18px; font-size: 0.78rem; background: linear-gradient(135deg, #a855f7, #7c3aed);"><i class="fa-solid fa-radar"></i> 分析聊天</button>
             </div>
             <div class="mtab-setting-row">
                 <div class="set-info">
-                    <div class="set-label">Generator Backend</div>
-                    <div class="set-desc">Choose how to generate the analysis.</div>
+                    <div class="set-label">生成后端</div>
+                    <div class="set-desc">选择如何生成分析。</div>
                 </div>
                 <select id="ban_list_backend" class="ps-modern-input" style="width: 200px; cursor: pointer;">
-                <option value="direct" ${localProfile.banListBackend === 'direct' ? 'selected' : ''}>Direct API Call (Fast)</option>
-                <option value="preset" ${localProfile.banListBackend === 'preset' ? 'selected' : ''}>Megumin Engine Preset</option>
+                <option value="direct" ${localProfile.banListBackend === 'direct' ? 'selected' : ''}>直接 API 调用（快速）</option>
+                <option value="preset" ${localProfile.banListBackend === 'preset' ? 'selected' : ''}>Megumin 引擎预设</option>
             </select>
         </div>
 
         <div class="mtab-panel" style="margin-bottom:16px;">
-            <div class="mtab-panel-title red"><i class="fa-solid fa-plus-circle"></i> Add Phrase</div>
+            <div class="mtab-panel-title red"><i class="fa-solid fa-plus-circle"></i> 添加短语</div>
             <div style="display: flex; gap: 10px;">
-                <input type="text" id="ps_manual_ban_input" class="ps-modern-input" placeholder="Manually add a phrase to ban…" style="flex: 1;" />
-                <button id="ps_btn_add_ban" class="ps-modern-btn secondary" style="padding: 0 15px;">Add</button>
+                <input type="text" id="ps_manual_ban_input" class="ps-modern-input" placeholder="手动添加要屏蔽的短语…" style="flex: 1;" />
+                <button id="ps_btn_add_ban" class="ps-modern-btn secondary" style="padding: 0 15px;">添加</button>
             </div>
         </div>
 
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-            <div class="wstyle-section-head red" style="margin-bottom:0;"><i class="fa-solid fa-list"></i> Active Banned Phrases</div>
+            <div class="wstyle-section-head red" style="margin-bottom:0;"><i class="fa-solid fa-list"></i> 已启用的屏蔽短语</div>
             <div class="mtab-btn-row">
                 <input type="file" id="ps_import_bans_file" accept=".json" style="display: none;">
-                <button id="ps_btn_import_bans" class="ps-modern-btn secondary" style="padding: 4px 10px; font-size: 0.72rem; color: #3b82f6; border-color: rgba(59, 130, 246, 0.3);"><i class="fa-solid fa-file-import"></i> Import</button>
-                <button id="ps_btn_export_bans" class="ps-modern-btn secondary" style="padding: 4px 10px; font-size: 0.72rem; color: #10b981; border-color: rgba(16, 185, 129, 0.3);"><i class="fa-solid fa-file-export"></i> Export</button>
-                <button id="ps_btn_clear_bans" class="ps-modern-btn secondary" style="padding: 4px 10px; font-size: 0.72rem; color: #ef4444; border-color: rgba(239, 68, 68, 0.3);"><i class="fa-solid fa-trash-can"></i> Clear All</button>
+                <button id="ps_btn_import_bans" class="ps-modern-btn secondary" style="padding: 4px 10px; font-size: 0.72rem; color: #3b82f6; border-color: rgba(59, 130, 246, 0.3);"><i class="fa-solid fa-file-import"></i> 导入</button>
+                <button id="ps_btn_export_bans" class="ps-modern-btn secondary" style="padding: 4px 10px; font-size: 0.72rem; color: #10b981; border-color: rgba(16, 185, 129, 0.3);"><i class="fa-solid fa-file-export"></i> 导出</button>
+                <button id="ps_btn_clear_bans" class="ps-modern-btn secondary" style="padding: 4px 10px; font-size: 0.72rem; color: #ef4444; border-color: rgba(239, 68, 68, 0.3);"><i class="fa-solid fa-trash-can"></i> 全部清空</button>
             </div>
         </div>
         <div id="ps_banlist_container" class="mtab-card-list" style="min-height: 50px; padding: 10px; border: 1px dashed var(--border-color); border-radius: 10px; margin-bottom: 16px;"></div>
@@ -56,14 +56,14 @@ export function renderBanList(c) {
 
         <div class="mtab-callout purple" style="margin-top: 16px;">
             <i class="fa-solid fa-circle-info"></i>
-            <span>This is a beta feature. Don't complain if you have to generate more than once.</span>
+            <span>这是测试版功能。如果需要生成多次，别抱怨。</span>
         </div>
     `);
 
     // --- PROMPT EDITOR UI ---
     const banEditor = renderPromptEditor({
         id: "ban_prompt_editor",
-        title: "Advanced: Edit Prompts",
+        title: "高级：编辑提示词",
         defaultData: DEFAULT_PROMPTS.banList,
         currentData: localProfile.banListCustomPrompts,
         enabled: localProfile.banListCustomPromptsEnabled, // <-- NEW
@@ -73,10 +73,10 @@ export function renderBanList(c) {
             saveProfileToMemory(); 
         },
         fields: [
-            { key: "systemPrompt", label: "System Prompt", hint: "AI role definition." },
-            { key: "userPrompt", label: "User Task Prompt", hint: "Tokens: <code>{{chatHistory}}</code>" },
-            { key: "thinkingPrompt", label: "Thinking Instructions", hint: "Must include output ordering instructions." },
-            { key: "injectionTemplate", label: "Ban List Injection Template", hint: "Tokens: <code>{{banItems}}</code>" }
+            { key: "systemPrompt", label: "系统提示词", hint: "AI role definition." },
+            { key: "userPrompt", label: "用户任务提示词", hint: "Tokens: <code>{{chatHistory}}</code>" },
+            { key: "thinkingPrompt", label: "思考指令", hint: "Must include output ordering instructions." },
+            { key: "injectionTemplate", label: "屏蔽列表注入模板", hint: "Tokens: <code>{{banItems}}</code>" }
         ],
         onSave: (val, key) => {
             if (!localProfile.banListCustomPrompts) localProfile.banListCustomPrompts = JSON.parse(JSON.stringify(DEFAULT_PROMPTS.banList));
@@ -97,7 +97,7 @@ export function renderBanList(c) {
 
     const renderTags = () => {
         const box = $("#ps_banlist_container"); box.empty();
-        if (localProfile.banList.length === 0) { box.append(`<span style="color: var(--text-muted); font-size: 0.8rem; font-style: italic;">No phrases banned yet.</span>`); $("#ban_header_badge").html(`<i class="fa-solid fa-ban" style="font-size:0.6rem;"></i> 0 Banned`); return; }
+        if (localProfile.banList.length === 0) { box.append(`<span style="color: var(--text-muted); font-size: 0.8rem; font-style: italic;">尚无已屏蔽的短语。</span>`); $("#ban_header_badge").html(`<i class="fa-solid fa-ban" style="font-size:0.6rem;"></i> 已屏蔽 0 条`); return; }
         localProfile.banList.forEach(phrase => {
             const tEl = $(`<div class="mtab-ban-item">
                 <span style="padding-right: 15px;">${phrase}</span>
@@ -106,7 +106,7 @@ export function renderBanList(c) {
             tEl.on("click", () => { localProfile.banList = localProfile.banList.filter(p => p !== phrase); saveProfileToMemory(); renderTags(); }); box.append(tEl);
         });
         // Update header badge dynamically
-        $("#ban_header_badge").html(`<i class="fa-solid fa-ban" style="font-size:0.6rem;"></i> ${localProfile.banList.length} Banned`);
+        $("#ban_header_badge").html(`<i class="fa-solid fa-ban" style="font-size:0.6rem;"></i> ${localProfile.banList.length} 条已屏蔽`);
     }; renderTags();
 
     $("#ps_btn_add_ban").on("click", () => {
@@ -115,10 +115,10 @@ export function renderBanList(c) {
     });
     $("#ps_btn_clear_bans").on("click", () => {
         if (localProfile.banList.length === 0) return;
-        if (confirm("Are you sure you want to delete all banned phrases?")) { localProfile.banList = []; saveProfileToMemory(); renderTags(); toastr.info("Ban list cleared."); }
+        if (confirm("确定要删除所有已屏蔽的短语吗？")) { localProfile.banList = []; saveProfileToMemory(); renderTags(); toastr.info("屏蔽列表已清空。"); }
     });
     $("#ps_btn_export_bans").on("click", () => {
-        if (!localProfile.banList || localProfile.banList.length === 0) return toastr.warning("Ban list is empty!");
+        if (!localProfile.banList || localProfile.banList.length === 0) return toastr.warning("屏蔽列表为空！");
         const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(localProfile.banList, null, 2));
         const dlAnchorElem = document.createElement('a');
         dlAnchorElem.setAttribute("href", dataStr);
@@ -147,13 +147,13 @@ export function renderBanList(c) {
                     });
                     saveProfileToMemory();
                     renderTags();
-                    if (added > 0) toastr.success(`Imported ${added} phrases!`);
-                    else toastr.info("No new phrases imported.");
+                    if (added > 0) toastr.success(`已导入 ${added} 条短语！`);
+                    else toastr.info("没有导入新短语。");
                 } else {
-                    toastr.error("Invalid JSON format. Expected an array of strings.");
+                    toastr.error("JSON 格式无效。应为字符串数组。");
                 }
             } catch (err) {
-                toastr.error("Error parsing JSON file.");
+                toastr.error("解析 JSON 文件出错。");
             }
         };
         reader.readAsText(file);
@@ -165,8 +165,8 @@ export function renderBanList(c) {
     });
     $("#ps_btn_scan_slop").on("click", async function () {
         const chatText = getCleanedChatHistory();
-        if (chatText.length < 50) return toastr.warning("Not enough chat history to analyze!");
-        $(this).prop("disabled", true).html(`<i class="fa-solid fa-spinner fa-spin"></i> Analyzing...`);
+        if (chatText.length < 50) return toastr.warning("聊天历史不足，无法分析！");
+        $(this).prop("disabled", true).html(`<i class="fa-solid fa-spinner fa-spin"></i> 分析中...`);
         let rawResponse;
         if (!localProfile.banListBackend || localProfile.banListBackend === "direct") {
             rawResponse = await analyzeSlopDirectly(chatText);
@@ -177,8 +177,8 @@ export function renderBanList(c) {
             const newPhrases = rawResponse.split(/[,*\n-]/).map(t => t.trim().replace(/['"\[\]\.]/g, '')).filter(t => t.length > 3);
             let addedCount = 0;
             newPhrases.forEach(p => { if (!localProfile.banList.includes(p)) { localProfile.banList.push(p); addedCount++; } });
-            if (addedCount > 0) { saveProfileToMemory(); renderTags(); toastr.success(`Caught and banned ${addedCount} repetitive phrases!`); } else { toastr.info("No new repetitive phrases found."); }
+            if (addedCount > 0) { saveProfileToMemory(); renderTags(); toastr.success(`已捕获并屏蔽 ${addedCount} 条重复短语！`); } else { toastr.info("没有发现新的重复短语。"); }
         }
-        $(this).prop("disabled", false).html(`<i class="fa-solid fa-radar"></i> Analyze Chat History`);
+        $(this).prop("disabled", false).html(`<i class="fa-solid fa-radar"></i> 分析聊天历史`);
     });
 }

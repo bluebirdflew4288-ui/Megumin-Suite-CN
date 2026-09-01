@@ -31,19 +31,19 @@ export function renderNpcBank(c) {
                     <i class="fa-solid fa-address-book"></i>
                 </div>
                 <div>
-                    <h2>NPCs Bank</h2>
-                    <p>Automatically extract and track significant NPCs in the story.</p>
+                    <h2>NPC 图鉴</h2>
+                    <p>自动提取并追踪故事中的重要 NPC。</p>
                 </div>
             </div>
             <div id="npc_header_badge" class="mtab-header-badge" style="background: ${nb.enabled ? 'rgba(16,185,129,0.12)' : 'rgba(255,255,255,0.06)'}; color: ${nb.enabled ? '#10b981' : 'var(--text-muted)'}; border: 1px solid ${nb.enabled ? 'rgba(16,185,129,0.25)' : 'var(--border-color)'};">
-                <i class="fa-solid fa-${nb.enabled ? 'circle-check' : 'circle-xmark'}" style="font-size:0.6rem;"></i> ${nb.enabled ? 'Enabled' : 'Disabled'}
+                <i class="fa-solid fa-${nb.enabled ? 'circle-check' : 'circle-xmark'}" style="font-size:0.6rem;"></i> ${nb.enabled ? '已启用' : '已禁用'}
             </div>
         </div>
 
         <!-- ROOT LEVEL ENABLE TOGGLE -->
         <div class="mtab-toggle-row ${nb.enabled ? 'active' : ''}" id="npc_enable_card" style="margin-bottom: 20px;">
             <div class="toggle-info">
-                <div class="toggle-label" style="font-size: 1.05rem;"><i class="fa-solid fa-users" style="color:#f43f5e;"></i> Enable NPC Bank</div>
+                <div class="toggle-label" style="font-size: 1.05rem;"><i class="fa-solid fa-users" style="color:#f43f5e;"></i> 启用 NPC 图鉴</div>
                 <div class="toggle-desc">When enabled, the AI generates detailed dossiers for new NPCs and injects them when relevant.</div>
             </div>
             <div class="ps-switch"></div>
@@ -54,32 +54,32 @@ export function renderNpcBank(c) {
             
             <!-- NEW CORE SETTINGS PANEL -->
             <div class="mtab-panel" style="margin-bottom: 16px;">
-                <div class="mtab-panel-title purple" style="margin-bottom: 14px;"><i class="fa-solid fa-sliders"></i> Injection Settings</div>
+                <div class="mtab-panel-title purple" style="margin-bottom: 14px;"><i class="fa-solid fa-sliders"></i> 注入设置</div>
                 
                 <div style="display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 15px;">
                     <div style="flex: 1; min-width: 200px;">
                         <div style="font-size: 0.75rem; font-weight: bold; color: var(--text-main); margin-bottom: 6px; display: flex; align-items: center; gap: 6px;">
-                            OOC Trigger <i class="fa-solid fa-circle-question" title="When ON, Dossier Template ONLY injects if 'NPC' or 'dossier' is in your latest message." style="cursor: help; color: #a855f7;"></i>
+                            OOC 触发 <i class="fa-solid fa-circle-question" title="开启时，仅当你的最新消息中包含“NPC”或“dossier”时才会注入档案模板。" style="cursor: help; color: #a855f7;"></i>
                         </div>
                         <div class="ps-toggle-card ${nb.oocTrigger ? 'active' : ''}" id="npc_ooc_trigger" style="padding: 10px 14px; justify-content: space-between; background: rgba(0,0,0,0.2); border-color: ${nb.oocTrigger ? '#a855f7' : 'var(--border-color)'}; cursor: pointer; border-radius: 8px;">
-                            <span style="font-size: 0.75rem; color: ${nb.oocTrigger ? '#a855f7' : 'var(--text-muted)'}; font-weight: 600;">Manual Extract</span>
+                            <span style="font-size: 0.75rem; color: ${nb.oocTrigger ? '#a855f7' : 'var(--text-muted)'}; font-weight: 600;">手动提取</span>
                             <div class="ps-switch" style="transform: scale(0.8); ${nb.oocTrigger ? 'background: #a855f7;' : ''}"></div>
                         </div>
                     </div>
                     
                     <div style="flex: 1; min-width: 200px;">
                         <div style="font-size: 0.75rem; font-weight: bold; color: var(--text-main); margin-bottom: 6px; display: flex; align-items: center; gap: 6px;">
-                            Send Portraits <i class="fa-solid fa-circle-question" title="If an injected NPC has a portrait, send the image to the AI vision model." style="cursor: help; color: #a855f7;"></i>
+                            发送头像 <i class="fa-solid fa-circle-question" title="如果注入的 NPC 有头像，将该图像发送给 AI 视觉模型。" style="cursor: help; color: #a855f7;"></i>
                         </div>
                         <div class="ps-toggle-card ${nb.sendPortraitsToAi ? 'active' : ''}" id="npc_send_portraits" style="padding: 10px 14px; justify-content: space-between; background: rgba(0,0,0,0.2); border-color: ${nb.sendPortraitsToAi ? '#a855f7' : 'var(--border-color)'}; cursor: pointer; border-radius: 8px;">
-                            <span style="font-size: 0.75rem; color: ${nb.sendPortraitsToAi ? '#a855f7' : 'var(--text-muted)'}; font-weight: 600;">Multimodal</span>
+                            <span style="font-size: 0.75rem; color: ${nb.sendPortraitsToAi ? '#a855f7' : 'var(--text-muted)'}; font-weight: 600;">多模态</span>
                             <div class="ps-switch" style="transform: scale(0.8); ${nb.sendPortraitsToAi ? 'background: #a855f7;' : ''}"></div>
                         </div>
                     </div>
                     
                     <div style="flex: 1; min-width: 150px;">
                         <div style="font-size: 0.75rem; font-weight: bold; color: var(--text-main); margin-bottom: 6px; display: flex; align-items: center; gap: 6px;">
-                            Max Injections <i class="fa-solid fa-circle-question" title="Limit how many NPCs are injected into the prompt at once." style="cursor: help; color: #a855f7;"></i>
+                            最大注入数 <i class="fa-solid fa-circle-question" title="限制一次注入到提示词中的 NPC 数量。" style="cursor: help; color: #a855f7;"></i>
                         </div>
                         <input type="number" id="npc_injection_limit" class="ps-modern-input" value="${nb.injectionLimit}" min="1" max="20" style="padding: 10px 14px; width: 100%; box-sizing: border-box; background: rgba(0,0,0,0.2);" />
                     </div>
@@ -87,20 +87,20 @@ export function renderNpcBank(c) {
 
                 <div class="mtab-setting-row" style="padding-bottom: 0; padding-top: 10px; border-top: 1px dashed rgba(255,255,255,0.05); align-items: flex-start; flex-direction: column;">
                     <div class="set-info" style="width: 100%; margin-bottom: 8px;">
-                        <div class="set-label" style="color: #ef4444;"><i class="fa-solid fa-user-slash"></i> Ignore List (Do Not Extract)</div>
+                        <div class="set-label" style="color: #ef4444;"><i class="fa-solid fa-user-slash"></i> 忽略列表（不提取）</div>
                         <div class="set-desc">Comma-separated names the AI should NEVER make a dossier for (e.g., background characters).</div>
                     </div>
-                    <input type="text" id="npc_ignored_names" class="ps-modern-input" value="${nb.ignoredNames || ''}" placeholder="e.g. Fluffy, Guards, The Bartender..." style="width: 100%; background: rgba(0,0,0,0.2);" />
+                    <input type="text" id="npc_ignored_names" class="ps-modern-input" value="${nb.ignoredNames || ''}" placeholder="例如：Fluffy、守卫、酒保..." style="width: 100%; background: rgba(0,0,0,0.2);" />
                 </div>
             </div>
 
             <!-- SCANNER SETTINGS PANEL -->
             <div class="mtab-panel" style="margin-bottom: 16px;">
-                <div class="mtab-panel-title gold" style="margin-bottom: 10px;"><i class="fa-solid fa-gears"></i> Scanner Settings</div>
+                <div class="mtab-panel-title gold" style="margin-bottom: 10px;"><i class="fa-solid fa-gears"></i> 扫描设置</div>
                 <div class="mtab-setting-row" style="padding-bottom: 0; border: none;">
                     <div class="set-info">
-                        <div class="set-label">Scan Depth (Messages)</div>
-                        <div class="set-desc">How many recent messages to read when clicking "Scan Story".<br><span style="color:var(--gold); font-weight: 600;">⚠️ Note: High numbers consume massive context limits and API tokens!</span></div>
+                        <div class="set-label">扫描深度（消息数）</div>
+                        <div class="set-desc">How many recent messages to read when clicking "Scan Story".<br><span style="color:var(--gold); font-weight: 600;">⚠️ 注意：较高的数字会消耗大量上下文与 API token！</span></div>
                     </div>
                     <input type="number" id="npc_scan_depth" class="ps-modern-input" value="${nb.scanDepth || 60}" min="10" style="width: 90px; text-align: center; background: rgba(0,0,0,0.2);" />
                 </div>
@@ -112,14 +112,14 @@ export function renderNpcBank(c) {
             <!-- SAVED NPCs -->
             <div>
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-                    <div style="color: #f43f5e; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;"><i class="fa-solid fa-address-card"></i> Saved NPCs <span id="npc_count" style="color: var(--text-muted); font-size: 0.75rem; margin-left: 8px;">(${(nb.npcs || []).length})</span></div>
+                    <div style="color: #f43f5e; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;"><i class="fa-solid fa-address-card"></i> 已保存的 NPC <span id="npc_count" style="color: var(--text-muted); font-size: 0.75rem; margin-left: 8px;">(${(nb.npcs || []).length})</span></div>
                     <div style="display: flex; gap: 8px;">
                         <input type="file" id="npc_file_import" accept=".json" style="display: none;">
-                        <button id="npc_btn_import" class="ps-modern-btn secondary" style="padding: 4px 10px; font-size: 0.72rem; color: #10b981; border-color: rgba(16, 185, 129, 0.3);" title="Import NPCs"><i class="fa-solid fa-file-import"></i></button>
-                        <button id="npc_btn_export" class="ps-modern-btn secondary" style="padding: 4px 10px; font-size: 0.72rem; color: #3b82f6; border-color: rgba(59, 130, 246, 0.3);" title="Export All NPCs"><i class="fa-solid fa-download"></i></button>
-                        <button id="npc_btn_add" class="ps-modern-btn secondary" style="padding: 4px 10px; font-size: 0.72rem; color: #a855f7; border-color: rgba(168, 85, 247, 0.3);" title="Create an NPC by hand"><i class="fa-solid fa-user-plus"></i> Add NPC</button>
-                        <button id="npc_btn_scan_story" class="ps-modern-btn primary" style="padding: 4px 10px; font-size: 0.72rem; background: linear-gradient(135deg, #f43f5e, #e11d48); color: #fff; border: none;"><i class="fa-solid fa-radar"></i> Scan Story</button>
-                        <button id="npc_btn_clear_all" class="ps-modern-btn secondary" style="padding: 4px 10px; font-size: 0.72rem; color: #ef4444; border-color: rgba(239, 68, 68, 0.3);"><i class="fa-solid fa-trash-can"></i> Clear All</button>
+                        <button id="npc_btn_import" class="ps-modern-btn secondary" style="padding: 4px 10px; font-size: 0.72rem; color: #10b981; border-color: rgba(16, 185, 129, 0.3);" title="导入 NPC"><i class="fa-solid fa-file-import"></i></button>
+                        <button id="npc_btn_export" class="ps-modern-btn secondary" style="padding: 4px 10px; font-size: 0.72rem; color: #3b82f6; border-color: rgba(59, 130, 246, 0.3);" title="导出全部 NPC"><i class="fa-solid fa-download"></i></button>
+                        <button id="npc_btn_add" class="ps-modern-btn secondary" style="padding: 4px 10px; font-size: 0.72rem; color: #a855f7; border-color: rgba(168, 85, 247, 0.3);" title="手动创建 NPC"><i class="fa-solid fa-user-plus"></i> 添加 NPC</button>
+                        <button id="npc_btn_scan_story" class="ps-modern-btn primary" style="padding: 4px 10px; font-size: 0.72rem; background: linear-gradient(135deg, #f43f5e, #e11d48); color: #fff; border: none;"><i class="fa-solid fa-radar"></i> 扫描故事</button>
+                        <button id="npc_btn_clear_all" class="ps-modern-btn secondary" style="padding: 4px 10px; font-size: 0.72rem; color: #ef4444; border-color: rgba(239, 68, 68, 0.3);"><i class="fa-solid fa-trash-can"></i> 全部清空</button>
                     </div>
                 </div>
                 <div id="npc_bank_list" style="display: flex; flex-direction: column; gap: 14px; padding: 4px;">
@@ -134,7 +134,7 @@ export function renderNpcBank(c) {
     // --- PROMPT EDITOR UI ---
     const npcEditor = renderPromptEditor({
         id: "npc_prompt_editor",
-        title: "Advanced: Edit NPC Prompts",
+        title: "高级：编辑 NPC 提示词",
         defaultData: DEFAULT_PROMPTS.npcBank,
         currentData: nb.customPrompts,
         enabled: nb.customPromptsEnabled,
@@ -226,19 +226,19 @@ export function renderNpcBank(c) {
             try {
                 const data = JSON.parse(evt.target.result);
                 if (!Array.isArray(data)) {
-                    toastr.error("Invalid NPC Bank file format.");
+                    toastr.error("NPC 图鉴文件格式无效。");
                     return;
                 }
-                if (confirm("Do you want to merge imported NPCs with your existing ones? (Click 'Cancel' to overwrite)")) {
+                if (confirm("是否将导入的 NPC 与现有 NPC 合并？（点击“取消”则覆盖）")) {
                     localProfile.npcBank.npcs = (localProfile.npcBank.npcs || []).concat(data);
                 } else {
                     localProfile.npcBank.npcs = data;
                 }
                 saveProfileToMemory();
                 renderNpcList();
-                toastr.success("NPCs imported successfully!");
+                toastr.success("NPC 导入成功！");
             } catch (err) {
-                toastr.error("Failed to parse JSON file.");
+                toastr.error("解析 JSON 文件失败。");
             }
             $("#npc_file_import").val("");
         };
@@ -253,13 +253,13 @@ export function renderNpcBank(c) {
     // now on, which is what makes a rewind past this point remove it, exactly as it
     // would for one the scanner found here.
     $("#npc_btn_add").on("click", function () {
-        const name = prompt("Name for the new NPC:", "");
+        const name = prompt("为新 NPC 命名：", "");
         if (!name || !name.trim()) return;
         const trimmed = name.trim();
 
         if (!localProfile.npcBank.npcs) localProfile.npcBank.npcs = [];
         const clash = localProfile.npcBank.npcs.find(n => (n.name || "").trim().toLowerCase() === trimmed.toLowerCase());
-        if (clash) return toastr.warning(`"${trimmed}" is already in the bank.`);
+        if (clash) return toastr.warning(`“${trimmed}”已在图鉴中。`);
 
         const context = getContext();
         const chat = context?.chat;
@@ -269,22 +269,22 @@ export function renderNpcBank(c) {
         }));
         saveProfileToMemory();
         renderNpcList();
-        toastr.success(`"${trimmed}" added. Open the card to fill in the details.`);
+        toastr.success(`“${trimmed}”已添加。打开卡片填写详情。`);
     });
 
     $("#npc_btn_clear_all").on("click", function () {
         if (!localProfile.npcBank.npcs || localProfile.npcBank.npcs.length === 0) return;
-        if (confirm("Are you sure you want to delete all saved NPCs? This cannot be undone.")) {
+        if (confirm("确定要删除所有已保存的 NPC 吗？此操作无法撤销。")) {
             localProfile.npcBank.npcs = []; saveProfileToMemory(); renderNpcList();
         }
     });
 
     $("#npc_btn_scan_story").on("click", async function () {
         const chatText = getChatForNpcScan();
-        if (chatText.length < 100) return toastr.warning("Not enough chat history to scan.");
+        if (chatText.length < 100) return toastr.warning("聊天历史不足，无法扫描。");
         
         const btn = $(this);
-        btn.prop("disabled", true).html(`<i class="fa-solid fa-spinner fa-spin"></i> Scanning...`);
+        btn.prop("disabled", true).html(`<i class="fa-solid fa-spinner fa-spin"></i> 扫描中...`);
         
         try {
             const context = getContext();
@@ -306,9 +306,9 @@ export function renderNpcBank(c) {
                     addedCount++;
                 }
             }
-            if (addedCount > 0) { saveProfileToMemory(); renderNpcList(); toastr.success(`Found and added ${addedCount} new NPC(s)!`); } 
-            else { toastr.info("No new significant NPCs found in the story."); }
-        } catch (e) { toastr.error("Failed to scan story for NPCs."); } 
+            if (addedCount > 0) { saveProfileToMemory(); renderNpcList(); toastr.success(`发现并添加了 ${addedCount} 个新 NPC！`); } 
+            else { toastr.info("故事中没有发现新的重要 NPC。"); }
+        } catch (e) { toastr.error("扫描故事中的 NPC 失败。"); } 
         finally { setActiveNpcScanRequest(null); btn.prop("disabled", false).html(`<i class="fa-solid fa-radar"></i> Scan Story`); }
     });
 
@@ -348,7 +348,7 @@ export function renderNpcFieldEditor(c) {
     const wrap = $(`
         <div class="ps-prompt-editor" id="npc_fields_editor" style="margin-bottom: 18px;">
             <div class="ps-prompt-editor-toggle">
-                <span class="pe-title"><i class="fa-solid fa-list-check"></i> Dossier Fields</span>
+                <span class="pe-title"><i class="fa-solid fa-list-check"></i> 档案字段</span>
                 <i class="fa-solid fa-chevron-down pe-chevron" style="cursor:pointer; padding:5px;"></i>
             </div>
             <div class="ps-prompt-editor-body">
@@ -372,27 +372,27 @@ export function renderNpcFieldEditor(c) {
     const rows = wrap.find("#npc_fields_rows");
 
     if (!editable.length) {
-        rows.append(`<div class="blk-sub-desc" style="opacity:.7;">Every field has been removed. Add one below, or reset to the defaults.</div>`);
+        rows.append(`<div class="blk-sub-desc" style="opacity:.7;">所有字段都已被移除。在下方添加一个，或重置为默认值。</div>`);
     }
 
     editable.forEach(({ f, realIndex }, i) => {
         const row = $(`
             <div class="stat-field npc-field-row">
-                <input type="text" class="ps-modern-input nf-label" value="${escapeHtmlAttr(f.label)}" placeholder="Field name" style="min-width: 130px;" />
+                <input type="text" class="ps-modern-input nf-label" value="${escapeHtmlAttr(f.label)}" placeholder="字段名" style="min-width: 130px;" />
                 <select class="ps-modern-input nf-type" title="How much room this field gets, and whether an update can add or remove single entries.">
                     ${NPC_FIELD_TYPES.map(t => `<option value="${t.v}" ${f.type === t.v ? "selected" : ""} title="${t.hint}">${t.label}</option>`).join("")}
                 </select>
-                <button class="ws-btn-small nf-persist" title="Lasting: describes their ongoing life, not this scene."
+                <button class="ws-btn-small nf-persist" title="持续型：描述他们的长期生活，而非当前场景。"
                     style="color:${f.persistent ? "#34d399" : "var(--text-muted)"}; border-color:${f.persistent ? "rgba(52,211,153,0.4)" : "var(--border-color)"};">
-                    <i class="fa-solid ${f.persistent ? "fa-anchor" : "fa-clock"}"></i> ${f.persistent ? "Lasting" : "Current"}
+                    <i class="fa-solid ${f.persistent ? "fa-anchor" : "fa-clock"}"></i> ${f.persistent ? "持续型" : "当前"}
                 </button>
-                <button class="ws-btn-small nf-update" title="Updatable: an &lt;NPC_Update&gt; block may change this field later."
+                <button class="ws-btn-small nf-update" title="可更新：<NPC_Update> 信息块之后可能更改此字段。"
                     style="color:${f.updatable ? "#fbbf24" : "var(--text-muted)"}; border-color:${f.updatable ? "rgba(251,191,36,0.4)" : "var(--border-color)"};">
-                    <i class="fa-solid ${f.updatable ? "fa-pen-to-square" : "fa-lock"}"></i> ${f.updatable ? "Updatable" : "Fixed"}
+                    <i class="fa-solid ${f.updatable ? "fa-pen-to-square" : "fa-lock"}"></i> ${f.updatable ? "可更新" : "固定"}
                 </button>
-                <button class="ws-btn-small nf-up" ${i === 0 ? "disabled" : ""} title="Move up"><i class="fa-solid fa-arrow-up"></i></button>
-                <button class="ws-btn-small nf-del" style="color:#ef4444;" title="Remove this field"><i class="fa-solid fa-xmark"></i></button>
-                <input type="text" class="ps-modern-input nf-placeholder" value="${escapeHtmlAttr(f.placeholder || "")}" placeholder="What to tell the AI to put here" style="flex-basis: 100%; font-size: 0.7rem; opacity: 0.85;" />
+                <button class="ws-btn-small nf-up" ${i === 0 ? "disabled" : ""} title="上移"><i class="fa-solid fa-arrow-up"></i></button>
+                <button class="ws-btn-small nf-del" style="color:#ef4444;" title="移除此字段"><i class="fa-solid fa-xmark"></i></button>
+                <input type="text" class="ps-modern-input nf-placeholder" value="${escapeHtmlAttr(f.placeholder || "")}" placeholder="告诉 AI 在此处填写什么" style="flex-basis: 100%; font-size: 0.7rem; opacity: 0.85;" />
             </div>
         `);
 
@@ -441,14 +441,14 @@ export function renderNpcFieldEditor(c) {
     const tools = wrap.find("#npc_fields_tools");
     const reopen = () => { renderNpcBank(c); $("#npc_fields_editor").addClass("open"); };
 
-    const addBtn = $(`<button class="blk-add"><i class="fa-solid fa-plus"></i> Add field</button>`);
+    const addBtn = $(`<button class="blk-add"><i class="fa-solid fa-plus"></i> 添加字段</button>`);
     addBtn.on("click", () => {
         // Lasting and Fixed by default: the safe answers. Lasting keeps it out of
         // the current scene, and Fixed keeps the update block small until the
         // reader decides this is a field that moves.
         all.push({
             id: "npc_f_" + Date.now(),
-            label: "New field",
+            label: "新字段",
             type: "text",
             icon: "fa-circle-dot",
             color: "#94a3b8",
@@ -460,12 +460,12 @@ export function renderNpcFieldEditor(c) {
     });
     tools.append(addBtn);
 
-    const resetBtn = $(`<button class="blk-add" style="color:#ef4444; border-color:rgba(239,68,68,0.3);"><i class="fa-solid fa-rotate-left"></i> Reset fields</button>`);
+    const resetBtn = $(`<button class="blk-add" style="color:#ef4444; border-color:rgba(239,68,68,0.3);"><i class="fa-solid fa-rotate-left"></i> 重置字段</button>`);
     resetBtn.on("click", () => {
         if (!confirm("Put the dossier fields back to the defaults?\n\nFields you added stop being asked for. No NPC text is deleted.")) return;
         nb.fields = JSON.parse(JSON.stringify(NPC_DEFAULT_FIELDS));
         saveProfileToMemory(); reopen();
-        toastr.info("Dossier fields reset to defaults.");
+        toastr.info("档案字段已重置为默认值。");
     });
     tools.append(resetBtn);
 
@@ -480,7 +480,7 @@ export function renderNpcList() {
     $("#npc_count").text(`(${npcs.length})`);
 
     if (npcs.length === 0) {
-        list.append('<div style="text-align: center; color: var(--text-muted); font-size: 0.8rem; padding: 20px;">No NPCs saved yet. The AI will add them automatically when significant NPCs are introduced.</div>');
+        list.append('<div style="text-align: center; color: var(--text-muted); font-size: 0.8rem; padding: 20px;">尚无已保存的 NPC。当故事引入重要 NPC 时，AI 会自动添加。</div>');
         return;
     }
 
@@ -532,22 +532,22 @@ export function renderNpcList() {
                         <i class="fa-solid fa-chevron-right npc-chevron" style="font-size: 0.6rem; color: ${accentColor}; transition: transform 0.2s;"></i>
                         ${miniPfp}
                         <span style="font-size: 0.85rem; font-weight: 700; color: ${accentColor};">${n.name}</span>
-                        <button class="npc_edit_name_btn" data-idx="${idx}" style="background: transparent; border: none; color: var(--text-muted); cursor: pointer; font-size: 0.7rem; padding: 2px 4px; margin-left: -4px;" title="Edit Name"><i class="fa-solid fa-pen"></i></button>
-                        <span class="npc_edit_vitals_btn" data-idx="${idx}" style="font-size: 0.6rem; color: var(--text-muted); background: rgba(0,0,0,0.3); padding: 2px 6px; border-radius: 4px; cursor: pointer;" title="Edit age, sex and orientation">${n.age || "?"} · ${n.sex || "?"} <i class="fa-solid fa-pen" style="font-size: 0.5rem; opacity: 0.6;"></i></span>
+                        <button class="npc_edit_name_btn" data-idx="${idx}" style="background: transparent; border: none; color: var(--text-muted); cursor: pointer; font-size: 0.7rem; padding: 2px 4px; margin-left: -4px;" title="编辑名字"><i class="fa-solid fa-pen"></i></button>
+                        <span class="npc_edit_vitals_btn" data-idx="${idx}" style="font-size: 0.6rem; color: var(--text-muted); background: rgba(0,0,0,0.3); padding: 2px 6px; border-radius: 4px; cursor: pointer;" title="编辑年龄、性别与取向">${n.age || "?"} · ${n.sex || "?"} <i class="fa-solid fa-pen" style="font-size: 0.5rem; opacity: 0.6;"></i></span>
                     </div>
                     <div style="display: flex; align-items: center; gap: 12px;">
                         <!-- New Image Tags Only Toggle -->
-                        <div class="npc_img_only_toggle" data-idx="${idx}" style="display: flex; align-items: center; gap: 6px; cursor: pointer; background: rgba(0,0,0,0.2); padding: 4px 8px; border-radius: 8px; border: 1px solid ${n.imageOnly ? 'rgba(16,185,129,0.3)' : 'transparent'};" title="If enabled, hides the text dossier from the AI to save tokens, but still sends Image Tags to ComfyUI.">
-                            <span style="font-size: 0.65rem; font-weight: 700; color: ${n.imageOnly ? '#10b981' : 'var(--text-muted)'};">Image Tags Only</span>
+                        <div class="npc_img_only_toggle" data-idx="${idx}" style="display: flex; align-items: center; gap: 6px; cursor: pointer; background: rgba(0,0,0,0.2); padding: 4px 8px; border-radius: 8px; border: 1px solid ${n.imageOnly ? 'rgba(16,185,129,0.3)' : 'transparent'};" title="启用后，向 AI 隐藏文本档案以节省 token，但仍会向 ComfyUI 发送图像标签。">
+                            <span style="font-size: 0.65rem; font-weight: 700; color: ${n.imageOnly ? '#10b981' : 'var(--text-muted)'};">仅图像标签</span>
                             <div class="ps-toggle-card ${n.imageOnly ? 'active' : ''}" style="padding: 2px; min-width: 36px; background: transparent; border-color: ${n.imageOnly ? '#10b981' : 'rgba(255,255,255,0.1)'}; border-radius: 8px;">
                                 <div class="ps-switch" style="transform: scale(0.65); ${n.imageOnly ? 'background: #10b981;' : ''}"></div>
                             </div>
                         </div>
 
                         <span style="color: var(--text-muted); font-size: 0.6rem;">${dateStr}</span>
-                        <button class="npc_force_update" data-idx="${idx}" style="background: transparent; border: none; color: #fbbf24; cursor: pointer; font-size: 0.75rem; padding: 2px 4px;" title="Re-read the story and update this NPC's changeable fields now"><i class="fa-solid fa-arrows-rotate"></i></button>
-                        <button class="npc_export_btn" data-idx="${idx}" style="background: transparent; border: none; color: #3b82f6; cursor: pointer; font-size: 0.75rem; padding: 2px 4px;" title="Export NPC"><i class="fa-solid fa-download"></i></button>
-                        <button class="npc_del_btn" data-idx="${idx}" style="background: transparent; border: none; color: #ef4444; cursor: pointer; font-size: 0.75rem; padding: 2px 4px;" title="Delete NPC"><i class="fa-solid fa-trash"></i></button>
+                        <button class="npc_force_update" data-idx="${idx}" style="background: transparent; border: none; color: #fbbf24; cursor: pointer; font-size: 0.75rem; padding: 2px 4px;" title="重新阅读故事并立即更新此 NPC 的可变字段"><i class="fa-solid fa-arrows-rotate"></i></button>
+                        <button class="npc_export_btn" data-idx="${idx}" style="background: transparent; border: none; color: #3b82f6; cursor: pointer; font-size: 0.75rem; padding: 2px 4px;" title="导出 NPC"><i class="fa-solid fa-download"></i></button>
+                        <button class="npc_del_btn" data-idx="${idx}" style="background: transparent; border: none; color: #ef4444; cursor: pointer; font-size: 0.75rem; padding: 2px 4px;" title="删除 NPC"><i class="fa-solid fa-trash"></i></button>
                     </div>
                 </div>
                 <!-- Body (collapsed by default) -->
@@ -559,11 +559,11 @@ export function renderNpcList() {
                                 ${pfpDisplay}
                             </div>
                             <div style="text-align: center; font-size: 0.95rem; font-weight: 800; color: ${accentColor}; margin-top: 2px; margin-bottom: 2px; text-shadow: 0 1px 2px rgba(0,0,0,0.5);">${n.name}</div>
-                            <button class="npc_upload_pfp" data-idx="${idx}" style="width: 100%; font-size: 0.65rem; padding: 4px 0; border-radius: 6px; border: 1px solid rgba(${accentRgba},0.3); background: rgba(${accentRgba},0.1); color: ${accentColor}; cursor: pointer; transition: background 0.2s;" title="Upload Image">
-                                <i class="fa-solid fa-upload"></i> Upload
+                            <button class="npc_upload_pfp" data-idx="${idx}" style="width: 100%; font-size: 0.65rem; padding: 4px 0; border-radius: 6px; border: 1px solid rgba(${accentRgba},0.3); background: rgba(${accentRgba},0.1); color: ${accentColor}; cursor: pointer; transition: background 0.2s;" title="上传图像">
+                                <i class="fa-solid fa-upload"></i> 上传
                             </button>
-                            <button class="npc_gen_pfp" data-idx="${idx}" data-name="${n.name}" style="width: 100%; font-size: 0.65rem; padding: 4px 0; border-radius: 6px; border: 1px solid rgba(168,85,247,0.3); background: rgba(168,85,247,0.1); color: #a855f7; cursor: pointer; transition: background 0.2s;" title="Generate with ComfyUI">
-                                <i class="fa-solid fa-wand-magic-sparkles"></i> Generate
+                            <button class="npc_gen_pfp" data-idx="${idx}" data-name="${n.name}" style="width: 100%; font-size: 0.65rem; padding: 4px 0; border-radius: 6px; border: 1px solid rgba(168,85,247,0.3); background: rgba(168,85,247,0.1); color: #a855f7; cursor: pointer; transition: background 0.2s;" title="使用 ComfyUI 生成">
+                                <i class="fa-solid fa-wand-magic-sparkles"></i> 生成
                             </button>
                         </div>
                         <!-- Fields Column -->
@@ -608,9 +608,9 @@ export function renderNpcList() {
                 renderNpcList();
                 
                 if (localProfile.npcBank.npcs[i].imageOnly) {
-                    toastr.info("Image Tags Only enabled. Text dossier will be hidden from AI.");
+                    toastr.info("已启用仅图像标签。文本档案将对 AI 隐藏。");
                 } else {
-                    toastr.info("Full Sync enabled. Text dossier will be sent to AI.");
+                    toastr.info("已启用完整同步。文本档案将发送给 AI。");
                 }
             }
         });
@@ -620,7 +620,7 @@ export function renderNpcList() {
             e.stopPropagation();
             const i = parseInt($(this).attr("data-idx"));
             const currentName = localProfile.npcBank.npcs[i].name;
-            const newName = prompt("Enter new name for this NPC:", currentName);
+            const newName = prompt("为此 NPC 输入新名字：", currentName);
             if (newName && newName.trim() !== "" && newName !== currentName) {
                 localProfile.npcBank.npcs[i].name = newName.trim();
                 saveProfileToMemory();
@@ -653,7 +653,7 @@ export function renderNpcList() {
                 </div>
             `);
 
-            const confirmed = await new Popup($form, POPUP_TYPE.CONFIRM, `Edit ${npc.name}`, { okButton: "Save", cancelButton: "Cancel" }).show();
+            const confirmed = await new Popup($form, POPUP_TYPE.CONFIRM, `Edit ${npc.name}`, { okButton: "保存", cancelButton: "取消" }).show();
             if (!confirmed) return;
 
             vitals.forEach(f => {
@@ -673,7 +673,7 @@ export function renderNpcList() {
 
             const rules = npcBuildUpdatePrompt();
             if (!rules) {
-                toastr.info("No field is marked Updatable, so there is nothing an update could change.", "Megumin Suite");
+                toastr.info("没有字段标记为可更新，因此更新不会改变任何内容。", "Megumin Suite");
                 return;
             }
 
@@ -701,7 +701,7 @@ export function renderNpcList() {
 
                 const parsedUpdates = npcParseUpdateBlocks(cleaned);
                 if (!parsedUpdates.length) {
-                    toastr.info(`Nothing on ${target.name}'s record has changed.`, "Megumin Suite");
+                    toastr.info(`${target.name} 的记录没有任何变化。`, "Megumin Suite");
                     return;
                 }
 
@@ -720,14 +720,14 @@ export function renderNpcList() {
                     renderNpcList();
                     toastr.success(
                         applied.map(a => `${a.label}: ${a.op === "+" ? "added" : a.op === "-" ? "removed" : "replaced"}`).join(" · "),
-                        `Megumin Suite — ${target.name} updated`
+                        `Megumin Suite — ${target.name} 已更新`
                     );
                 } else {
-                    toastr.info(`Nothing on ${target.name}'s record has changed.`, "Megumin Suite");
+                    toastr.info(`${target.name} 的记录没有任何变化。`, "Megumin Suite");
                 }
             } catch (err) {
                 console.error("[Megumin Suite] Forced NPC update failed", err);
-                toastr.error(`Could not update ${target.name}.`);
+                toastr.error(`无法更新 ${target.name}。`);
             } finally {
                 setActiveNpcUpdateRequest(null);
                 // The list may have been redrawn already, in which case this
@@ -750,7 +750,7 @@ export function renderNpcList() {
         card.find(".npc_del_btn").on("click", function (e) {
             e.stopPropagation();
             const i = parseInt($(this).attr("data-idx"));
-            if (confirm(`Delete ${localProfile.npcBank.npcs[i]?.name || "this NPC"}?`)) {
+            if (confirm(`删除 ${localProfile.npcBank.npcs[i]?.name || "此 NPC"}？`)) {
                 localProfile.npcBank.npcs.splice(i, 1);
                 saveProfileToMemory();
                 renderNpcList();
@@ -781,7 +781,7 @@ export function renderNpcList() {
                         localProfile.npcBank.npcs[i].pfp = compressed;
                         saveProfileToMemory();
                         renderNpcList();
-                        toastr.success("Portrait uploaded!");
+                        toastr.success("头像已上传！");
                     };
                     img.src = ev.target.result;
                 };

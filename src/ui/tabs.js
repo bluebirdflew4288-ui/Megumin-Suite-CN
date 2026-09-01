@@ -47,7 +47,7 @@ export function switchTab(index) {
     // The toggle is per tab, so its label has to follow the tab.
     setTimeout(updateGlobalSyncButton, 0);
 
-    $("#ps_btn_dev_mode").html(`<i class="fa-solid fa-code"></i> Dev`).css("color", "#a855f7");
+    $("#ps_btn_dev_mode").html(`<i class="fa-solid fa-code"></i> 开发`).css("color", "#a855f7");
 
     let isSameTab = (currentTab === index);
     const container = $("#ps_stage_content");
@@ -107,11 +107,11 @@ export function toggleTabGlobalSync() {
     if (!title) return;
 
     if (TABS_ALREADY_GLOBAL.includes(title)) {
-        toastr.info(`${title} is stored globally already — it is the same on every character.`, "Megumin Suite");
+        toastr.info(`${title} 已全局存储——每个角色上都是一样的。`, "Megumin Suite");
         return;
     }
     if (!TAB_SYNC_KEYS[title]) {
-        toastr.info("This tab has nothing to sync.", "Megumin Suite");
+        toastr.info("此标签页没有可同步的内容。", "Megumin Suite");
         return;
     }
 
@@ -125,13 +125,13 @@ export function toggleTabGlobalSync() {
         if (!ok) {
             map[title] = false;
             saveSettingsDebounced();
-            toastr.warning("The panel is still showing the previous chat's settings. Reopen it and try again.", "Megumin Suite");
+            toastr.warning("面板仍显示上一个聊天的设置。请重新打开面板再试一次。", "Megumin Suite");
             updateGlobalSyncButton();
             return;
         }
-        toastr.success(`${title} now applies to every character. Changes here follow automatically.`, "Megumin Suite");
+        toastr.success(`${title} 现在应用于所有角色。此处的更改会自动同步。`, "Megumin Suite");
     } else {
-        toastr.info(`${title} is back to per-character.`, "Megumin Suite");
+        toastr.info(`${title} 已恢复为按角色独立。`, "Megumin Suite");
     }
 
     updateGlobalSyncButton();
@@ -156,16 +156,16 @@ export function updateGlobalSyncButton() {
     const on = meguminIsTabSynced(title);
 
     if (alreadyGlobal || !syncable) {
-        btn.html(`<i class="fa-solid fa-earth-americas"></i> Global`)
-            .attr("title", alreadyGlobal ? "This tab is stored globally already." : "This tab has nothing to sync.")
+        btn.html(`<i class="fa-solid fa-earth-americas"></i> 全局`)
+            .attr("title", alreadyGlobal ? "此标签页已全局存储。" : "此标签页没有可同步的内容。")
             .css({ color: "var(--text-muted)", "border-color": "var(--border-color)", opacity: "0.55" });
         return;
     }
 
-    btn.html(`<i class="fa-solid fa-earth-americas"></i> Global: ${on ? "On" : "Off"}`)
+    btn.html(`<i class="fa-solid fa-earth-americas"></i> Global: ${on ? "开启" : "关闭"}`)
         .attr("title", on
-            ? `Every change on the ${title} tab is copied to all characters. Click to stop.`
-            : `Changes on the ${title} tab stay with this character. Click to make them global.`)
+            ? `${title} 标签页上的每个更改都会复制到所有角色。点击停止。`
+            : `${title} 标签页上的更改只保留在此角色。点击使其全局生效。`)
         .css({
             color: on ? "#10b981" : "var(--gold)",
             "border-color": on ? "rgba(16,185,129,0.45)" : "rgba(245,158,11,0.3)",

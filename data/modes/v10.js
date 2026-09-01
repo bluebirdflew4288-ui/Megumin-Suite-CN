@@ -398,7 +398,7 @@ export function applyEnhancedDialogue(text) {
 
 export const modes_v10 = [
     UKIYO,
-    coWriter(UKIYO, "v10-core-cw", "V10 Ukiyo Co-writer", "#fb7185", UKIYO_CO_WRITING),
+    coWriter(UKIYO, "v10-core-cw", "V10 Ukiyo 联合编剧", "#fb7185", UKIYO_CO_WRITING),
     SHURA,
-    coWriter(SHURA, "v10-shura-cw", "V10 Shura Co-writer", "#c084fc", SHURA_CO_WRITING),
+    coWriter(SHURA, "v10-shura-cw", "V10 Shura 联合编剧", "#c084fc", SHURA_CO_WRITING),
 ];

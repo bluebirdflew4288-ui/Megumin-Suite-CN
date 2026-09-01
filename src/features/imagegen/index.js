@@ -41,45 +41,45 @@ export function renderImageGen(c) {
                     <i class="fa-solid fa-image"></i>
                 </div>
                 <div>
-                    <h2>Image Generation</h2>
-                    <p>ComfyUI integration for automatic scene rendering.</p>
+                    <h2>图像生成</h2>
+                    <p>用于自动场景渲染的 ComfyUI 集成。</p>
                 </div>
             </div>
             <div id="ig_header_badge" class="mtab-header-badge" style="background: ${s.enabled ? 'rgba(16,185,129,0.12)' : 'rgba(255,255,255,0.06)'}; color: ${s.enabled ? '#10b981' : 'var(--text-muted)'}; border: 1px solid ${s.enabled ? 'rgba(16,185,129,0.25)' : 'var(--border-color)'};">
-                <i class="fa-solid fa-${s.enabled ? 'circle-check' : 'circle-xmark'}" style="font-size:0.6rem;"></i> ${s.enabled ? 'Enabled' : 'Disabled'}
+                <i class="fa-solid fa-${s.enabled ? 'circle-check' : 'circle-xmark'}" style="font-size:0.6rem;"></i> ${s.enabled ? '已启用' : '已禁用'}
             </div>
         </div>
 
         <div class="mtab-callout blue" style="margin-bottom: 16px;">
             <i class="fa-solid fa-book-open"></i>
-            <span><strong>New to this? There's a setup guide.</strong> Getting ComfyUI talking to
-            SillyTavern is the hard part, and none of the settings below matter until it is.
+            <span><strong>第一次用？这里有设置指南。</strong>让 ComfyUI 与
+            SillyTavern 通话是最难的部分，在此之前下方设置都无关紧要。
             <a href="https://www.reddit.com/r/SillyTavernAI/comments/1u87agq/tutorial_how_to_setup_inline_image_generation_in/"
                target="_blank" rel="noopener noreferrer"
-               style="color:#3b82f6; text-decoration:underline;">Read the walkthrough</a> — it covers
-            the install, the connection and the first working image.</span>
+               style="color:#3b82f6; text-decoration:underline;">阅读教程</a>——它涵盖
+            安装、连接与第一张成功生成的图像。</span>
         </div>
 
         <!-- MASTER TOGGLE -->
         <div class="mtab-toggle-row ${s.enabled ? 'active' : ''}" id="ig_enable_card" style="margin-bottom: 20px;">
             <div class="toggle-info">
-                <div class="toggle-label"><i class="fa-solid fa-image" style="color:#06b6d4;"></i> Enable Image Generation</div>
-                <div class="toggle-desc">Activate ComfyUI integration for this specific character/group.</div>
+                <div class="toggle-label"><i class="fa-solid fa-image" style="color:#06b6d4;"></i> 启用图像生成</div>
+                <div class="toggle-desc">为此角色/群组激活 ComfyUI 集成。</div>
             </div>
             <div class="ps-switch"></div>
         </div>
 
         <!-- Generator Backend -->
         <div class="mtab-panel" style="margin-bottom:16px;">
-            <div class="mtab-panel-title blue"><i class="fa-solid fa-gears"></i> Prompt Generator Backend</div>
+            <div class="mtab-panel-title blue"><i class="fa-solid fa-gears"></i> 提示词生成后端</div>
             <div class="mtab-setting-row">
                 <div class="set-info">
-                    <div class="set-label">Generation Method</div>
-                    <div class="set-desc">"Direct" is faster. "Megumin Image" is more creative.</div>
+                    <div class="set-label">生成方式</div>
+                    <div class="set-desc">“直接”更快。“Megumin 图像”更有创意。</div>
                 </div>
                 <select id="img_gen_backend" class="ps-modern-input" style="width: 220px; cursor: pointer;">
-                    <option value="direct" ${s.generatorBackend === 'direct' ? 'selected' : ''}>Direct API Call (Fast)</option>
-                    <option value="preset" ${s.generatorBackend === 'preset' ? 'selected' : ''}>Megumin Image Preset</option>
+                    <option value="direct" ${s.generatorBackend === 'direct' ? 'selected' : ''}>直接 API 调用（快速）</option>
+                    <option value="preset" ${s.generatorBackend === 'preset' ? 'selected' : ''}>Megumin 图像预设</option>
                 </select>
             </div>
         </div>
@@ -88,58 +88,58 @@ export function renderImageGen(c) {
             
             <!-- Connection & Workflow -->
             <div class="mtab-panel" style="margin-bottom:16px;">
-                <div class="mtab-panel-title blue"><i class="fa-solid fa-link"></i> ComfyUI Server & Workflow</div>
+                <div class="mtab-panel-title blue"><i class="fa-solid fa-link"></i> ComfyUI 服务器与工作流</div>
                 <div style="display: flex; gap: 10px; margin-bottom: 15px;">
                     <input type="text" id="ig_url" class="ps-modern-input" value="${s.comfyUrl}" placeholder="http://127.0.0.1:8188" style="flex: 1;" />
-                    <button id="ig_test_btn" class="ps-modern-btn secondary" style="padding: 0 15px;"><i class="fa-solid fa-wifi"></i> Test</button>
+                    <button id="ig_test_btn" class="ps-modern-btn secondary" style="padding: 0 15px;"><i class="fa-solid fa-wifi"></i> 测试</button>
                 </div>
                 <div style="display: flex; gap: 10px; align-items: center;">
                     <select id="ig_workflow_list" class="ps-modern-input" style="flex: 1; cursor: pointer;"></select>
-                    <button id="ig_new_wf" class="ps-modern-btn secondary" title="New Workflow"><i class="fa-solid fa-plus"></i></button>
-                    <button id="ig_edit_wf" class="ps-modern-btn secondary" title="Edit JSON"><i class="fa-solid fa-pen"></i></button>
-                    <button id="ig_del_wf" class="ps-modern-btn secondary" style="color: #ef4444; border-color: rgba(239, 68, 68, 0.3);" title="Delete"><i class="fa-solid fa-trash"></i></button>
+                    <button id="ig_new_wf" class="ps-modern-btn secondary" title="新建工作流"><i class="fa-solid fa-plus"></i></button>
+                    <button id="ig_edit_wf" class="ps-modern-btn secondary" title="编辑 JSON"><i class="fa-solid fa-pen"></i></button>
+                    <button id="ig_del_wf" class="ps-modern-btn secondary" style="color: #ef4444; border-color: rgba(239, 68, 68, 0.3);" title="删除"><i class="fa-solid fa-trash"></i></button>
                 </div>
             </div>
 
             <!-- Triggers & Formatting -->
             <div class="mtab-panel" style="margin-bottom:16px;">
-                <div class="mtab-panel-title gold"><i class="fa-solid fa-pen-nib"></i> Triggers & Formatting</div>
+                <div class="mtab-panel-title gold"><i class="fa-solid fa-pen-nib"></i> 触发与格式</div>
                 <div style="display: flex; gap: 15px; margin-bottom: 15px;">
                     <div style="flex: 1;">
-                        <div style="font-size: 0.7rem; font-weight: bold; color: var(--text-muted); margin-bottom: 4px;">Trigger Mode</div>
+                        <div style="font-size: 0.7rem; font-weight: bold; color: var(--text-muted); margin-bottom: 4px;">触发模式</div>
                         <select id="ig_trigger_mode" class="ps-modern-input" style="padding: 8px; font-size: 0.8rem; cursor: pointer;">
-                            <option value="always" ${s.triggerMode === 'always' ? 'selected' : ''}>Always (Every Reply)</option>
-                            <option value="frequency" ${s.triggerMode === 'frequency' ? 'selected' : ''}>After X Replies</option>
-                            <option value="conditional" ${s.triggerMode === 'conditional' ? 'selected' : ''}>Only when character sends a pic</option>
-                            <option value="manual" ${s.triggerMode === 'manual' ? 'selected' : ''}>Manual Button Only</option>
+                            <option value="always" ${s.triggerMode === 'always' ? 'selected' : ''}>始终（每条回复）</option>
+                            <option value="frequency" ${s.triggerMode === 'frequency' ? 'selected' : ''}>每 X 条回复</option>
+                            <option value="conditional" ${s.triggerMode === 'conditional' ? 'selected' : ''}>仅当角色发送图片时</option>
+                            <option value="manual" ${s.triggerMode === 'manual' ? 'selected' : ''}>仅手动按钮</option>
                         </select>
                     </div>
                     <div style="flex: 1;">
-                        <div style="font-size: 0.7rem; font-weight: bold; color: var(--text-muted); margin-bottom: 4px;">Inject Mode</div>
+                        <div style="font-size: 0.7rem; font-weight: bold; color: var(--text-muted); margin-bottom: 4px;">注入模式</div>
                         <select id="ig_inject_mode" class="ps-modern-input" style="padding: 8px; font-size: 0.8rem; cursor: pointer;">
-                            <option value="new_msg" ${s.injectMode === 'new_msg' || !s.injectMode ? 'selected' : ''}>New Message (Gallery)</option>
-                            <option value="inline" ${s.injectMode === 'inline' ? 'selected' : ''}>Inline (Inside AI Reply)</option>
+                            <option value="new_msg" ${s.injectMode === 'new_msg' || !s.injectMode ? 'selected' : ''}>新消息（画廊）</option>
+                            <option value="inline" ${s.injectMode === 'inline' ? 'selected' : ''}>行内（AI 回复内）</option>
                         </select>
                     </div>
                     <div style="flex: 1;">
-                        <div style="font-size: 0.7rem; font-weight: bold; color: var(--text-muted); margin-bottom: 4px;">Image Count</div>
+                        <div style="font-size: 0.7rem; font-weight: bold; color: var(--text-muted); margin-bottom: 4px;">图像数量</div>
                         <select id="ig_image_count" class="ps-modern-input" style="padding: 8px; font-size: 0.8rem; cursor: pointer;">
-                            <option value="1" ${s.imageCount == 1 ? 'selected' : ''}>1 Image</option>
-                            <option value="2" ${s.imageCount == 2 ? 'selected' : ''}>2 Images</option>
-                            <option value="3" ${s.imageCount == 3 ? 'selected' : ''}>3 Images</option>
-                            <option value="4" ${s.imageCount == 4 ? 'selected' : ''}>4 Images</option>
+                            <option value="1" ${s.imageCount == 1 ? 'selected' : ''}>1 张图像</option>
+                            <option value="2" ${s.imageCount == 2 ? 'selected' : ''}>2 张图像</option>
+                            <option value="3" ${s.imageCount == 3 ? 'selected' : ''}>3 张图像</option>
+                            <option value="4" ${s.imageCount == 4 ? 'selected' : ''}>4 张图像</option>
                         </select>
                     </div>
                     <div style="flex: 1; display: ${s.triggerMode === 'frequency' ? 'block' : 'none'};" id="ig_freq_container">
-                        <div style="font-size: 0.7rem; font-weight: bold; color: var(--text-muted); margin-bottom: 4px;">Every X Replies</div>
+                        <div style="font-size: 0.7rem; font-weight: bold; color: var(--text-muted); margin-bottom: 4px;">每 X 条回复</div>
                         <input type="number" id="ig_auto_freq" class="ps-modern-input" value="${s.autoGenFreq}" min="1" style="padding: 8px; font-size: 0.8rem; text-align: center;" />
                     </div>
                 </div>
 
                 <div class="mtab-toggle-row ${s.previewPrompt ? 'active' : ''}" id="ig_preview_card" style="padding: 12px 18px; margin-bottom: 15px;">
                     <div class="toggle-info">
-                        <div class="toggle-label" style="font-size:0.85rem;">Preview Prompt Before Sending</div>
-                        <div class="toggle-desc">Show a popup to view or edit the AI's prompt before rendering.</div>
+                        <div class="toggle-label" style="font-size:0.85rem;">发送前预览提示词</div>
+                        <div class="toggle-desc">渲染前弹出窗口，查看或编辑 AI 的提示词。</div>
                     </div>
                     <div class="ps-switch"></div>
                 </div>
@@ -147,7 +147,7 @@ export function renderImageGen(c) {
                 <div id="ig_prompt_builder" style="background: rgba(0,0,0,0.15); padding: 15px; border-radius: 10px; border-left: 3px solid var(--gold);">
                     <div style="display: flex; gap: 15px; margin-bottom: 10px; align-items: center; flex-wrap: wrap;">
                         <div style="flex: 2; min-width: 150px;">
-                            <div style="font-size: 0.7rem; font-weight: bold; color: var(--text-muted); margin-bottom: 4px;">Prompt Template</div>
+                            <div style="font-size: 0.7rem; font-weight: bold; color: var(--text-muted); margin-bottom: 4px;">提示词模板</div>
                             <select id="ig_template" class="ps-modern-input" style="padding: 8px; font-size: 0.8rem; cursor: pointer;">
                                 <option value="illus_cinematic" ${s.promptTemplate === 'illus_cinematic' ? 'selected' : ''}>Illustrious/Anima + Cinematic</option>
                                 <option value="sdxl_cinematic" ${s.promptTemplate === 'sdxl_cinematic' ? 'selected' : ''}>Z Image + Cinematic</option>
@@ -159,7 +159,7 @@ export function renderImageGen(c) {
                         </div>
                         <div style="flex: 1; min-width: 100px;">
                             <div style="font-size: 0.7rem; font-weight: bold; color: var(--text-muted); margin-bottom: 4px; display: flex; align-items: center; gap: 5px;">
-                                Include Examples <i class="fa-solid fa-circle-question" title="Make the image prompt better but increase input token." style="cursor: help; color: var(--gold);"></i>
+                                包含示例 <i class="fa-solid fa-circle-question" title="让图像提示词更好，但会增加输入 token。" style="cursor: help; color: var(--gold);"></i>
                             </div>
                             <div class="ps-toggle-card ${s.includeExamples ? 'active' : ''}" id="ig_examples_toggle" style="padding: 4px; min-width: 44px; justify-content: center; background: transparent; border-color: ${s.includeExamples ? '#10b981' : 'var(--border-color)'}; cursor: pointer; border-radius: 8px;">
                                 <div class="ps-switch" style="transform: scale(0.75); ${s.includeExamples ? 'background: #10b981;' : ''}"></div>
@@ -167,7 +167,7 @@ export function renderImageGen(c) {
                         </div>
                         <div style="flex: 1; min-width: 100px;">
                             <div style="font-size: 0.7rem; font-weight: bold; color: var(--text-muted); margin-bottom: 4px; display: flex; align-items: center; gap: 5px;">
-                                Better Booru tags <i class="fa-solid fa-circle-question" title="It may increase empty responses." style="cursor: help; color: var(--gold);"></i>
+                                更好的 Booru 标签 <i class="fa-solid fa-circle-question" title="可能增加空回复。" style="cursor: help; color: var(--gold);"></i>
                             </div>
                             <div class="ps-toggle-card ${s.directLanguage ? 'active' : ''}" id="ig_direct_toggle" style="padding: 4px; min-width: 44px; justify-content: center; background: transparent; border-color: ${s.directLanguage ? '#10b981' : 'var(--border-color)'}; cursor: pointer; border-radius: 8px;" title="Forces the AI to only use exact Booru tags">
                                 <div class="ps-switch" style="transform: scale(0.75); ${s.directLanguage ? 'background: #10b981;' : ''}"></div>
@@ -175,22 +175,22 @@ export function renderImageGen(c) {
                         </div>
                         <div style="flex: 1; min-width: 100px;">
                             <div style="font-size: 0.7rem; font-weight: bold; color: var(--text-muted); margin-bottom: 4px; display: flex; align-items: center; gap: 5px;">
-                                Inject NPC Tags <i class="fa-solid fa-circle-question" title="Automatically attach saved NPC image tags to the prompt if they are in the scene." style="cursor: help; color: var(--gold);"></i>
+                                注入 NPC 标签 <i class="fa-solid fa-circle-question" title="如果 NPC 在场景中，自动将其已保存的图像标签附加到提示词。" style="cursor: help; color: var(--gold);"></i>
                             </div>
                             <div class="ps-toggle-card ${s.injectNpcTags ? 'active' : ''}" id="ig_npc_tags_toggle" style="padding: 4px; min-width: 44px; justify-content: center; background: transparent; border-color: ${s.injectNpcTags ? '#10b981' : 'var(--border-color)'}; cursor: pointer; border-radius: 8px;">
                                 <div class="ps-switch" style="transform: scale(0.75); ${s.injectNpcTags ? 'background: #10b981;' : ''}"></div>
                             </div>
                         </div>
                     </div>
-                    <input type="text" id="ig_extra" class="ps-modern-input" placeholder="Extra Instructions (e.g. moody lighting, dark atmosphere...)" value="${s.promptExtra}" style="padding: 8px; font-size: 0.8rem;" />
+                    <input type="text" id="ig_extra" class="ps-modern-input" placeholder="额外指令（例如：忧郁的灯光、黑暗氛围...）" value="${s.promptExtra}" style="padding: 8px; font-size: 0.8rem;" />
                 </div>
 
             <!-- Parameters -->
             <div class="mtab-panel" style="margin-bottom:16px;">
-                <div class="mtab-panel-title gold"><i class="fa-solid fa-sliders"></i> Image Parameters</div>
+                <div class="mtab-panel-title gold"><i class="fa-solid fa-sliders"></i> 图像参数</div>
                 <div style="display: flex; gap: 10px; margin-bottom: 15px;">
-                    <select id="ig_model" class="ps-modern-input" style="flex: 2; cursor: pointer;"><option value="">Loading Models...</option></select>
-                    <select id="ig_sampler" class="ps-modern-input" style="flex: 1; cursor: pointer;"><option value="">Loading Samplers...</option></select>
+                    <select id="ig_model" class="ps-modern-input" style="flex: 2; cursor: pointer;"><option value="">正在加载模型...</option></select>
+                    <select id="ig_sampler" class="ps-modern-input" style="flex: 1; cursor: pointer;"><option value="">正在加载采样器...</option></select>
                 </div>
 
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 15px; background: rgba(0,0,0,0.1); padding: 15px; border-radius: 10px; border: 1px solid var(--border-color);">
@@ -202,7 +202,7 @@ export function renderImageGen(c) {
 
                 <div style="display: flex; gap: 10px; margin-bottom: 15px;">
                     <div style="flex: 2;">
-                        <div style="font-size: 0.7rem; font-weight: bold; color: var(--text-muted); margin-bottom: 4px; text-transform: uppercase;">Resolution Preset</div>
+                        <div style="font-size: 0.7rem; font-weight: bold; color: var(--text-muted); margin-bottom: 4px; text-transform: uppercase;">分辨率预设</div>
                         <select id="ig_res_preset" class="ps-modern-input" style="padding: 8px; font-size: 0.8rem;"></select>
                     </div>
                     <div style="flex: 1; display: flex; align-items: flex-end; gap: 5px;">
@@ -214,21 +214,21 @@ export function renderImageGen(c) {
 
                 <div style="display: flex; gap: 10px; margin-bottom: 15px;">
                     <div style="flex: 1;">
-                        <div style="font-size: 0.7rem; font-weight: bold; color: var(--text-muted); margin-bottom: 4px; text-transform: uppercase;">Seed (-1 for random)</div>
+                        <div style="font-size: 0.7rem; font-weight: bold; color: var(--text-muted); margin-bottom: 4px; text-transform: uppercase;">种子（-1 为随机）</div>
                         <div style="display: flex; gap: 5px;">
                             <input type="number" id="ig_seed" class="ps-modern-input" value="${s.customSeed}" style="padding: 8px; font-size: 0.8rem; flex: 1;" />
-                            <button id="ig_seed_dice" class="ps-modern-btn secondary" style="padding: 8px 12px;" title="Set to Random (-1)"><i class="fa-solid fa-dice"></i></button>
+                            <button id="ig_seed_dice" class="ps-modern-btn secondary" style="padding: 8px 12px;" title="设为随机（-1）"><i class="fa-solid fa-dice"></i></button>
                         </div>
                     </div>
                     <div style="flex: 2;">
-                        <div style="font-size: 0.7rem; font-weight: bold; color: var(--text-muted); margin-bottom: 4px; text-transform: uppercase;">Negative Prompt Override</div>
+                        <div style="font-size: 0.7rem; font-weight: bold; color: var(--text-muted); margin-bottom: 4px; text-transform: uppercase;">负面提示词覆盖</div>
                         <input type="text" id="ig_neg" class="ps-modern-input" value="${s.customNegative}" style="padding: 8px; font-size: 0.8rem;" />
                     </div>
                 </div>
                 
                 <div style="display: flex; gap: 10px;">
                     <div style="flex: 1;">
-                        <div style="font-size: 0.7rem; font-weight: bold; color: var(--text-muted); margin-bottom: 4px; text-transform: uppercase;">Positive Prefix (Auto-Added to Front)</div>
+                        <div style="font-size: 0.7rem; font-weight: bold; color: var(--text-muted); margin-bottom: 4px; text-transform: uppercase;">正面前缀（自动添加到开头）</div>
                         <input type="text" id="ig_prefix" class="ps-modern-input" value="${s.promptPrefix || ''}" placeholder="e.g. score_9, score_8_up, masterpiece..." style="padding: 8px; font-size: 0.8rem;" />
                     </div>
                 </div>
@@ -236,20 +236,20 @@ export function renderImageGen(c) {
 
             <!-- LoRA Lab -->
             <div class="mtab-panel">
-                <div class="mtab-panel-title purple"><i class="fa-solid fa-flask"></i> LoRA Lab</div>
+                <div class="mtab-panel-title purple"><i class="fa-solid fa-flask"></i> LoRA 实验室</div>
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
                     ${[1, 2, 3, 4].map(i => {
                         const wtVal = i === 1 ? s.selectedLoraWt : s[`selectedLoraWt${i}`];
                         const trigVal = i === 1 ? s.loraTrigger1 : s[`loraTrigger${i}`];
                         return `
                         <div style="background: rgba(0,0,0,0.1); border: 1px solid var(--border-color); padding: 12px; border-radius: 10px; border-left: 3px solid #a855f7;">
-                            <div style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;">Slot ${i}</div>
+                            <div style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;">插槽 ${i}</div>
                             
                             <select id="ig_lora_${i}" class="ps-modern-input" style="padding: 6px; font-size: 0.75rem; margin-bottom: 4px; width: 100%; box-sizing: border-box; cursor: pointer;">
-                                <option value="">Loading...</option>
+                                <option value="">正在加载...</option>
                             </select>
                             
-                            <input type="text" id="ig_lora_trig_${i}" class="ps-modern-input" placeholder="Trigger words..." value="${trigVal || ''}" style="padding: 6px; font-size: 0.7rem; margin-bottom: 8px; width: 100%; box-sizing: border-box;" title="Words automatically injected into the prompt when this LoRA is active." />
+                            <input type="text" id="ig_lora_trig_${i}" class="ps-modern-input" placeholder="触发词..." value="${trigVal || ''}" style="padding: 6px; font-size: 0.7rem; margin-bottom: 8px; width: 100%; box-sizing: border-box;" title="此 LoRA 激活时自动注入提示词的词语。" />
                             
                             <div class="mtab-param-row" style="padding:0;">
                                 <span class="param-label" style="min-width:30px;">Wt</span>
@@ -267,7 +267,7 @@ export function renderImageGen(c) {
     // --- PROMPT EDITOR UI ---
     const igEditor = renderPromptEditor({
         id: "ig_prompt_editor",
-        title: "Advanced: Edit Prompts",
+        title: "高级：编辑提示词",
         defaultData: DEFAULT_PROMPTS.imageGen,
         currentData: s.customPrompts,
         enabled: s.customPromptsEnabled, // <-- NEW
@@ -408,7 +408,7 @@ export function renderImageGen(c) {
 
     // Resolutions
     const resSel = $("#ig_res_preset");
-    resSel.empty().append('<option value="">-- Select Preset --</option>');
+    resSel.empty().append('<option value="">-- 选择预设 --</option>');
     RESOLUTIONS.forEach((r, idx) => resSel.append(`<option value="${idx}">${r.label}</option>`));
     resSel.on("change", (e) => {
         const idx = parseInt($(e.target).val());
@@ -481,9 +481,9 @@ export function renderImageGen(c) {
         }
         if (s.savedWorkflowStates && s.savedWorkflowStates[newWorkflow]) {
             Object.assign(s, s.savedWorkflowStates[newWorkflow]);
-            toastr.success(`Restored settings for ${newWorkflow}`);
+            toastr.success(`已恢复 ${newWorkflow} 的设置`);
             renderImageGen(c); // Re-render to update UI with restored values
-        } else { toastr.info(`New workflow context active`); }
+        } else { toastr.info(`新工作流上下文已激活`); }
 
         s.currentWorkflowName = newWorkflow;
         saveProfileToMemory();
@@ -505,7 +505,7 @@ export async function igFetchComfyLists() {
         const mRes = await fetch('/api/sd/comfy/models', { method: 'POST', headers: getRequestHeaders(), body: JSON.stringify({ url: url }) });
         if (mRes.ok) {
             const models = await mRes.json();
-            const sel = $("#ig_model"); sel.empty().append('<option value="">-- Select Model --</option>');
+            const sel = $("#ig_model"); sel.empty().append('<option value="">-- 选择模型 --</option>');
             models.forEach(m => { let v = m.value || m; let t = m.text || v; sel.append(`<option value="${v}">${t}</option>`); });
             if (s.selectedModel) sel.val(s.selectedModel);
         }
@@ -523,7 +523,7 @@ export async function igFetchComfyLists() {
             for (let i = 1; i <= 4; i++) {
                 const sel = $(`#ig_lora_${i}`); 
                 const val = i === 1 ? s.selectedLora : s[`selectedLora${i}`];
-                sel.empty().append('<option value="">-- No LoRA --</option>');
+                sel.empty().append('<option value="">-- 无 LoRA --</option>');
                 files.forEach(f => sel.append(`<option value="${f}">${f}</option>`));
                 if (val) sel.val(val);
             }
@@ -543,8 +543,8 @@ export function toggleQuickGenButton() {
 export async function igTestConnection() {
     try {
         const res = await fetch('/api/sd/comfy/ping', { method: 'POST', headers: getRequestHeaders(), body: JSON.stringify({ url: localProfile.imageGen.comfyUrl }) });
-        if (res.ok) { toastr.success("ComfyUI Connected!"); await igFetchComfyLists(); } else throw new Error("Ping failed");
-    } catch (e) { toastr.error("Connection Failed: " + e.message); }
+        if (res.ok) { toastr.success("ComfyUI 已连接！"); await igFetchComfyLists(); } else throw new Error("Ping failed");
+    } catch (e) { toastr.error("连接失败：" + e.message); }
 }
 
 export async function igPopulateWorkflows() {
@@ -560,33 +560,33 @@ export async function igPopulateWorkflows() {
                 sel.val(wfs[0]); localProfile.imageGen.currentWorkflowName = wfs[0]; saveProfileToMemory();
             }
         }
-    } catch (e) { sel.append('<option disabled>Failed to load</option>'); }
+    } catch (e) { sel.append('<option disabled>加载失败</option>'); }
 }
 
 export async function igNewWorkflowClick() {
-    let name = await prompt("New workflow file name (e.g. 'my_flux.json'):");
+    let name = await prompt("新工作流文件名（例如 'my_flux.json'）：");
     if (!name) return; if (!name.toLowerCase().endsWith('.json')) name += '.json';
     try {
         const res = await fetch('/api/sd/comfy/save-workflow', { method: 'POST', headers: getRequestHeaders(), body: JSON.stringify({ file_name: name, workflow: '{}' }) });
         if (!res.ok) throw new Error(await res.text());
-        toastr.success("Workflow created!"); await igPopulateWorkflows(); $("#ig_workflow_list").val(name).trigger('change');
+        toastr.success("工作流已创建！"); await igPopulateWorkflows(); $("#ig_workflow_list").val(name).trigger('change');
         setTimeout(igOpenWorkflowEditorClick, 500);
     } catch (e) { toastr.error(e.message); }
 }
 
 export async function igDeleteWorkflowClick() {
     const name = localProfile.imageGen.currentWorkflowName;
-    if (!name) return; if (!confirm(`Delete ${name}?`)) return;
+    if (!name) return; if (!confirm(`删除 ${name}？`)) return;
     try {
         const res = await fetch('/api/sd/comfy/delete-workflow', { method: 'POST', headers: getRequestHeaders(), body: JSON.stringify({ file_name: name }) });
         if (!res.ok) throw new Error(await res.text());
-        toastr.success("Deleted."); await igPopulateWorkflows();
+        toastr.success("已删除。"); await igPopulateWorkflows();
     } catch (e) { toastr.error(e.message); }
 }
 
 export async function igOpenWorkflowEditorClick() {
     const name = localProfile.imageGen.currentWorkflowName;
-    if (!name) return toastr.warning("No workflow selected");
+    if (!name) return toastr.warning("未选择工作流");
     let loadedContent = "{}";
     try {
         const res = await fetch('/api/sd/comfy/workflow', { method: 'POST', headers: getRequestHeaders(), body: JSON.stringify({ file_name: name }) });
@@ -595,7 +595,7 @@ export async function igOpenWorkflowEditorClick() {
             if (typeof rawBody === 'string') { try { jsonObj = JSON.parse(rawBody); } catch (e) { } }
             loadedContent = JSON.stringify(jsonObj, null, 4);
         }
-    } catch (e) { toastr.error("Failed to load file. Starting empty."); }
+    } catch (e) { toastr.error("加载文件失败，从空白开始。"); }
 
     let currentJsonText = loadedContent;
     const $container = $(`
@@ -603,16 +603,16 @@ export async function igOpenWorkflowEditorClick() {
             <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border-color); padding-bottom:10px;">
                 <h3 style="margin:0; color: var(--gold);">${name}</h3>
                 <div style="display:flex; gap:8px;">
-                    <button class="ps-modern-btn secondary wf-format" title="Beautify JSON"><i class="fa-solid fa-align-left"></i> Format</button>
-                    <button class="ps-modern-btn secondary wf-import" title="Upload .json file"><i class="fa-solid fa-upload"></i> Import</button>
-                    <button class="ps-modern-btn secondary wf-export" title="Download .json file"><i class="fa-solid fa-download"></i> Export</button>
+                    <button class="ps-modern-btn secondary wf-format" title="美化 JSON"><i class="fa-solid fa-align-left"></i> 格式化</button>
+                    <button class="ps-modern-btn secondary wf-import" title="上传 .json 文件"><i class="fa-solid fa-upload"></i> 导入</button>
+                    <button class="ps-modern-btn secondary wf-export" title="下载 .json 文件"><i class="fa-solid fa-download"></i> 导出</button>
                     <input type="file" class="wf-file-input" accept=".json" style="display:none;" />
                 </div>
             </div>
             <div style="display: flex; gap: 15px;">
                 <textarea class="ps-modern-input wf-textarea" spellcheck="false" style="flex: 1; min-height: 500px; font-family: 'Consolas', 'Monaco', monospace; white-space: pre; resize: none; font-size: 13px; line-height: 1.4; background: #000;"></textarea>
                 <div style="width: 250px; flex-shrink: 0; display: flex; flex-direction: column; border-left: 1px solid var(--border-color); padding-left: 10px; max-height: 500px;">
-                    <h4 style="margin: 0 0 10px 0; color: var(--text-muted);">Placeholders</h4>
+                    <h4 style="margin: 0 0 10px 0; color: var(--text-muted);">占位符</h4>
                     <div class="wf-list" style="overflow-y: auto; flex: 1; padding-right: 5px;"></div>
                 </div>
             </div>
@@ -638,17 +638,17 @@ export async function igOpenWorkflowEditorClick() {
     };
     $textarea.on('input', updateState); setTimeout(updateState, 100);
 
-    $container.find('.wf-format').on('click', () => { try { $textarea.val(JSON.stringify(JSON.parse($textarea.val()), null, 4)); updateState(); toastr.success("Formatted"); } catch (e) { toastr.warning("Invalid JSON"); } });
+    $container.find('.wf-format').on('click', () => { try { $textarea.val(JSON.stringify(JSON.parse($textarea.val()), null, 4)); updateState(); toastr.success("已格式化"); } catch (e) { toastr.warning("无效的 JSON"); } });
     $container.find('.wf-import').on('click', () => $fileInput.click());
-    $fileInput.on('change', (e) => { if (!e.target.files[0]) return; const r = new FileReader(); r.onload = (ev) => { $textarea.val(ev.target.result); updateState(); toastr.success("Imported"); }; r.readAsText(e.target.files[0]); $fileInput.val(''); });
-    $container.find('.wf-export').on('click', () => { try { JSON.parse(currentJsonText); const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([currentJsonText], { type: "application/json" })); a.download = name; a.click(); } catch (e) { toastr.warning("Invalid content"); } });
+    $fileInput.on('change', (e) => { if (!e.target.files[0]) return; const r = new FileReader(); r.onload = (ev) => { $textarea.val(ev.target.result); updateState(); toastr.success("已导入"); }; r.readAsText(e.target.files[0]); $fileInput.val(''); });
+    $container.find('.wf-export').on('click', () => { try { JSON.parse(currentJsonText); const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([currentJsonText], { type: "application/json" })); a.download = name; a.click(); } catch (e) { toastr.warning("内容无效"); } });
 
-    const popup = new Popup($container, POPUP_TYPE.CONFIRM, '', { okButton: 'Save Changes', cancelButton: 'Cancel', wide: true, large: true, onClosing: () => { try { JSON.parse(currentJsonText); return true; } catch (e) { toastr.error("Invalid JSON."); return false; } } });
+    const popup = new Popup($container, POPUP_TYPE.CONFIRM, '', { okButton: '保存更改', cancelButton: '取消', wide: true, large: true, onClosing: () => { try { JSON.parse(currentJsonText); return true; } catch (e) { toastr.error("Invalid JSON."); return false; } } });
     if (await popup.show()) {
         try {
             const res = await fetch('/api/sd/comfy/save-workflow', { method: 'POST', headers: getRequestHeaders(), body: JSON.stringify({ file_name: name, workflow: JSON.stringify(JSON.parse(currentJsonText)) }) });
-            if (!res.ok) throw new Error(await res.text()); toastr.success("Workflow Saved!");
-        } catch (e) { toastr.error("Save Failed."); }
+            if (!res.ok) throw new Error(await res.text()); toastr.success("工作流已保存！");
+        } catch (e) { toastr.error("保存失败。"); }
     }
 }
 
@@ -656,7 +656,7 @@ export async function igManualGenerate() {
     const s = localProfile?.imageGen;
     if (!s || !s.enabled) return;
 
-    showKazumaProgress("Analyzing Scene...");
+    showKazumaProgress("正在分析场景...");
 
     try {
         let promptText;
@@ -674,13 +674,13 @@ export async function igManualGenerate() {
         const match = promptText.match(imgRegex);
         if (match) promptText = match[2];
 
-        toastr.info("Sending to ComfyUI...", "Megumin Suite");
+        toastr.info("正在发送到 ComfyUI...", "Megumin Suite");
         igGenerateWithComfy(promptText, null);
 
     } catch (e) {
         console.error(e);
         $("#kazuma_progress_overlay").hide();
-        toastr.error("Manual generation failed.");
+        toastr.error("手动生成失败。");
     } finally {
         setActiveImageGenRequest(null);
     }
@@ -777,7 +777,7 @@ export function addKazumaRetryButtons(msgIndex) {
         // Create the retry button
         const btn = document.createElement('div');
         btn.className = 'kazuma-regen-btn';
-        btn.title = 'Regenerate this image';
+        btn.title = '重新生成此图像';
         // On a device with no pointer there is no mouseenter, so a button that
         // rests at opacity 0 can never be seen. Rest it at 0.85 instead.
         const kazumaCanHover = !window.matchMedia || window.matchMedia('(hover: hover)').matches;
@@ -795,22 +795,22 @@ export function addKazumaRetryButtons(msgIndex) {
             e.preventDefault();
 
             const s = localProfile?.imageGen;
-            if (!s || !s.enabled) { toastr.warning("Image Generation is disabled."); return; }
+            if (!s || !s.enabled) { toastr.warning("图像生成已禁用。"); return; }
 
             // Re-find the message dynamically (index may have shifted)
             const ctx = getContext();
             const currentMsgIndex = ctx.chat.findIndex(m => m.mes && m.mes.includes(wrapperId));
-            if (currentMsgIndex === -1) { toastr.warning("Could not find the original message for this image."); return; }
+            if (currentMsgIndex === -1) { toastr.warning("找不到此图像的原始消息。"); return; }
             const msg = ctx.chat[currentMsgIndex];
 
             // Replace the HTML block back to the loading placeholder
             const regenRegex = new RegExp(`<!-- kazuma-inline-start:${wrapperId} -->[\\s\\S]*?<!-- kazuma-inline-end:${wrapperId} -->`, "g");
-            const placeholder = `<div id="${wrapperId}" class="kazuma-img-placeholder" style="color:var(--gold); font-style: italic; margin: 10px 0;">[Regenerating Image...]</div>`;
+            const placeholder = `<div id="${wrapperId}" class="kazuma-img-placeholder" style="color:var(--gold); font-style: italic; margin: 10px 0;">[正在重新生成图像...]</div>`;
 
             if (msg.mes.includes(`kazuma-inline-start:${wrapperId}`)) {
                 msg.mes = msg.mes.replace(regenRegex, placeholder);
             } else {
-                toastr.warning("Could not find the original image block to replace.");
+                toastr.warning("找不到要替换的原始图像信息块。");
                 return;
             }
 
@@ -823,7 +823,7 @@ export function addKazumaRetryButtons(msgIndex) {
                 reloadCurrentChat();
             }
 
-            toastr.info("Regenerating inline image...");
+            toastr.info("正在重新生成行内图像...");
             igGenerateWithComfy(prompt, { message: msg, index: currentMsgIndex, mode: "inline", isInlineAuto: true, placeholderId: wrapperId });
         });
 
@@ -912,7 +912,7 @@ export async function igGenerateWithComfy(positivePrompt, target = null) {
 
         const $content = $(`
             <div style="display:flex; flex-direction:column; gap:10px; font-family: 'Inter', sans-serif;">
-                <div style="font-size: 0.85rem; color: var(--text-muted);">Review or modify the prompt before it goes to ComfyUI.</div>
+                <div style="font-size: 0.85rem; color: var(--text-muted);">在发送到 ComfyUI 之前查看或修改提示词。</div>
                 <textarea class="ps-modern-input ig-preview-textarea" style="height: 150px; resize: vertical; font-family: monospace; font-size: 0.85rem; padding: 10px;">${finalPrompt}</textarea>
             </div>
         `);
@@ -924,25 +924,25 @@ export async function igGenerateWithComfy(positivePrompt, target = null) {
             liveText = $(this).val();
         });
 
-        const popup = new Popup($content, POPUP_TYPE.CONFIRM, "Preview Image Prompt", { okButton: "Send to ComfyUI", cancelButton: "Cancel", wide: true });
+        const popup = new Popup($content, POPUP_TYPE.CONFIRM, "预览图像提示词", { okButton: "发送到 ComfyUI", cancelButton: "Cancel", wide: true });
         const confirmed = await popup.show();
 
         if (!confirmed) {
-            toastr.info("Generation cancelled.");
+            toastr.info("生成已取消。");
             return;
         }
 
         finalPrompt = liveText.trim();
-        if (!finalPrompt) return toastr.warning("Prompt cannot be empty.");
+        if (!finalPrompt) return toastr.warning("提示词不能为空。");
 
-        showKazumaProgress("Preparing to Render..."); // Bring progress bar back
+        showKazumaProgress("正在准备渲染..."); // Bring progress bar back
     }
 
     let workflowRaw;
     try {
         const res = await fetch('/api/sd/comfy/workflow', { method: 'POST', headers: getRequestHeaders(), body: JSON.stringify({ file_name: s.currentWorkflowName }) });
         if (!res.ok) throw new Error("Load failed"); workflowRaw = await res.json();
-    } catch (e) { return toastr.error(`Could not load ${s.currentWorkflowName}`); }
+    } catch (e) { return toastr.error(`无法加载 ${s.currentWorkflowName}`); }
 
     let workflow = (typeof workflowRaw === 'string') ? JSON.parse(workflowRaw) : workflowRaw;
     let finalSeed = parseInt(s.customSeed); if (finalSeed === -1 || isNaN(finalSeed)) finalSeed = Math.floor(Math.random() * 1000000000);
@@ -983,7 +983,7 @@ export async function igGenerateWithComfy(positivePrompt, target = null) {
     const progress = openComfyProgressSocket(s.comfyUrl, comfyClientId, {
         onProgress: (value, max) => {
             const pct = Math.round((value / max) * 100);
-            showKazumaProgress(`Rendering Image... ${value}/${max} (${pct}%)`, pct);
+            showKazumaProgress(`正在渲染图像... ${value}/${max}（${pct}%）`, pct);
         },
     });
 
@@ -992,7 +992,7 @@ export async function igGenerateWithComfy(positivePrompt, target = null) {
         if (!res.ok) throw new Error("Failed");
         const data = await res.json();
 
-        showKazumaProgress("Rendering Image...");
+        showKazumaProgress("正在渲染图像...");
         const checkInterval = setInterval(async () => {
             try {
                 const h = await (await fetch(`${s.comfyUrl}/history/${data.prompt_id}`)).json();
@@ -1004,7 +1004,7 @@ export async function igGenerateWithComfy(positivePrompt, target = null) {
                         if (nodeOut.images && nodeOut.images.length > 0) { finalImage = nodeOut.images[0]; break; }
                     }
                     if (finalImage) {
-                        showKazumaProgress("Downloading...");
+                        showKazumaProgress("正在下载...");
                         const imgUrl = `${s.comfyUrl}/view?filename=${finalImage.filename}&subfolder=${finalImage.subfolder}&type=${finalImage.type}`;
 
                         // Download & Compress
@@ -1065,17 +1065,17 @@ export async function igGenerateWithComfy(positivePrompt, target = null) {
                             } else {
                                 await reloadCurrentChat();
                             }
-                            toastr.success("Image injected inline!");
+                            toastr.success("图像已行内注入！");
                         } else if (target && target.message && !target.isInlineAuto) {
                             if (!target.message.extra) target.message.extra = {}; if (!target.message.extra.media) target.message.extra.media = [];
                             target.message.extra.media_display = "gallery"; target.message.extra.media.push(mediaAttach); target.message.extra.media_index = target.message.extra.media.length - 1;
                             if (typeof appendMediaToMessage === "function") appendMediaToMessage(target.message, target.element);
-                            await saveChat(); toastr.success("Gallery updated!");
+                            await saveChat(); toastr.success("画廊已更新！");
                         } else {
                             const newMsg = { name: "Image Gen Kazuma", is_user: false, is_system: true, send_date: Date.now(), mes: "", extra: { media: [mediaAttach], media_display: "gallery", media_index: 0 }, force_avatar: "img/five.png" };
                             getContext().chat.push(newMsg); await saveChat();
                             if (typeof addOneMessage === "function") addOneMessage(newMsg); else await reloadCurrentChat();
-                            toastr.success("Image inserted!");
+                            toastr.success("图像已插入！");
                         }
                         progress.close(); $("#kazuma_progress_overlay").hide();
                     } else {
@@ -1085,7 +1085,7 @@ export async function igGenerateWithComfy(positivePrompt, target = null) {
                         } else if (target && target.isInlineAuto && target.mode === "inline") {
                             const wrapperId = target.placeholderId || `kazuma-img-${Date.now()}`;
                             const safePrompt = finalPrompt.replace(/"/g, '&quot;').replace(/'/g, '&#39;');
-                            const failTag = `<!-- kazuma-inline-start:${wrapperId} --><div id="${wrapperId}" class="kazuma-img-wrapper" style="color:#ef4444; font-style: italic; margin: 10px 0;"><span>[Image Generation Failed]</span> <img alt="KazumaInline" data-kazumaid="${wrapperId}" title="${safePrompt}" style="display:none;" /></div><!-- kazuma-inline-end:${wrapperId} -->`;
+                            const failTag = `<!-- kazuma-inline-start:${wrapperId} --><div id="${wrapperId}" class="kazuma-img-wrapper" style="color:#ef4444; font-style: italic; margin: 10px 0;"><span>[图像生成失败]</span> <img alt="KazumaInline" data-kazumaid="${wrapperId}" title="${safePrompt}" style="display:none;" /></div><!-- kazuma-inline-end:${wrapperId} -->`;
                             
                             if (target.placeholderId && target.message.mes.includes(`id="${target.placeholderId}"`)) {
                                 const specificPlaceholderRegex = new RegExp(`<div id="${target.placeholderId}" class="kazuma-img-placeholder"[^>]*>.*?<\\/div>`, "g");
@@ -1108,13 +1108,13 @@ export async function igGenerateWithComfy(positivePrompt, target = null) {
         }, 1000);
     } catch (e) {
         progress.close(); $("#kazuma_progress_overlay").hide();
-        toastr.error("Comfy Error: " + e.message);
+        toastr.error("Comfy 错误：" + e.message);
         if (target && target.isInlineAuto && target.mode === "inline" && !igResolveTarget()) {
             igDeclineWrite("error notice");
         } else if (target && target.isInlineAuto && target.mode === "inline") {
             const wrapperId = target.placeholderId || `kazuma-img-${Date.now()}`;
             const safePrompt = finalPrompt.replace(/"/g, '&quot;').replace(/'/g, '&#39;');
-            const failTag = `<!-- kazuma-inline-start:${wrapperId} --><div id="${wrapperId}" class="kazuma-img-wrapper" style="color:#ef4444; font-style: italic; margin: 10px 0;"><span>[Image Generation Failed: ${e.message}]</span> <img alt="KazumaInline" data-kazumaid="${wrapperId}" title="${safePrompt}" style="display:none;" /></div><!-- kazuma-inline-end:${wrapperId} -->`;
+            const failTag = `<!-- kazuma-inline-start:${wrapperId} --><div id="${wrapperId}" class="kazuma-img-wrapper" style="color:#ef4444; font-style: italic; margin: 10px 0;"><span>[图像生成失败：${e.message}]</span> <img alt="KazumaInline" data-kazumaid="${wrapperId}" title="${safePrompt}" style="display:none;" /></div><!-- kazuma-inline-end:${wrapperId} -->`;
             
             if (target.placeholderId && target.message.mes.includes(`id="${target.placeholderId}"`)) {
                 const specificPlaceholderRegex = new RegExp(`<div id="${target.placeholderId}" class="kazuma-img-placeholder"[^>]*>.*?<\\/div>`, "g");

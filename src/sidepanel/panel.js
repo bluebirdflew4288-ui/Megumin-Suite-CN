@@ -141,7 +141,7 @@ function buildPanelSkeleton() {
     const fab = el("button", {
         id: FAB_ID,
         class: "meg-sp-fab",
-        title: "Megumin Suite Trackers",
+        title: "Megumin Suite 追踪器",
     }, el("i", { class: "fa-solid fa-clipboard-list" }));
     fab.addEventListener("click", () => togglePanel());
 
@@ -155,21 +155,21 @@ function buildPanelSkeleton() {
         el("div", { class: "meg-sp-header-overlay" }),
         el("div", { class: "meg-sp-title" },
             el("i", { class: "fa-solid fa-wand-magic-sparkles" }),
-            " Megumin Trackers"),
+            " Megumin 追踪器"),
         el("div", { class: "meg-sp-header-actions" },
             el("button", {
                 class: "meg-sp-icon-btn",
-                title: "Open NPC Book",
+                title: "打开 NPC 图鉴",
                 onclick: () => openNpcBook(),
             }, el("i", { class: "fa-solid fa-book-open" })),
             el("button", {
                 class: "meg-sp-icon-btn",
-                title: "Refresh from latest message",
+                title: "从最新消息刷新",
                 onclick: () => { render(); refreshPresentBar(); },
             }, el("i", { class: "fa-solid fa-rotate" })),
             el("button", {
                 class: "meg-sp-icon-btn",
-                title: "Collapse panel",
+                title: "折叠面板",
                 onclick: () => togglePanel(false),
             }, el("i", { class: "fa-solid fa-xmark" })),
         ),
@@ -178,7 +178,7 @@ function buildPanelSkeleton() {
     const body = el("div", { class: "meg-sp-body" });
     body.appendChild(el("div", { class: "meg-sp-empty", id: "meg-sp-empty" },
         el("i", { class: "fa-solid fa-hat-wizard" }),
-        el("p", {}, "No tracker data yet. The panel updates whenever the AI emits a World State or NPC Inner Chatter block."),
+        el("p", {}, "暂无追踪数据。每当 AI 输出世界状态或 NPC 内心独白信息块时，面板就会更新。"),
     ));
     body.appendChild(el("div", { class: "meg-sp-sections", id: "meg-sp-sections" }));
 
@@ -212,7 +212,7 @@ function clickNpcBankDot() {
 function openNpcBook(focusIdx) {
     const $overlay = window.jQuery ? window.jQuery("#prompt-slot-modal-overlay") : null;
     if (!$overlay || !$overlay.length) {
-        try { (window.toastr || console).info("Open Megumin Suite (wand icon) at least once first.", "NPC Book"); } catch (e) { /* */ }
+        try { (window.toastr || console).info("请先至少打开一次 Megumin Suite（魔杖图标）。", "NPC 图鉴"); } catch (e) { /* */ }
         return;
     }
 
@@ -347,7 +347,7 @@ function buildSectionShell(def, st, contentNode, badgeVal) {
         class: "meg-sp-drag-handle",
         tabindex: "0",
         role: "button",
-        title: "Alt+↑/↓ to reorder",
+        title: "Alt+↑/↓ 重新排序",
         onkeydown: (e) => onGripKeydown(e, def.id),
         onclick: (e) => { e.preventDefault(); e.stopPropagation(); },
     }, el("i", { class: "fa-solid fa-grip-vertical" }));
@@ -497,8 +497,8 @@ function render() {
                 // the generic line, which reads as "the AI sent nothing" and is wrong.
                 const notice = unreadableBlockNotice(unreadable);
                 p.textContent = hasData
-                    ? "All sections are hidden. Re-enable them in the Side Panel settings tab."
-                    : (notice || "No tracker data yet. The panel updates whenever the AI emits a World State or NPC Inner Chatter block.");
+                    ? "所有区块均已隐藏。请在侧边面板设置页中重新启用。"
+                    : (notice || "暂无追踪数据。每当 AI 输出世界状态或 NPC 内心独白信息块时，面板就会更新。");
             }
             empty.style.display = "";
         }
@@ -588,9 +588,9 @@ function buildPresentCast() {
 // wrote a World State block. Case-insensitive, since the summary is free text.
 // `name` is the same label in the words the panel puts in front of the reader.
 const INLINE_BLOCK_LABELS = [
-    { type: "worldState", re: /World State/i, name: "World State" },
-    { type: "innerChatter", re: /NPC Inner Chatter/i, name: "NPC Inner Chatter" },
-    { type: "newNpc", re: /New NPC:/i, name: "New NPC" },
+    { type: "worldState", re: /World State/i, name: "世界状态" },
+    { type: "innerChatter", re: /NPC Inner Chatter/i, name: "NPC 内心独白" },
+    { type: "newNpc", re: /New NPC:/i, name: "新 NPC" },
 ];
 
 // Summary text -> block type. Pure. "unknown" covers everything we can't name,
@@ -666,7 +666,7 @@ export function unreadableBlockNotice(types) {
     const names = types.map(t => (INLINE_BLOCK_LABELS.find(l => l.type === t) || {}).name || t);
     // One shape for one block and for several, so no label ever lands behind the
     // wrong article — "a NPC Inner Chatter block" is not a sentence.
-    return `${names.length === 1 ? "A block was" : "Blocks were"} found in the last reply but could not be read: ${names.join(", ")}.`;
+    return `最后一条回复中发现${names.length === 1 ? "一个" : "多个"}信息块，但无法读取：${names.join(", ")}。`;
 }
 
 // The console line is a hook for a bug report, not a log stream. The render loop

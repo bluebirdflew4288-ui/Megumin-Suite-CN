@@ -65,18 +65,18 @@ function isMaleSex(sexStr) {
 function buildWrapperHtml() {
     return `
         <div id="${WRAPPER_ID}" class="meg-pb-wrapper">
-            <button class="meg-pb-toggle meg-pb-open" id="meg-pb-toggle" type="button" title="Collapse / expand">
+            <button class="meg-pb-toggle meg-pb-open" id="meg-pb-toggle" type="button" title="折叠 / 展开">
                 <span class="meg-pb-toggle-dots">
                     <span class="meg-pb-toggle-dot"></span>
                     <span class="meg-pb-toggle-dot"></span>
                     <span class="meg-pb-toggle-dot"></span>
                 </span>
-                <span class="meg-pb-toggle-label">Characters</span>
+                <span class="meg-pb-toggle-label">角色</span>
                 <i class="fa-solid fa-chevron-up meg-pb-toggle-chevron"></i>
             </button>
             <div class="meg-pb-bar meg-pb-expanded" id="meg-pb-bar">
                 <div class="meg-pb-header">
-                    <span class="meg-pb-title"><i class="fa-solid fa-users"></i> Present Characters</span>
+                    <span class="meg-pb-title"><i class="fa-solid fa-users"></i> 在场角色</span>
                     <span class="meg-pb-count" id="${COUNT_ID}">0</span>
                 </div>
                 <button class="meg-pb-arrow meg-pb-left"  id="meg-pb-left"  type="button" tabindex="-1"><i class="fa-solid fa-chevron-left"></i></button>
@@ -219,7 +219,7 @@ export function update() {
     const count = document.getElementById(COUNT_ID);
     if (!scroll) return;
     if (!cast.length) {
-        scroll.innerHTML = `<div class="meg-pb-empty">No characters in scene</div>`;
+        scroll.innerHTML = `<div class="meg-pb-empty">场景中没有角色</div>`;
         if (count) count.textContent = "0";
         return;
     }
@@ -325,41 +325,41 @@ export function openCharacterSheet(name) {
 
     const ageSex = [banked?.age, banked?.sex].filter(Boolean).join(" · ");
 
-    const sceneSection = sheetSection("This Scene", "fa-clapperboard",
+    const sceneSection = sheetSection("本场景", "fa-clapperboard",
         sceneFields.map(([k, v]) => fieldRow(k, v)));
 
     // V8 schema (role, voice, whereToFind, readOnPc, secrets, canonLock,
     // orientation) with V7 fallbacks (occupation, hiddenLayer) for NPCs
     // banked before the upgrade.
-    const bankSection = banked ? sheetSection("Dossier", "fa-address-card", [
-        fieldRow("Role", banked.role || banked.occupation),
-        fieldRow("Orientation", banked.orientation),
-        fieldRow("Where to Find", banked.whereToFind),
-        fieldRow("Appearance", banked.appearance),
-        fieldRow("Voice", banked.voice),
-        fieldRow("Personality", banked.personality),
-        fieldRow("Inner Circle", banked.innerCircle),
-        fieldRow("Background", banked.background),
-        fieldRow("Read on PC", banked.readOnPc),
-        fieldRow("Agenda (long-term)", banked.agenda),
-        fieldRow("Secrets", banked.secrets || banked.hiddenLayer),
-        fieldRow("Canon Lock", banked.canonLock),
+    const bankSection = banked ? sheetSection("档案", "fa-address-card", [
+        fieldRow("身份", banked.role || banked.occupation),
+        fieldRow("取向", banked.orientation),
+        fieldRow("在哪里找到", banked.whereToFind),
+        fieldRow("外貌", banked.appearance),
+        fieldRow("嗓音", banked.voice),
+        fieldRow("性格", banked.personality),
+        fieldRow("核心圈子", banked.innerCircle),
+        fieldRow("背景", banked.background),
+        fieldRow("可在 PC 上读取", banked.readOnPc),
+        fieldRow("议程（长期）", banked.agenda),
+        fieldRow("秘密", banked.secrets || banked.hiddenLayer),
+        fieldRow("正典锁定", banked.canonLock),
     ]) : "";
 
     const bookBtn = banked
         ? `<button class="meg-pb-sheet-book-btn" id="meg-pb-sheet-book-btn">
-              <i class="fa-solid fa-book-open"></i> Open in NPC Book
+              <i class="fa-solid fa-book-open"></i> 在 NPC 图鉴中打开
            </button>`
         : `<div class="meg-pb-sheet-unbanked">
               <i class="fa-solid fa-circle-info"></i>
-              Not in NPC Bank yet — banks fill automatically when the AI emits a "🆕 New NPC" dossier.
+              尚未收入 NPC 图鉴——当 AI 输出“🆕 新 NPC”档案时，图鉴会自动填充。
            </div>`;
 
     const html = `
         <div id="${SHEET_ID}" class="meg-pb-sheet ${accentClass}" role="dialog" aria-modal="true">
             <div class="meg-pb-sheet-backdrop"></div>
             <div class="meg-pb-sheet-card">
-                <button class="meg-pb-sheet-close" type="button" aria-label="Close" title="Close (Esc)">
+                <button class="meg-pb-sheet-close" type="button" aria-label="关闭" title="关闭（Esc）">
                     <i class="fa-solid fa-xmark"></i>
                 </button>
                 <div class="meg-pb-sheet-head">
@@ -371,7 +371,7 @@ export function openCharacterSheet(name) {
                     </div>
                 </div>
                 <div class="meg-pb-sheet-body">
-                    ${sceneSection || `<div class="meg-pb-sheet-empty">No scene-specific info parsed for this character in the last reply.</div>`}
+                    ${sceneSection || `<div class="meg-pb-sheet-empty">最后一条回复中没有解析到该角色的场景专属信息。</div>`}
                     ${bankSection}
                 </div>
                 <div class="meg-pb-sheet-footer">
