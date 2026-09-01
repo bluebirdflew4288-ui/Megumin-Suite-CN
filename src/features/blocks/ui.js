@@ -389,7 +389,7 @@ export function renderCustomBlockEditor(c, editId) {
 
         meguminSyncLegacyBlockIds();
         saveProfileToMemory();
-        toastr.success(``“${label}”已保存。``);
+        toastr.success(`“${label}”已保存。`);
         renderBlocksTab(c);
     });
     c.append(actions);

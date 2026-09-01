@@ -154,6 +154,6 @@ MAPS = {
         (">What the AI is told to write. Square brackets read as fill-me-in.</div>",
          ">要求 AI 书写的内容。方括号表示待填写。</div>", "once"),
         (">Tag: <code id=\"blk_tag_preview\">", ">标签：<code id=\"blk_tag_preview\">", "once"),
-        ('"${label}" saved.', '`“${label}”已保存。`', "once"),
+        ('"${label}" saved.', '“${label}”已保存。', "once"),
     ],
 }
