@@ -39,7 +39,7 @@ function enhancedDialogueMarkup(m, isLocked) {
     return `
         <div class="ecard-opt ${on ? "on" : ""}" title="Swap this engine's dialogue rules for the stricter, prescriptive set: named categories, orthographic cues for emotion, and an explicit ban list. For models that read the shipped section as a suggestion.">
             <div class="ecard-opt-text">
-                <span class="ecard-opt-label"><i class="fa-solid fa-comment-dots"></i> Enhanced Dialogue</span>
+                <span class="ecard-opt-label"><i class="fa-solid fa-comment-dots"></i> 增强对话</span>
                 <span class="ecard-opt-state">${on ? "On" : "Off"}</span>
             </div>
             <div class="ecard-opt-switch"></div>

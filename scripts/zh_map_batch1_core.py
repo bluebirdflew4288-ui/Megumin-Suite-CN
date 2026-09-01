@@ -25,6 +25,7 @@ MAPS = {
         ('ecard-badge new">New</span>', 'ecard-badge new">新</span>', "all"),
         ("> Coming Soon</span>", "> 即将推出</span>", "once"),
         ("</i> Active</span>", "</i> 使用中</span>", "all"),
+        ("</i> Enhanced Dialogue</span>", "</i> 增强对话</span>", "once"),
         ("The original Secret Sauce. NPCs react naturally — no simping, no needless hostility.",
          "最初的秘制配方。NPC 反应自然——不献媚，也无无谓敌视。", "once"),
         ("New and improved balance mode that aims to use less tokens and more creativity.",
