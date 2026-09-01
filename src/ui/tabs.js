@@ -162,7 +162,7 @@ export function updateGlobalSyncButton() {
         return;
     }
 
-    btn.html(`<i class="fa-solid fa-earth-americas"></i> Global: ${on ? "开启" : "关闭"}`)
+    btn.html(`<i class="fa-solid fa-earth-americas"></i> 全局：${on ? "开启" : "关闭"}`)
         .attr("title", on
             ? `${title} 标签页上的每个更改都会复制到所有角色。点击停止。`
             : `${title} 标签页上的更改只保留在此角色。点击使其全局生效。`)

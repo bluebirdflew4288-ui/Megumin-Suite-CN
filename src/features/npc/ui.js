@@ -44,7 +44,7 @@ export function renderNpcBank(c) {
         <div class="mtab-toggle-row ${nb.enabled ? 'active' : ''}" id="npc_enable_card" style="margin-bottom: 20px;">
             <div class="toggle-info">
                 <div class="toggle-label" style="font-size: 1.05rem;"><i class="fa-solid fa-users" style="color:#f43f5e;"></i> 启用 NPC 图鉴</div>
-                <div class="toggle-desc">When enabled, the AI generates detailed dossiers for new NPCs and injects them when relevant.</div>
+                <div class="toggle-desc">启用后，AI 会为新 NPC 生成详细档案，并在相关时注入剧情。</div>
             </div>
             <div class="ps-switch"></div>
         </div>

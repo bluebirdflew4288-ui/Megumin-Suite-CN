@@ -98,6 +98,8 @@ MAPS = {
         ('Delete ${localProfile.npcBank.npcs[i]?.name || "this NPC"}?',
          '删除 ${localProfile.npcBank.npcs[i]?.name || "此 NPC"}？', "once"),
         ('"Portrait uploaded!"', '"头像已上传！"', "once"),
+        ("When enabled, the AI generates detailed dossiers for new NPCs and injects them when relevant.",
+         "启用后，AI 会为新 NPC 生成详细档案，并在相关时注入剧情。", "once"),
     ],
     # ═══════════════════════════ blocks/ui.js ═══════════════════════════
     "src/features/blocks/ui.js": [

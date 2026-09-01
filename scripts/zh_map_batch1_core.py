@@ -173,6 +173,7 @@ MAPS = {
          "${title} 标签页上的每个更改都会复制到所有角色。点击停止。", "once"),
         ("Changes on the ${title} tab stay with this character. Click to make them global.",
          "${title} 标签页上的更改只保留在此角色。点击使其全局生效。", "once"),
+        ('Global: ${on ? "开启" : "关闭"}', '全局：${on ? "开启" : "关闭"}', "once"),
     ],
     "example.html": [
         ("When on, every change on this tab is applied to all characters and groups.",

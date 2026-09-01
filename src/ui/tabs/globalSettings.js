@@ -67,7 +67,7 @@ export function renderGlobalSettings(c) {
     const $content = $(`<div style="display:flex; flex-direction:column; gap:10px;"></div>`);
 
     // ── BEHAVIOUR ───────────────────────────────────────────────────────────
-    $content.append(`<div class="wstyle-section-head blue"><i class="fa-solid fa-sliders"></i> Behaviour</div>`);
+    $content.append(`<div class="wstyle-section-head blue"><i class="fa-solid fa-sliders"></i> 行为</div>`);
     $content.append(`
         <div class="mtab-toggle-row ${gs.promptPreview ? 'active' : ''}" id="gs_toggle_prompt_preview" style="cursor: pointer;">
             <div class="toggle-info">

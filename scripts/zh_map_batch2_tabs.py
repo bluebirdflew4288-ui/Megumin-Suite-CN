@@ -92,6 +92,7 @@ MAPS = {
          "<b>GitHub</b><small>源码、问题与发布</small>", "once"),
         ("Save mode changed to Per ${gs.saveMode === 'chat' ? 'Chat' : 'Character'}.",
          "保存模式已改为按${gs.saveMode === 'chat' ? '聊天' : '角色'}。", "once"),
+        ('<i class="fa-solid fa-sliders"></i> Behaviour</div>', '<i class="fa-solid fa-sliders"></i> 行为</div>', "once"),
     ],
     # ═══════════════════════════ personality.js ═══════════════════════════
     "src/ui/tabs/personality.js": [

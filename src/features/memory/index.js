@@ -61,11 +61,9 @@ export function renderMemoryCore(c) {
         <div class="mtab-callout gold" style="margin-bottom: 16px;">
             <i class="fa-solid fa-triangle-exclamation"></i>
             <span><strong>开启之前，先说两件事。</strong>
-            <br>&bull; <strong>它不友好缓存。</strong> Retrieved memories sit ahead of the
-            chat history in the prompt, so when what it retrieves changes, your provider re-reads the
-            whole history instead of serving it from cache.
-            <br>&bull; <strong>使用语义嵌入，而非 TF-IDF。</strong> Keyword matching is the
-            fallback and it shows &mdash; semantic search finds the right archive far more often.</span>
+            <br>&bull; <strong>它不友好缓存。</strong> 检索到的记忆会排在提示词中聊天记录之前，因此当检索内容变化时，提供商将重新读取
+            整段历史，而非命中缓存。
+            <br>&bull; <strong>使用语义嵌入，而非 TF-IDF。</strong> 关键词匹配只是兜底方案，效果显而易见&mdash;&mdash;语义搜索找到正确档案的几率要高得多。</span>
         </div>
 
         <!-- MASTER TOGGLE -->

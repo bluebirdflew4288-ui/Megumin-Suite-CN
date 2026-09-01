@@ -276,5 +276,9 @@ MAPS = {
         ('"Limits Applied! Overlapping archives returned to chat."',
          '"已应用上限！重叠的归档已返回聊天。"', "once"),
         ('"Limits Applied. No overlaps found."', '"已应用上限。未发现重叠。"', "once"),
+        ("Retrieved memories sit ahead of the\n            chat history in the prompt, so when what it retrieves changes, your provider re-reads the\n            whole history instead of serving it from cache.",
+         "检索到的记忆会排在提示词中聊天记录之前，因此当检索内容变化时，提供商将重新读取\n            整段历史，而非命中缓存。", "once"),
+        ("Keyword matching is the\n            fallback and it shows &mdash; semantic search finds the right archive far more often.",
+         "关键词匹配只是兜底方案，效果显而易见&mdash;&mdash;语义搜索找到正确档案的几率要高得多。", "once"),
     ],
 }
