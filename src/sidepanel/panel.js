@@ -13,6 +13,7 @@
  * public API consumed by index.js.
  */
 
+import { extensionFolderPath } from "../core/constants.js";
 import { extension_settings, getContext } from "../../../../../extensions.js";
 import {
     eventSource,
@@ -1468,7 +1469,7 @@ function injectStylesheet() {
     try {
         link.href = new URL("./styles.css", import.meta.url).toString();
     } catch (e) {
-        link.href = "scripts/extensions/third-party/Megumin-Suite/src/sidepanel/styles.css";
+        link.href = `${extensionFolderPath}/src/sidepanel/styles.css`;
     }
     document.head.appendChild(link);
 }
@@ -1509,7 +1510,7 @@ function updateHeaderImage() {
     const ctx = getContext();
     let imgUrl = "";
     if (ctx.groupId !== undefined && ctx.groupId !== null) {
-        imgUrl = `/scripts/extensions/third-party/Megumin-Suite/img/group.png`;
+        imgUrl = `${extensionFolderPath}/img/group.png`;
     } else if (ctx.characterId !== undefined && ctx.characterId !== null && ctx.characters && ctx.characters[ctx.characterId]) {
         imgUrl = `/characters/${ctx.characters[ctx.characterId].avatar}`;
     }
