@@ -83,8 +83,8 @@
 ## 7. 验收命令
 
 ```bash
-# 1) JS 语法
-for f in $(git diff --name-only -- '*.js'); do node --check "$f" || exit 1; done
+# 1) JS 语法（注意：不要用管道包住 node --check，否则退出码恒为 0 会假通过）
+for f in $(git diff --name-only -- '*.js'); do node --check "$f" >/dev/null 2>&1 || exit 1; done
 
 # 2) Prompt/逻辑文件零修改
 git diff --name-only | grep -iE "Presets/|manifest|data/prompts|data/cot|src/core/|src/engine/|src/utils/|src/st.js|src/prompts" && exit 1 || echo OK
@@ -93,8 +93,18 @@ git diff --name-only | grep -iE "Presets/|manifest|data/prompts|data/cot|src/cor
 git diff -U0 | python3 scripts/check-localization.py
 
 # 4) 翻译残留（允许命中：src/core 注释/键、故意保留项）
-grep -rn "Official Megumin Engines\|Save & Close" src/ index.js example.html | grep -v "\.py:"
+grep -rn "Official Megumin Engines\\|Save & Close" src/ index.js example.html | grep -v "\.py:"
 ```
+
+## 8. 浏览器端验收（必须，Node 检查可能漏）
+
+Node 的 `--check` 对新旧 V8 的语法接受度有差异（曾出现 Node 26 接受、Chrome 148 拒绝的嵌套模板字符串）。发布前必须在真实酒馆环境用浏览器验证：
+
+- 在酒馆页面控制台对扩展所有 JS 逐个执行 `import('/scripts/extensions/third-party/<NAME>/<file>.js')`，逐个确认无 `SyntaxError`（依赖链错误会冒泡，需逐文件排查）；
+- 确认魔杖按钮 `#prompt-slot-fixed-btn` 与面板容器 `#prompt-slot-modal-overlay` 存在于 DOM；
+- 确认控制台无扩展相关红色报错。
+
+**已知教训（2026-09-02）**：`src/features/blocks/ui.js` 翻译 toast 时 new 值误加反引号（`` ` ``），生成 `toastr.success(``...``)` 嵌套模板字符串，Chrome 148 报 `missing ) after argument list`，导致整个扩展加载失败、example.html 未注入、魔杖按钮不显示。修复：替换回单反引号并 push（commit 2c37a29）。排查手法：浏览器控制台逐个 `import()` 模块二分定位 + 词法检查翻译文本是否引入引号/反引号。
 
 ## 8. 与官方版并存
 
