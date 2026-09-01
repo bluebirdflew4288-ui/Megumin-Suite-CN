@@ -239,8 +239,11 @@ jQuery(async () => {
         migrateRenamedTabs();
         migrateUtilityPrefillFlag();
         initSidePanel({ profileGetter: () => localProfile });
-        const h = await $.get(`${extensionFolderPath}/example.html`);
+        const h = await $.get(`${extensionFolderPath}/example.html?t=${Date.now()}`);
         $("body").append(h);
+        // 兜底：即使模板命中缓存也确保按钮为中文（缓存可能残留旧版 example.html）
+        $("#ps_btn_save_close").html(`<i class="fa-solid fa-floppy-disk"></i> 保存并关闭`);
+        $("#ps_btn_reset").html(`<i class="fa-solid fa-rotate-left"></i> 重置`);
         initDraggableButton();
         $("body").append('<div id="ps-global-tooltip"></div>');
         // Profile level badge styles

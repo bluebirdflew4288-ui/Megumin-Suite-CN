@@ -277,14 +277,14 @@ export function initProfile() {
                 // Check if this is a parent chat key (branch fallback)
                 const isParent = (tryKey !== chatLevelKey && chatLevelKey && chatLevelKey.startsWith('chat::') && getParentChatKey() === tryKey);
                 if (isParent) {
-                    $("#ps_rule_status_main").css({ "color": "#818cf8", "text-shadow": "0 0 10px rgba(129,140,248,0.5)" }).text(`PARENT CHAT PROFILE (branch)`);
+                    $("#ps_rule_status_main").css({ "color": "#818cf8", "text-shadow": "0 0 10px rgba(129,140,248,0.5)" }).text(`父级聊天档案（分支）`);
                 } else {
-                    $("#ps_rule_status_main").css({ "color": "#a855f7", "text-shadow": "0 0 10px rgba(168,85,247,0.5)" }).text(`CHAT PROFILE ACTIVE`);
+                    $("#ps_rule_status_main").css({ "color": "#a855f7", "text-shadow": "0 0 10px rgba(168,85,247,0.5)" }).text(`聊天档案生效中`);
                 }
             } else if (isGroup) {
-                $("#ps_rule_status_main").css({ "color": "#3b82f6", "text-shadow": "0 0 10px rgba(59,130,246,0.5)" }).text(`GROUP PROFILE ACTIVE`);
+                $("#ps_rule_status_main").css({ "color": "#3b82f6", "text-shadow": "0 0 10px rgba(59,130,246,0.5)" }).text(`群组档案生效中`);
             } else {
-                $("#ps_rule_status_main").css({ "color": "#10b981", "text-shadow": "0 0 10px rgba(16,185,129,0.5)" }).text(`CHARACTER PROFILE ACTIVE`);
+                $("#ps_rule_status_main").css({ "color": "#10b981", "text-shadow": "0 0 10px rgba(16,185,129,0.5)" }).text(`角色档案生效中`);
             }
             break;
         }
@@ -297,23 +297,23 @@ export function initProfile() {
         setLocalProfile(JSON.parse(JSON.stringify(extension_settings[extensionName].profiles["default"])));
 
         if (isGroup) {
-            $("#ps_rule_status_main").css({ "color": "#f59e0b", "text-shadow": "0 0 10px rgba(245,158,11,0.5)" }).text(`USING DEFAULT — no group profile`);
+            $("#ps_rule_status_main").css({ "color": "#f59e0b", "text-shadow": "0 0 10px rgba(245,158,11,0.5)" }).text(`使用默认 — 无群组档案`);
         } else if (activeKey && activeKey.startsWith('chat::')) {
             // Check if parent chat fallback exists
             const parentKey = getParentChatKey();
             if (parentKey && extension_settings[extensionName].profiles[parentKey]) {
-                $("#ps_rule_status_main").css({ "color": "#f59e0b", "text-shadow": "0 0 10px rgba(245,158,11,0.5)" }).text(`USING PARENT CHAT PROFILE (fallback)`);
+                $("#ps_rule_status_main").css({ "color": "#f59e0b", "text-shadow": "0 0 10px rgba(245,158,11,0.5)" }).text(`使用父级聊天档案（兜底）`);
             } else {
                 // Check if character fallback exists (use avatar name, not chatId)
                 const charFallback = getRawAvatar();
                 if (charFallback && extension_settings[extensionName].profiles[charFallback]) {
-                    $("#ps_rule_status_main").css({ "color": "#f59e0b", "text-shadow": "0 0 10px rgba(245,158,11,0.5)" }).text(`USING CHARACTER PROFILE (fallback)`);
+                    $("#ps_rule_status_main").css({ "color": "#f59e0b", "text-shadow": "0 0 10px rgba(245,158,11,0.5)" }).text(`使用角色档案（兜底）`);
                 } else {
-                    $("#ps_rule_status_main").css({ "color": "#f59e0b", "text-shadow": "0 0 10px rgba(245,158,11,0.5)" }).text(`USING DEFAULT — no chat or character profile`);
+                    $("#ps_rule_status_main").css({ "color": "#f59e0b", "text-shadow": "0 0 10px rgba(245,158,11,0.5)" }).text(`使用默认 — 无聊天或角色档案`);
                 }
             }
         } else {
-            $("#ps_rule_status_main").css({ "color": "#a855f7", "text-shadow": "0 0 10px rgba(168,85,247,0.5)" }).text(`MODIFYING GLOBAL DEFAULT`);
+            $("#ps_rule_status_main").css({ "color": "#a855f7", "text-shadow": "0 0 10px rgba(168,85,247,0.5)" }).text(`正在修改全局默认`);
         }
     }
 
@@ -596,20 +596,20 @@ export function initProfile() {
         }
     }
 
-    let displayName = "Global Default";
+    let displayName = "全局默认";
     if (isGroup) {
         if (context.groups && Array.isArray(context.groups)) {
             const group = context.groups.find(g => String(g.id) === String(context.groupId));
             if (group && group.name) displayName = group.name;
-            else displayName = `Group Chat (${context.groupId})`;
-        } else { displayName = "Group Chat"; }
+            else displayName = `群组聊天（${context.groupId}）`;
+        } else { displayName = "群组聊天"; }
     } else if (chatLevelKey && context.characterId !== undefined && context.characters[context.characterId]) {
         displayName = context.characters[context.characterId].name;
     }
 
     const saveLevel = getProfileLevel();
     const levelIcons = { chat: '🎯', character: '👤', group: '👥', global: '⚙️' };
-    const levelLabels = { chat: 'Chat', character: 'Character', group: 'Group', global: 'Global' };
+    const levelLabels = { chat: '聊天', character: '角色', group: '群组', global: '全局' };
     const levelColors = { chat: '#a855f7', character: '#3b82f6', group: '#f59e0b', global: '#6b7280' };
     
     if (isGroup) {
@@ -896,8 +896,8 @@ export function saveProfileToMemory() {
     if (saveInd.length) {
         const level = getProfileLevel();
         const levelIcons = { chat: '🎯', character: '👤', group: '👥', global: '⚙️' };
-        const levelLabels = { chat: 'Chat', character: 'Character', group: 'Group', global: 'Global' };
-        saveInd.html(`<i class="fa-solid fa-check"></i> Saved <span class="ps-profile-badge">${levelIcons[level]} ${levelLabels[level]}</span>`).fadeIn(150);
+        const levelLabels = { chat: '聊天', character: '角色', group: '群组', global: '全局' };
+        saveInd.html(`<i class="fa-solid fa-check"></i> 已保存 <span class="ps-profile-badge">${levelIcons[level]} ${levelLabels[level]}</span>`).fadeIn(150);
         clearTimeout(window.psSaveTimer);
         window.psSaveTimer = setTimeout(() => saveInd.fadeOut(400), 2000);
     }
